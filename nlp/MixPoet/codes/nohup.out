@@ -1,0 +1,4570 @@
+hyper-patameters:
+HParams(vocab_size=7024, pad_idx=0, bos_idx=3, emb_size=256, hidden_size=512, context_size=512, latent_size=256, factor_emb_size=64, n_class1=3, n_class2=2, key_len=4, sens_num=4, sen_len=9, poem_len=30, batch_size=128, drop_ratio=0.15, weight_decay=0.00025, clip_grad_norm=2.0, max_lr=0.0008, min_lr=5e-08, warmup_steps=6000, ndis=3, min_tr=0.85, burn_down_tr=3, decay_tr=6, tau_annealing_steps=6000, min_tau=0.01, rec_warm_steps=1500, noise_decay_steps=8500, log_steps=200, sample_num=1, max_epoches=12, save_epoches=3, validate_epoches=1, fbatch_size=64, fmax_epoches=3, fsave_epoches=1, vocab_path='../corpus/vocab.pickle', ivocab_path='../corpus/ivocab.pickle', train_data='../corpus/semi_train.pickle', valid_data='../corpus/semi_valid.pickle', model_dir='../checkpoint/', data_dir='../data/', train_log_path='../log/mix_train_log.txt', valid_log_path='../log/mix_valid_log.txt', fig_log_path='../log/', corrupt_ratio=0.1, dae_epoches=10, dae_batch_size=128, dae_max_lr=0.0008, dae_min_lr=5e-08, dae_warmup_steps=4500, dae_min_tr=0.85, dae_burn_down_tr=2, dae_decay_tr=6, dae_log_steps=300, dae_validate_epoches=1, dae_save_epoches=2, dae_train_log_path='../log/dae_train_log.txt', dae_valid_log_path='../log/dae_valid_log.txt', cl_batch_size=64, cl_epoches=10, cl_max_lr=0.0008, cl_min_lr=5e-08, cl_warmup_steps=800, cl_log_steps=100, cl_validate_epoches=1, cl_save_epoches=2, cl_train_log_path='../log/cl_train_log.txt', cl_valid_log_path='../log/cl_valid_log.txt')
+dae pretraining...
+layers.embed.weight torch.Size([7024, 256])
+layers.encoder.rnn.weight_ih_l0 torch.Size([1536, 256])
+layers.encoder.rnn.weight_hh_l0 torch.Size([1536, 512])
+layers.encoder.rnn.bias_ih_l0 torch.Size([1536])
+layers.encoder.rnn.bias_hh_l0 torch.Size([1536])
+layers.encoder.rnn.weight_ih_l0_reverse torch.Size([1536, 256])
+layers.encoder.rnn.weight_hh_l0_reverse torch.Size([1536, 512])
+layers.encoder.rnn.bias_ih_l0_reverse torch.Size([1536])
+layers.encoder.rnn.bias_hh_l0_reverse torch.Size([1536])
+layers.decoder.rnn.weight_ih_l0 torch.Size([1536, 512])
+layers.decoder.rnn.weight_hh_l0 torch.Size([1536, 512])
+layers.decoder.rnn.bias_ih_l0 torch.Size([1536])
+layers.decoder.rnn.bias_hh_l0 torch.Size([1536])
+layers.word_encoder.rnn.weight_ih_l0 torch.Size([256, 256])
+layers.word_encoder.rnn.weight_hh_l0 torch.Size([256, 256])
+layers.word_encoder.rnn.bias_ih_l0 torch.Size([256])
+layers.word_encoder.rnn.bias_hh_l0 torch.Size([256])
+layers.word_encoder.rnn.weight_ih_l0_reverse torch.Size([256, 256])
+layers.word_encoder.rnn.weight_hh_l0_reverse torch.Size([256, 256])
+layers.word_encoder.rnn.bias_ih_l0_reverse torch.Size([256])
+layers.word_encoder.rnn.bias_hh_l0_reverse torch.Size([256])
+layers.out_proj.weight torch.Size([7024, 512])
+layers.out_proj.bias torch.Size([7024])
+layers.map_x.mlp.linear_0.weight torch.Size([512, 768])
+layers.map_x.mlp.linear_0.bias torch.Size([512])
+layers.context.conv.weight torch.Size([512, 512, 3])
+layers.context.conv.bias torch.Size([512])
+layers.context.linear.weight torch.Size([512, 1024])
+layers.context.linear.bias torch.Size([512])
+layers.dec_init_pre.mlp.linear_0.weight torch.Size([506, 1536])
+layers.dec_init_pre.mlp.linear_0.bias torch.Size([506])
+params num: 31
+building data for dae...
+482081
+34210
+train batch num: 3767
+valid batch num: 268
+key: 折
+inp: 弱冠燕赵来贤彦多逢迎鲁UNK善谈笑UNK布折公卿
+trg: 弱冠燕赵来|贤彦多逢迎|鲁连善谈笑|季布折公卿
+out: 耆宸濡寮枋麂多够|耆戋薪血禋貂辗捋|贵伥讲豳鞿驮㵳㵳|螟笥床奎等佃溺崦
+
+epoch: 1, 1/3767 0.0%, 0.00s per iter, lr: 0.0000, tr: 1.00
+  gen loss: 8.850  ppl:6972.70
+______________________
+key: 石罅
+inp: 长潴石UNK冰广浣溪中雪清风生夜寒泓澄浸秋UNK
+trg: 长潴石罅冰|广浣溪中雪|清风生夜寒|泓澄浸秋月
+out: 不不不|不不不|不不不|不不不
+
+epoch: 1, 301/3767 8.0%, 0.11s per iter, lr: 0.0001, tr: 1.00
+  gen loss: 7.474  ppl:1761.55
+______________________
+key: 心迹
+inp: 剩UNK扶筇随意行要令心迹UNK双清何时UNK入翠微去丈室先参老净名
+trg: 剩欲扶筇随意行|要令心迹得双清|何时同入翠微去|丈室先参老净名
+out: 一山山山山山|不不不不不人|不不不不不人|不不不不不人
+
+epoch: 1, 601/3767 16.0%, 0.11s per iter, lr: 0.0001, tr: 1.00
+  gen loss: 6.843  ppl:937.13
+______________________
+key: 香囊
+inp: 紫罗麝冷小香囊云鬓眼多UNKUNK光一UNK千金呼不惜文章偏博探花郎
+trg: 紫罗麝冷小香囊|云鬓眼多亦减光|一朵千金呼不惜|文章偏博探花郎
+out: 一花山山不山|一日不不不不人|不年不里不人处|不人不花不人人
+
+epoch: 1, 901/3767 23.9%, 0.11s per iter, lr: 0.0002, tr: 1.00
+  gen loss: 6.580  ppl:720.58
+______________________
+key: 邻家
+inp: 蛱蝶随风过短墙邻家春UNK百花UNK南窗拓得黄庭罢UNK倚阑干看海棠
+trg: 蛱蝶随风过短墙|邻家春满百花香|南窗拓得黄庭罢|笑倚阑干看海棠
+out: 一头春风吹水开|一花春风水年开|一山不花春花去|一花风花一花花
+
+epoch: 1, 1201/3767 31.9%, 0.11s per iter, lr: 0.0002, tr: 1.00
+  gen loss: 6.388  ppl:594.65
+______________________
+key: 青青
+inp: 浅浅碧水平青青稻苗长偏知楚UNK爱白UNK飞下上
+trg: 浅浅碧水平|青青稻苗长|偏知楚客爱|白鹭飞下上
+out: 山山青云边|山山山不下|山有不水来|不云不云水
+
+epoch: 1, 1501/3767 39.8%, 0.11s per iter, lr: 0.0003, tr: 1.00
+  gen loss: 6.215  ppl:500.43
+______________________
+key: 烟霞
+inp: 扑面烟霞晓UNK嘉偶随藜杖访UNK家斜阳不见UNK山屐独绕长溪折夜花
+trg: 扑面烟霞晓更嘉|偶随藜杖访仙家|斜阳不见登山屐|独绕长溪折夜花
+out: 一溪风波不日开|一然风柳不江人|不阳不是春山去|不有江安一一来
+
+epoch: 1, 1801/3767 47.8%, 0.11s per iter, lr: 0.0003, tr: 1.00
+  gen loss: 6.052  ppl:424.77
+______________________
+key: 伴
+inp: 壁缸向灭砚生澌仰屋重哦旧卷诗悬想北园闲UNK伴青UNK堆坐赌UNK棋
+trg: 壁缸向灭砚生澌|仰屋重哦旧卷诗|悬想北园闲散伴|青钱堆坐赌宫棋
+out: 南间平来今海涯|南上西阳在时书|今知老来无不处|东山犹里看山中
+
+epoch: 1, 2101/3767 55.8%, 0.11s per iter, lr: 0.0004, tr: 1.00
+  gen loss: 5.901  ppl:365.24
+______________________
+key: 秋水
+inp: 秋山风月UNK馀UNK秋水船如镜里行此景别来今十载画图相对不胜UNK
+trg: 秋山风月有馀清|秋水船如镜里行|此景别来今十载|画图相对不胜情
+out: 秋风秋雨满秋秋|秋水秋头水里秋|不日不来无不里|不船不思不知情
+
+epoch: 1, 2401/3767 63.7%, 0.11s per iter, lr: 0.0004, tr: 1.00
+  gen loss: 5.757  ppl:316.30
+______________________
+key: 微茫
+inp: 云拥苍松岭势雄微UNK俯见九州同皇家万载千秋UNKUNK取天垂日照中
+trg: 云拥苍松岭势雄|微茫俯见九州同|皇家万载千秋岁|看取天垂日照中
+out: 云气苍苍万上云|云茫天仰九天天|此家万里秋秋色|万取云风万暮中
+
+epoch: 1, 2701/3767 71.7%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 5.616  ppl:274.74
+______________________
+key: 秋色
+inp: 天涯秋色倍思家南雁归来万UNK沙今是重阳第几UNK登UNK无处问黄花
+trg: 天涯秋色倍思家|南雁归来万里沙|今是重阳第几日|登高无处问黄花
+out: 天涯秋色满无家|秋望无来又里秋|不日故阳无几处|故临无处是花花
+
+epoch: 1, 3001/3767 79.7%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 5.477  ppl:239.03
+______________________
+key: 未消
+inp: 露下著寒UNK霜繁见孤节UNK掇晚归来馀香未消歇
+trg: 露下著寒英|霜繁见孤节|采掇晚归来|馀香未消歇
+out: 露叶寒寒衣|寒寒晚晚芳|晚薇归来来|未寒未归息
+
+epoch: 1, 3301/3767 87.6%, 0.11s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 5.341  ppl:208.64
+______________________
+key: 流水
+inp: 长爱秦郎绝妙词荒UNK暗合辋川诗斜UNK万点寒鸦处流水孤村又一UNK
+trg: 长爱秦郎绝妙词|荒寒暗合辋川诗|斜阳万点寒鸦处|流水孤村又一奇
+out: 长是诗人旧胜音|长村绝断绝川诗|寒阳一里流流水|流水千村落一时
+
+epoch: 1, 3601/3767 95.6%, 0.11s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 5.207  ppl:182.63
+______________________
+run validation...
+in training mode: 0
+epoch: 1, lr: 0.0007, tr: 1.00
+  gen loss: 3.511  ppl:33.49
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+key: 乘轩
+inp: 四十龙钟欠一年不应鹤骨会UNK轩杖头UNK用燃藜烛倚向荒畦印屐UNK
+trg: 四十龙钟欠一年|不应鹤骨会乘轩|杖头无用燃藜烛|倚向荒畦印屐痕
+out: 四十馀钟不不峰|不曾空唳不稽春|至藜不用寻泥杖|笑杖蓬林石虎头
+
+epoch: 2, 1/3767 0.0%, 0.00s per iter, lr: 0.0007, tr: 1.00
+  gen loss: 5.135  ppl:169.86
+______________________
+key: 台阁
+inp: 江表人材UNK数公UNK朝台阁是家风景星UNK欲争先睹还许从容广座中
+trg: 江表人材独数公|南朝台阁是家风|景星但欲争先睹|还许从容广座中
+out: 江左人家是有家|东来风阁几秋风|从香未得从先会|从是先容海大中
+
+epoch: 2, 301/3767 8.0%, 0.11s per iter, lr: 0.0007, tr: 1.00
+  gen loss: 5.006  ppl:149.32
+______________________
+key: 侍女
+inp: 娇UNK不肯下妆台侍女环将九UNK钗寄语倦妆人说道轻施朱粉学UNK来
+trg: 娇羞不肯下妆台|侍女环将九子钗|寄语倦妆人说道|轻施朱粉学慵来
+out: 才将不解到瑶台|凤女将罗侍畹来|寄语将将将语笑|凤将轻凤笑来来
+
+epoch: 2, 601/3767 16.0%, 0.11s per iter, lr: 0.0008, tr: 1.00
+  gen loss: 4.883  ppl:132.01
+______________________
+key: 残春
+inp: 雁字频飞不UNK人寒霜微雨度UNKUNK去时曾指红梅约莫道花前无鬼神
+trg: 雁字频飞不寄人|寒霜微雨度残春|去时曾指红梅约|莫道花前无鬼神
+out: 雁度飞收不可人|霜香时雨不时春|莫时曾作前尘去|莫道前前眼泪神
+
+epoch: 2, 901/3767 23.9%, 0.11s per iter, lr: 0.0008, tr: 1.00
+  gen loss: 4.765  ppl:117.33
+______________________
+key: 山下
+inp: 一UNK幽栖眼倍明UNK山山下UNK偏清独游江上花饶笑爱尔秋容似我情
+trg: 一访幽栖眼倍明|花山山下水偏清|独游江上花饶笑|爱尔秋容似我情
+out: 一味清香眼底清|江闲清下独清清|江怜山上清清晚|秋尔清情似我情
+
+epoch: 2, 1201/3767 31.9%, 0.11s per iter, lr: 0.0008, tr: 1.00
+  gen loss: 4.652  ppl:104.83
+______________________
+key: 仪形
+inp: 九夏南风入UNK琴恩风泽雨浃飞沈陪京最是仪UNK地先识UNK王解愠心
+trg: 九夏南风入舜琴|恩风泽雨浃飞沈|陪京最是仪形地|先识君王解愠心
+out: 九夏南风入夏音|风风初雨洒华扬|天王不是王天乐|不解皇王未自心
+
+epoch: 2, 1501/3767 39.8%, 0.11s per iter, lr: 0.0007, tr: 1.00
+  gen loss: 4.545  ppl:94.16
+______________________
+key: 人心
+inp: 盖世勋名今日梦UNK丘UNK石古人心羌峰衣钵依然在莫把UNK冠老此生
+trg: 盖世勋名今日梦|一丘泉石古人心|羌峰衣钵依然在|莫把儒冠老此生
+out: 七世功名今日老|古身仙石在人心|石城老钵依依在|把把黄生是更生
+
+epoch: 2, 1801/3767 47.8%, 0.11s per iter, lr: 0.0007, tr: 1.00
+  gen loss: 4.443  ppl:85.02
+______________________
+key: 童子
+inp: 吮痈人在五侯家市肆浑无药可UNK童子归来风雪夜老夫UNK绝对梅UNK
+trg: 吮痈人在五侯家|市肆浑无药可赊|童子归来风雪夜|老夫愁绝对梅花
+out: 五人人在五侯家|夜子无无俗可餐|绝子归来风雪夜|梅夫更绝竹梅花
+
+epoch: 2, 2101/3767 55.8%, 0.11s per iter, lr: 0.0007, tr: 1.00
+  gen loss: 4.346  ppl:77.16
+______________________
+key: 快活
+inp: 钓UNK竿头活万鱼此心快活UNK长虚祝君UNK此频频举碧海应看到鹤书
+trg: 钓者竿头活万鱼|此心快活满长虚|祝君自此频频举|碧海应看到鹤书
+out: 钓石竿竿万万竿|此心长此此胸虚|此君应有频频卷|月海频从到此书
+
+epoch: 2, 2401/3767 63.7%, 0.11s per iter, lr: 0.0007, tr: 1.00
+  gen loss: 4.254  ppl:70.36
+______________________
+key: 北堂
+inp: UNK萧风雨北堂UNK客似高阳复罢官君UNK能来长夜饮不妨人作酒徒看
+trg: 萧萧风雨北堂寒|客似高阳复罢官|君但能来长夜饮|不妨人作酒徒看
+out: 萧萧风雨入堂寒|夜至官官易易冠|君看看看看乐饮|不能作作作长看
+
+epoch: 2, 2701/3767 71.7%, 0.11s per iter, lr: 0.0007, tr: 1.00
+  gen loss: 4.166  ppl:64.48
+______________________
+key: 花月
+inp: 花月UNK行太主园身曾仕汉不乘UNK装赍悉与爰丝饮肝胆UNK同剧孟言
+trg: 花月经行太主园|身曾仕汉不乘轩|装赍悉与爰丝饮|肝胆唯同剧孟言
+out: 花月东行太不宾|不居不路不曾然|请言猛奏饥饥者|七胆神神汉浪言
+
+epoch: 2, 3001/3767 79.7%, 0.11s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 4.083  ppl:59.34
+______________________
+key: 妆点
+inp: 宝匣擎来彩胜新金刀绣UNK佔阳春中宫传谕加妆点先赐UNK房UNK畹人
+trg: 宝匣擎来彩胜新|金刀绣线佔阳春|中宫传谕加妆点|先赐椒房戚畹人
+out: 宝彩新胜胜胜新|金牌宫额到宫春|宫宫传赐宫金额|内进宫房内不人
+
+epoch: 2, 3301/3767 87.6%, 0.11s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 4.004  ppl:54.84
+______________________
+key: 山城
+inp: 忽忽寻春恨已迟山城UNK未有花UNK东风马UNK哦新句却似卢岩缑岭时
+trg: 忽忽寻春恨已迟|山城浑未有花枝|东风马上哦新句|却似卢岩缑岭时
+out: 忽恨寻春已已迟|山城未未有春迟|春风新鬣新香句|却似嵩山岭岭时
+
+epoch: 2, 3601/3767 95.6%, 0.11s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 3.929  ppl:50.87
+______________________
+run validation...
+in training mode: 0
+epoch: 2, lr: 0.0006, tr: 1.00
+  gen loss: 2.130  ppl:8.42
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+key: 主人
+inp: 湖山主人UNK堂客UNK来华发故应多安石虽云江海士元元UNK生将奈何
+trg: 湖山主人玉堂客|尔来华发故应多|安石虽云江海士|元元苍生将奈何
+out: 湖山旧客堂堂客|春来发发多多开|云石江江江海发|元元元海独何何
+
+epoch: 3, 1/3767 0.0%, 0.00s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 3.889  ppl:48.86
+______________________
+key: 明月
+inp: 花开岁岁复年年病眼看花隔晚烟春去明明红紫落UNK风明UNK是春UNK
+trg: 花开岁岁复年年|病眼看花隔晚烟|春去明明红紫落|清风明月是春前
+out: 花开岁岁又逢年|花眼看花落晚烟|明去明红红紫去|明明明月是春风
+
+epoch: 3, 301/3767 8.0%, 0.13s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 3.816  ppl:45.44
+______________________
+key: 山行
+inp: 白日至昏暮山行未出UNK问UNK无数里犹在万松间
+trg: 白日至昏暮|山行未出山|问途无数里|犹在万松间
+out: 白日暮暮暮|山行无出关|犹无无数里|犹在数里间
+
+epoch: 3, 601/3767 16.0%, 0.13s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 3.747  ppl:42.41
+______________________
+key: 薜萝
+inp: 天际孤帆小云中清UNK微何当返兰UNK一制薜萝衣
+trg: 天际孤帆小|云中清磬微|何当返兰棹|一制薜萝衣
+out: 天际孤帆小|云中漾昼微|何当清兰芷|一振薜萝衣
+
+epoch: 3, 901/3767 23.9%, 0.13s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 3.682  ppl:39.72
+______________________
+key: 黄龙
+inp: 君家肯让汉淳于能使人间UNK疾苏不知京口UNK涛日曾见黄龙UNK水无
+trg: 君家肯让汉淳于|能使人间癖疾苏|不知京口观涛日|曾见黄龙浴水无
+out: 君家汉使汉皇能|能使人间不出于|不知龙口黄龙日|曾见黄龙水海无
+
+epoch: 3, 1201/3767 31.9%, 0.13s per iter, lr: 0.0006, tr: 1.00
+  gen loss: 3.620  ppl:37.34
+______________________
+key: 章
+inp: 歌UNK虽UNK名所感则同归寄君三十章与君为哭词
+trg: 歌哭虽异名|所感则同归|寄君三十章|与君为哭词
+out: 歌虽虽名名|所感归归乡|寄与三十君|与君为哀弦
+
+epoch: 3, 1501/3767 39.8%, 0.13s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.561  ppl:35.19
+______________________
+key: 造化
+inp: 炉锤锻炼不遗力造化穷锼无遁情每对时人思杜老不UNK能事UNKUNK生
+trg: 炉锤锻炼不遗力|造化穷锼无遁情|每对时人思杜老|不知能事属先生
+out: 炉锤化化不愿力|造化无思无古人|每逢人人杜杜宇|不能能叹杜生生
+
+epoch: 3, 1801/3767 47.8%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.504  ppl:33.26
+______________________
+key: 乘兴
+inp: 山UNK景物自新奇乘兴幽UNK写小诗洞里竹枝遭雪压何UNK扶起向明时
+trg: 山中景物自新奇|乘兴幽人写小诗|洞里竹枝遭雪压|何人扶起向明时
+out: 山光景物自奇奇|幽兴幽奇小竹诗|洞里竹枝新压压|何因拟起过明时
+
+epoch: 3, 2101/3767 55.8%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.450  ppl:31.51
+______________________
+key: 尘鞅
+inp: 雁荡屡UNK眼个中方再游何时脱UNK鞅来此饱清幽
+trg: 雁荡屡经眼|个中方再游|何时脱尘鞅|来此饱清幽
+out: 雁荡屡方眼|中中方其游|何时饱何鞅|何此饱清秋
+
+epoch: 3, 2401/3767 63.7%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.398  ppl:29.92
+______________________
+key: 陶家
+inp: 曾踏山阴雨后春猫头花笋贱UNK薪UNK家只栋UNK塘买一日常番两替人
+trg: 曾踏山阴雨后春|猫头花笋贱如薪|陶家只栋破塘买|一日常番两替人
+out: 曾踏山头雨后春|花头花木贱难薪|萧家本在两家北|一日常年两日人
+
+epoch: 3, 2701/3767 71.7%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.349  ppl:28.47
+______________________
+key: 谪仙
+inp: UNK简朝元拥UNK华碧壶香满谪仙家石坛UNK挂银潢水会待秋风送客槎
+trg: 金简朝元拥玉华|碧壶香满谪仙家|石坛冷挂银潢水|会待秋风送客槎
+out: 紫锡朝吟拥紫华|碧香香烬谪仙家|石边倚倚银河水|待待风风送客槎
+
+epoch: 3, 3001/3767 79.7%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.301  ppl:27.14
+______________________
+key: 稻粱
+inp: 岁暮江烟洲渚非UNK寒沙冷UNK粱微UNK胜饱地多矰缴的的高情已见几
+trg: 岁暮江烟洲渚非|水寒沙冷稻粱微|绝胜饱地多矰缴|的的高情已见几
+out: 岁暮江头沙渚非|微寒沙冷鬓粱微|多胜多应多矰缴|的的春多已几几
+
+epoch: 3, 3301/3767 87.6%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.255  ppl:25.92
+______________________
+key: 深山
+inp: 深山UNK窃旧相UNKUNK别还胜未别时老梦秋来如不到静中闲看浴云池
+trg: 深山忝窃旧相知|既别还胜未别时|老梦秋来如不到|静中闲看浴云池
+out: 西山旧宰旧相违|别别还来梦到来|秋梦秋来无不寐|静看闲看浴云池
+
+epoch: 3, 3601/3767 95.6%, 0.11s per iter, lr: 0.0005, tr: 1.00
+  gen loss: 3.211  ppl:24.81
+______________________
+run validation...
+in training mode: 0
+epoch: 3, lr: 0.0005, tr: 1.00
+  gen loss: 1.715  ppl:5.56
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+key: 寒食
+inp: 覆野春阴不肯晴UNK中UNK酒亦UNK饧故教客子知寒食时有梨花一树明
+trg: 覆野春阴不肯晴|舟中无酒亦无饧|故教客子知寒食|时有梨花一树明
+out: 野野春阴不肯晴|梨中五子不知书|故教食子知寒食|还有梨花一树明
+
+epoch: 4, 1/3767 0.0%, 0.00s per iter, lr: 0.0005, tr: 0.92
+  gen loss: 3.187  ppl:24.22
+______________________
+key: 虚心
+inp: 粉箨烟膏UNK可餐森森庭际斗檀栾谁教节目UNK皮外UNK解虚心保岁寒
+trg: 粉箨烟膏秀可餐|森森庭际斗檀栾|谁教节目生皮外|却解虚心保岁寒
+out: 粉箨庭膏可可餐|森森庭户斗森森|谁教斗操梨庭外|谁解虚心保岁寒
+
+epoch: 4, 301/3767 8.0%, 0.11s per iter, lr: 0.0005, tr: 0.92
+  gen loss: 3.145  ppl:23.23
+______________________
+key: 落
+inp: 幕天UNKUNK地无尘百紫千红占得春野草自花还自落落时还有惜花UNK
+trg: 幕天无日地无尘|百紫千红占得春|野草自花还自落|落时还有惜花人
+out: 幕天天地地无尘|百紫红红占野春|野草自花还落落|落花还有落花还
+
+epoch: 4, 601/3767 16.0%, 0.11s per iter, lr: 0.0005, tr: 0.92
+  gen loss: 3.105  ppl:22.32
+______________________
+key: 闻
+inp: 远公说UNK长松下龙树双轻海藏中今日导师闻佛慧始知前UNKUNK成空
+trg: 远公说易长松下|龙树双轻海藏中|今日导师闻佛慧|始知前路化成空
+out: 远师说下松松下|龙虎双龙海上中|今日佛师来佛法|不知前世不成功
+
+epoch: 4, 901/3767 23.9%, 0.11s per iter, lr: 0.0005, tr: 0.92
+  gen loss: 3.067  ppl:21.47
+______________________
+key: 里中
+inp: 曾倾白下郎UNK盖忍读UNK田太守UNK今日九原谁是伴里中新有一峰坟
+trg: 曾倾白下郎官盖|忍读青田太守文|今日九原谁是伴|里中新有一峰坟
+out: 曾倾白下郎翁雨|忍读田田父守翁|今日九原今是伴|中中新有一岩中
+
+epoch: 4, 1201/3767 31.9%, 0.11s per iter, lr: 0.0005, tr: 0.92
+  gen loss: 3.030  ppl:20.69
+______________________
+key: 浮海
+inp: 耀UNK曾此聚群仙UNK似飞来七洞天但说峰头多异鸟不知浮海UNK何年
+trg: 耀真曾此聚群仙|谁似飞来七洞天|但说峰头多异鸟|不知浮海是何年
+out: 聚来来此集群仙|曾似飞峰七七天|但见峰头多异鸟|不知浮海去何年
+
+epoch: 4, 1501/3767 39.8%, 0.11s per iter, lr: 0.0005, tr: 0.92
+  gen loss: 2.994  ppl:19.96
+______________________
+key: 学士
+inp: 学士同趋青琐闼中人捧出UNKUNK盘丹墀拜赐天颜喜翠袖携UNK月色寒
+trg: 学士同趋青琐闼|中人捧出赤瑛盘|丹墀拜赐天颜喜|翠袖携归月色寒
+out: 幸士同趋丹琐闼|中间捧出碧瑛丹|单墀侍赐天颜赐|袖袖冠笼月色寒
+
+epoch: 4, 1801/3767 47.8%, 0.11s per iter, lr: 0.0004, tr: 0.92
+  gen loss: 2.960  ppl:19.29
+______________________
+key: 鸥鹭
+inp: 小娃犹记喜归时故唱前年自赋词但得池UNK鸥鹭UNKUNK须门外野人知
+trg: 小娃犹记喜归时|故唱前年自赋词|但得池边鸥鹭听|更须门外野人知
+out: 小儿犹喜喜归时|故唱前年记有诗|但得小头鸥鹭散|不须门外野人知
+
+epoch: 4, 2101/3767 55.8%, 0.11s per iter, lr: 0.0004, tr: 0.92
+  gen loss: 2.926  ppl:18.66
+______________________
+key: 海涛
+inp: 千古鸱夷UNK独高脱遗富贵一鸿毛馆娃宫UNK曾亡国UNK独相携泛海涛
+trg: 千古鸱夷节独高|脱遗富贵一鸿毛|馆娃宫女曾亡国|岂独相携泛海涛
+out: 千古鸱夷独独高|富囊富贵一毛毛|广娃宫国今亡国|独独相携一海涛
+
+epoch: 4, 2401/3767 63.7%, 0.11s per iter, lr: 0.0004, tr: 0.92
+  gen loss: 2.894  ppl:18.06
+______________________
+key: 胡麻
+inp: 无日无花不辨春赪霞UNK旧UNK迎人醉来更取桃花水旋煮胡麻旋UNK芹
+trg: 无日无花不辨春|赪霞依旧惯迎人|醉来更取桃花水|旋煮胡麻旋煮芹
+out: 无日无花不辨香|霞霞迎旧更无人|更来更取桃花水|旋煮旋麻旋煮茶
+
+epoch: 4, 2701/3767 71.7%, 0.11s per iter, lr: 0.0004, tr: 0.92
+  gen loss: 2.863  ppl:17.51
+______________________
+key: 月姊
+inp: 月姊UNK劳UNK望舒可能圆缺为阳UNK如何窃尽长生药却种相思树一株
+trg: 月姊应劳驾望舒|可能圆缺为阳乌|如何窃尽长生药|却种相思树一株
+out: 月姊劳劳望月舒|可能缺缺在蟾蜍|如何更尽长生药|却种相依种树株
+
+epoch: 4, 3001/3767 79.7%, 0.11s per iter, lr: 0.0004, tr: 0.92
+  gen loss: 2.832  ppl:16.99
+______________________
+key: 江梅
+inp: 江梅开过尚馀香半面残妆对夕UNK野草UNK花正UNK赖竞将地紫占春光
+trg: 江梅开过尚馀香|半面残妆对夕阳|野草凡花正无赖|竞将地紫占春光
+out: 江梅开过尚馀香|半夜残霞对夕光|野树树头如占赖|且将紫占占春光
+
+epoch: 4, 3301/3767 87.6%, 0.11s per iter, lr: 0.0004, tr: 0.92
+  gen loss: 2.803  ppl:16.50
+______________________
+key: 风伯
+inp: 风伯颠狂太劣生雨UNK懒困洒来轻若UNK不被云君误谁放斜UNK作晚晴
+trg: 风伯颠狂太劣生|雨师懒困洒来轻|若言不被云君误|谁放斜阳作晚晴
+out: 风伯狂狂太液生|雨来困困又来轻|若非不作君生误|谁放斜阳作九晴
+
+epoch: 4, 3601/3767 95.6%, 0.11s per iter, lr: 0.0004, tr: 0.92
+  gen loss: 2.775  ppl:16.03
+______________________
+run validation...
+in training mode: 0
+epoch: 4, lr: 0.0004, tr: 0.92
+  gen loss: 1.502  ppl:4.49
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+key: 秋风
+inp: 穆王西UNK八龙空留UNK犹能百UNK雄身染瑶池五云彩至今毛鬣散秋风
+trg: 穆王西返八龙空|留影犹能百代雄|身染瑶池五云彩|至今毛鬣散秋风
+out: 穆王西陆八龙空|留与犹能百万雄|天染五台五彩散|至今毛鬣散秋风
+
+epoch: 5, 1/3767 0.0%, 0.00s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.759  ppl:15.79
+______________________
+key: 黄沙
+inp: 关山万里远征人一望UNK山泪满UNK青海戍头空有月黄沙碛里本无UNK
+trg: 关山万里远征人|一望关山泪满巾|青海戍头空有月|黄沙碛里本无春
+out: 关山万里远征人|一望黄河泪满巾|沙海戍头空有月|黄沙碛里本无人
+
+epoch: 5, 301/3767 8.0%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.731  ppl:15.35
+______________________
+key: 天意
+inp: 稻田高UNK欲分畦积潦瀰UNK隔寸堤天意未收UNK夜雨农功良苦半身泥
+trg: 稻田高下欲分畦|积潦瀰茫隔寸堤|天意未收连夜雨|农功良苦半身泥
+out: 稻田高欲欲分堤|积潦晴瀰隔水河|天意未收身夜雨|农身身已半身泥
+
+epoch: 5, 601/3767 16.0%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.704  ppl:14.94
+______________________
+key: 老农
+inp: 老农UNK住石溪傍赤日蒙君过UNK堂若问生涯无可答梅UNK犹有晒书忙
+trg: 老农深住石溪傍|赤日蒙君过草堂|若问生涯无可答|梅天犹有晒书忙
+out: 老农住住石溪傍|白日君君过赤堂|若问平涯无可答|梅花犹有晒韦忙
+
+epoch: 5, 901/3767 23.9%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.678  ppl:14.55
+______________________
+key: 对
+inp: 两穷相值UNK无计UNK是开元补阙孙百世清风于此在莫将贫悴对人UNK
+trg: 两穷相值愁无计|同是开元补阙孙|百世清风于此在|莫将贫悴对人言
+out: 两穷无值无未计|元是元元出斋孙|百世清风在此世|莫将贫贱在人家
+
+epoch: 5, 1201/3767 31.9%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.652  ppl:14.19
+______________________
+key: 细草
+inp: 春原细草碧萋萋怅忆张乔泪眼低前度飞觞UNK艳曲UNK花销UNK鹧鸪啼
+trg: 春原细草碧萋萋|怅忆张乔泪眼低|前度飞觞听艳曲|繁花销尽鹧鸪啼
+out: 春风草草碧萋萋|怅忆乔乔泪眼低|前度飞觞花花曲|曲花飞曲鹧鸪啼
+
+epoch: 5, 1501/3767 39.8%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.628  ppl:13.84
+______________________
+key: 近
+inp: 已UNK诸天近还期明月多老UNKUNK不薄投榻意如何
+trg: 已觉诸天近|还期明月多|老僧UNK不薄|投榻意如何
+out: 已近诸天近|还期月月多|老僧不不薄|投薄意如何
+
+epoch: 5, 1801/3767 47.8%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.604  ppl:13.51
+______________________
+key: 消息
+inp: 宴罢UNKUNK暮雨红碧桃花落几番风重来八UNK无消息拟逐青鸾入汉宫
+trg: 宴罢瑶池暮雨红|碧桃花落几番风|重来八骏无消息|拟逐青鸾入汉宫
+out: 宴罢朱池暮雨红|桃桃花落几番风|重来八骏无消息|拂拭青鸾入汉宫
+
+epoch: 5, 2101/3767 55.8%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.580  ppl:13.20
+______________________
+key: 草
+inp: 孤亭簇群岫UNK坐增悄然主人何所作多应草UNK玄
+trg: 孤亭簇群岫|宴坐增悄然|主人何所作|多应草太玄
+out: 孤亭簇群岫|坐坐增悄然|主人何以作|何应草玄玄
+
+epoch: 5, 2401/3767 63.7%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.558  ppl:12.91
+______________________
+key: 福
+inp: 健讼翻成产祸胎带UNK却是杀身UNK争先好胜灾偏UNK退步饶人福自来
+trg: 健讼翻成产祸胎|带刀却是杀身媒|争先好胜灾偏速|退步饶人福自来
+out: 艺祸成成祸祸胎|却将却是杀身来|争如胜胜饶偏好|退步偏人自福来
+
+epoch: 5, 2701/3767 71.7%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.536  ppl:12.63
+______________________
+key: 柳阴
+inp: 黄尘UNK客汗UNK浆少住侬家漱井香借与门前磐石坐柳阴UNK午正风凉
+trg: 黄尘行客汗如浆|少住侬家漱井香|借与门前磐石坐|柳阴亭午正风凉
+out: 黄尘客汗汗沾浆|客住家家漱井泉|借与溪前坐石枕|柳阴午午晚风凉
+
+epoch: 5, 3001/3767 79.7%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.514  ppl:12.36
+______________________
+key: 翩翩
+inp: 翩翩一马两肩舆路转秋原十里馀共说前山深更好UNK辞迢递UNK禅UNK
+trg: 翩翩一马两肩舆|路转秋原十里馀|共说前山深更好|不辞迢递款禅居
+out: 翩翩两马两肩舆|远转秋原十里馀|共说前山好更好|共辞迢递话禅居
+
+epoch: 5, 3301/3767 87.6%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.493  ppl:12.10
+______________________
+key: 远近
+inp: 圣德招贤远近知曹公UNK计UNK成欺陈韩昔日尝投UNK岂是当归召得伊
+trg: 圣德招贤远近知|曹公心计却成欺|陈韩昔日尝投楚|岂是当归召得伊
+out: 圣德招贤远近知|韩公须事莫成悲|陈王细尝尝投兴|岂是当时召党伊
+
+epoch: 5, 3601/3767 95.6%, 0.11s per iter, lr: 0.0004, tr: 0.90
+  gen loss: 2.473  ppl:11.86
+______________________
+run validation...
+in training mode: 0
+epoch: 5, lr: 0.0004, tr: 0.90
+  gen loss: 1.373  ppl:3.95
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+key: 寻芳
+inp: 接UNK鸳鸾缀近班愧无谋略济UNK艰打包结伴寻芳去相对僧窗一UNK闲
+trg: 接武鸳鸾缀近班|愧无谋略济时艰|打包结伴寻芳去|相对僧窗一味闲
+out: 接缀鸳鸯缀远班|愧无谋略济艰艰|小包结伴寻芳事|相伴僧窗一一闲
+
+epoch: 6, 1/3767 0.0%, 0.00s per iter, lr: 0.0004, tr: 0.87
+  gen loss: 2.462  ppl:11.72
+______________________
+key: 怪石
+inp: UNK珑怪石巧相扶奇绝UNK人作画图要是飞来嫡孙行UNK君生不近西湖
+trg: 玲珑怪石巧相扶|奇绝无人作画图|要是飞来嫡孙行|恨君生不近西湖
+out: 怪珑石石巧相扶|奇绝人人作画图|要是飞来近行近|故君不不近西湖
+
+epoch: 6, 301/3767 8.0%, 0.11s per iter, lr: 0.0004, tr: 0.87
+  gen loss: 2.441  ppl:11.49
+______________________
+key: 珍重
+inp: 诃风UNK雨撒痴顽才鬼诗仙UNK往还珍重丰干莫饶UNK文殊原不是寒山
+trg: 诃风骂雨撒痴顽|才鬼诗仙共往还|珍重丰干莫饶舌|文殊原不是寒山
+out: 风风风雨搅顽顽|才俗诗人往往还|珍重干干饶莫莫|文殊原是是寒山
+
+epoch: 6, 601/3767 16.0%, 0.11s per iter, lr: 0.0004, tr: 0.87
+  gen loss: 2.421  ppl:11.26
+______________________
+key: 丈室
+inp: 转山楼阁路相通屡得UNK经丈室UNK六入循元无重浊三缘UNK断出樊笼
+trg: 转山楼阁路相通|屡得分经丈室中|六入循元无重浊|三缘故断出樊笼
+out: 转山楼阁路相通|屡得重茶积室中|六出元元重重罪|全偷分入入樊笼
+
+epoch: 6, 901/3767 23.9%, 0.11s per iter, lr: 0.0004, tr: 0.87
+  gen loss: 2.402  ppl:11.05
+______________________
+key: 老病
+inp: 老病无堪UNK退休伊川UNK已得菟裘如今又上长安道好UNK青山笑白头
+trg: 老病无堪合退休|伊川久已得菟裘|如今又上长安道|好被青山笑白头
+out: 老病无聊解退休|伊川又已得菟裘|如今又上长安道|好笑青山笑白头
+
+epoch: 6, 1201/3767 31.9%, 0.11s per iter, lr: 0.0004, tr: 0.87
+  gen loss: 2.383  ppl:10.84
+______________________
+key: 空庭
+inp: 空庭啮枯荄悠然亦相乐放尔长林中应思UNK来UNK
+trg: 空庭啮枯荄|悠然亦相乐|放尔长林中|应思向来错
+out: 空庭啮枯荄|悠然亦相乐|放尔长林中|应来来来乐
+
+epoch: 6, 1501/3767 39.8%, 0.11s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.365  ppl:10.65
+______________________
+key: 烟笼
+inp: 忍UNK拖筇UNK下看烟UNK繁影共汗漫缃裘不是多重数争奈清宵尔许寒
+trg: 忍冻拖筇月下看|烟笼繁影共汗漫|缃裘不是多重数|争奈清宵尔许寒
+out: 忍共遥筇下下看|烟波长影共玲珑|朱颜不是多残数|清奈清宵尔许寒
+
+epoch: 6, 1801/3767 47.8%, 0.11s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.347  ppl:10.46
+______________________
+key: 暝色
+inp: 暝色何可爱为辞白日嚣非同倦UNK鸟大小UNK其巢
+trg: 暝色何可爱|为辞白日嚣|非同倦飞鸟|大小归其巢
+out: 暝色何可爱|为辞白日非|非巢非鸟鸟|大小倦其巢
+
+epoch: 6, 2101/3767 55.8%, 0.11s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.330  ppl:10.28
+______________________
+key: 画
+inp: 自怜十五画长眉暗壁低头未几时此际UNK逢UNK莫问如UNK正好共箫吹
+trg: 自怜十五画长眉|暗壁低头未几时|此际相逢君莫问|如今正好共箫吹
+out: 自怜十五镜长眉|暗壁低头未几时|此际逢逢莫如问|清何好好吹吹吹
+
+epoch: 6, 2401/3767 63.7%, 0.11s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.313  ppl:10.10
+______________________
+key: 习
+inp: 何曾一事扰中扃醉便投床梦UNK清书卷犹UNK旧UNK习未能熟处放教生
+trg: 何曾一事扰中扃|醉便投床梦亦清|书卷犹嫌旧时习|未能熟处放教生
+out: 何曾一事扰中扃|梦便投床梦梦中|犹卷犹存旧习习|未能放放放生生
+
+epoch: 6, 2701/3767 71.7%, 0.11s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.296  ppl:9.94
+______________________
+key: 落梅
+inp: 帘底UNK鸾惜岁华鬓云慵掠宝钗斜落梅香断UNK消息一树春风UNK杏花
+trg: 帘底临鸾惜岁华|鬓云慵掠宝钗斜|落梅香断无消息|一树春风属杏花
+out: 帘底鸾郎惜岁华|宝云慵掠宝钗斜|落梅香断无消息|一树春风杏杏花
+
+epoch: 6, 3001/3767 79.7%, 0.10s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.280  ppl:9.78
+______________________
+key: 溪畔
+inp: 秦人溪畔汉UNKUNK万木参天六月寒写向汤休诗UNK里老夫要作画图看
+trg: 秦人溪畔汉人山|万木参天六月寒|写向汤休诗集里|老夫要作画图看
+out: 秦人溪畔汉人烟|万木天天六月寒|休作吟诗元里里|老夫要作画图看
+
+epoch: 6, 3301/3767 87.6%, 0.10s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.264  ppl:9.62
+______________________
+key: 杖策
+inp: UNK策人扶废病身晴和强起一迎春他时UNK跛纵UNK得笑杀平原楼上人
+trg: 杖策人扶废病身|晴和强起一迎春|他时蹇跛纵行得|笑杀平原楼上人
+out: 病策衰扶病病身|晴和强起一时春|他时纵笑应能笑|笑杀平原楼上人
+
+epoch: 6, 3601/3767 95.6%, 0.10s per iter, lr: 0.0003, tr: 0.87
+  gen loss: 2.249  ppl:9.48
+______________________
+run validation...
+in training mode: 0
+epoch: 6, lr: 0.0003, tr: 0.87
+  gen loss: 1.283  ppl:3.61
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+key: 谋
+inp: 夜饮宁辞醉春UNK莫厌投有人重UNK酒后会不须谋
+trg: 夜饮宁辞醉|春醒莫厌投|有人重载酒|后会不须谋
+out: 夜饮宁辞醉|春风莫厌投|有人重投酒|后会不须谋
+
+epoch: 7, 1/3767 0.0%, 0.00s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.240  ppl:9.40
+______________________
+key: 踯躅
+inp: 五度UNK头踯躅红嵩阳UNK里讲时钟春山处处行应好一月看花UNK几峰
+trg: 五度溪头踯躅红|嵩阳寺里讲时钟|春山处处行应好|一月看花到几峰
+out: 五度峰头踯躅红|嵩阳时里讲时钟|山行处处应应好|一片时看五几峰
+
+epoch: 7, 301/3767 8.0%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.225  ppl:9.25
+______________________
+key: 烟霄
+inp: 仇池仙伯烟霄外妙出湖UNK写墨裙昼UNK虚斋UNK动壁枝枝叶叶欲生云
+trg: 仇池仙伯烟霄外|妙出湖州写墨裙|昼永虚斋风动壁|枝枝叶叶欲生云
+out: 仙郎神伯烟霄外|妙出湖边墨墨纹|写壁虚斋无动静|叶叶叶叶湿生云
+
+epoch: 7, 601/3767 16.0%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.209  ppl:9.11
+______________________
+key: 寒食
+inp: 雨UNK泥滑路微分驻马南原日UNK曛白下一杯寒食酒青山三UNK故人坟
+trg: 雨晴泥滑路微分|驻马南原日未曛|白下一杯寒食酒|青山三尺故人坟
+out: 雨泥泥滑路微尘|驻马南原日日曛|白日一杯寒食酒|青山三十故人人
+
+epoch: 7, 901/3767 23.9%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.194  ppl:8.98
+______________________
+key: 悲欢
+inp: 故国烟花UNK已残浮生各自UNK悲欢青山一道同云UNK步步相携不觉难
+trg: 故国烟花想已残|浮生各自系悲欢|青山一道同云雨|步步相携不觉难
+out: 故国烟花已乱残|交生各自各悲欢|青山一路同云步|步步相携不觉难
+
+epoch: 7, 1201/3767 31.9%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.180  ppl:8.85
+______________________
+key: 梅花
+inp: 渊明篱落发UNK华疑UNK西湖处士家一白自知非正色此心只欲比UNK花
+trg: 渊明篱落发铅华|疑是西湖处士家|一白自知非正色|此心只欲比梅花
+out: 渊明落发发全华|疑是西湖处士家|一自自知非正色|此心欲欲比梅花
+
+epoch: 7, 1501/3767 39.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.166  ppl:8.72
+______________________
+key: 行
+inp: 路逢一老翁UNK鬓白如雪一里二里行四回五UNK歇
+trg: 路逢一老翁|两鬓白如雪|一里二里行|四回五回歇
+out: 路逢一老翁|鬓鬓白如雪|里里二十里|四五五行歇
+
+epoch: 7, 1801/3767 47.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.152  ppl:8.60
+______________________
+key: 舟人
+inp: 舟人苦炎热宿UNK乔木UNK清月未及上黑云如颓山
+trg: 舟人苦炎热|宿此乔木湾|清月未及上|黑云如颓山
+out: 舟人苦炎热|宿木乔木松|清月未及上|黑云如颓山
+
+epoch: 7, 2101/3767 55.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.139  ppl:8.49
+______________________
+key: 碧玉
+inp: 楼远见UNK山目短UNK不尽天阴水怪兴碧玉所以镇
+trg: 楼远见诸山|目短意不尽|天阴水怪兴|碧玉所以镇
+out: 楼远见山山|目断不尽尽|水阴水怪兴|水玉以以镇
+
+epoch: 7, 2401/3767 63.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.125  ppl:8.38
+______________________
+key: 才名
+inp: 李广才名汉世稀孝文犹自未深UNK辍餐长叹无UNKUNK翻惜将军不遇时
+trg: 李广才名汉世稀|孝文犹自未深知|辍餐长叹无颇牧|翻惜将军不遇时
+out: 广广才名汉后稀|孝文犹自未深知|短长长叹无无叹|翻惜将军不遇时
+
+epoch: 7, 2701/3767 71.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.112  ppl:8.27
+______________________
+key: 阊阖
+inp: 飞观UNK空数百间强扶衰病一UNK攀非移阊阖从天界应堕UNK壶自海山
+trg: 飞观横空数百间|强扶衰病一跻攀|非移阊阖从天界|应堕蓬壶自海山
+out: 飞观空回数百间|强扶衰病一扶攀|从从阊阖从天地|应笑壶壶自在山
+
+epoch: 7, 3001/3767 79.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.100  ppl:8.16
+______________________
+key: 萧斋
+inp: 雨UNK绿遍珊瑚石云彩晴开翡UNK林好作萧斋傍幽处一编时UNK古人心
+trg: 雨苔绿遍珊瑚石|云彩晴开翡翠林|好作萧斋傍幽处|一编时究古人心
+out: 雨晴绿遍珊瑚小|云捲晴开翡翠林|好作萧斋傍幽处|一编时有故人心
+
+epoch: 7, 3301/3767 87.6%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.087  ppl:8.06
+______________________
+key: 渊明
+inp: 一语天然万古新豪UNKUNK尽见真淳南窗白日羲UNK上未害渊明是晋人
+trg: 一语天然万古新|豪华落尽见真淳|南窗白日羲皇上|未害渊明是晋人
+out: 一语天然万古新|豪奢尽尽见真淳|南窗白日羲秋上|未害渊明是晋人
+
+epoch: 7, 3601/3767 95.6%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.075  ppl:7.97
+______________________
+run validation...
+in training mode: 0
+epoch: 7, lr: 0.0003, tr: 0.85
+  gen loss: 1.220  ppl:3.39
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+key: 驰道
+inp: 紫坛云雾切三UNK玉UNK将临画鼓催列炬照天驰道远UNK声遥自半空来
+trg: 紫坛云雾切三台|玉趾将临画鼓催|列炬照天驰道远|佩声遥自半空来
+out: 紫云云瑞自天开|玉趾遥军画鼓催|列炬近天驰远远|一声遥自半空来
+
+epoch: 8, 1/3767 0.0%, 0.00s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.068  ppl:7.91
+______________________
+key: 龙香
+inp: 灵壁峰边未著霜轻分蕉绿试UNKUNK不知寂寞幽阑思写UNK关雎第几章
+trg: 灵壁峰边未著霜|轻分蕉绿试龙香|不知寂寞幽阑思|写到关雎第几章
+out: 灵壁峰边未著霜|轻蕉绿绿试轻眠|不知寂寞幽思思|写出琳雎第一章
+
+epoch: 8, 301/3767 8.0%, 0.13s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.056  ppl:7.81
+______________________
+key: 沧溟
+inp: 大理车回教正浓乍离金UNK意UNKUNK沧溟要过流杯送禅坐依然政法容
+trg: 大理车回教正浓|乍离金地意思松|沧溟要过流杯送|禅坐依然政法容
+out: 大理车轮教正浓|乍离奇意意相浓|沧溟要送流传坐|坐禅萧然政法容
+
+epoch: 8, 601/3767 16.0%, 0.13s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.044  ppl:7.72
+______________________
+key: 星河
+inp: UNK领云泉四十春乾UNK闲处老闲人却怜故物还元化UNK属星河射海垠
+trg: 管领云泉四十春|乾坤闲处老闲人|却怜故物还元化|光属星河射海垠
+out: 云领云泉四十春|乾坤闲处老闲人|却怜故物还元化|又射星河射海垠
+
+epoch: 8, 901/3767 23.9%, 0.13s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.032  ppl:7.63
+______________________
+key: 寒日
+inp: UNKUNK瘦竹可相俦稚发骎骎到白头世道已如寒日晚惟UNK把酒赋三休
+trg: 老松瘦竹可相俦|稚发骎骎到白头|世道已如寒日晚|惟消把酒赋三休
+out: 竹竹瘦竹可相俦|比发骎骎到白头|世道已如寒日晚|只将把酒赋三休
+
+epoch: 8, 1201/3767 31.9%, 0.13s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.020  ppl:7.54
+______________________
+key: 水寒
+inp: 欲回兰棹更UNK犹事出沈思UNK自求霜雁不来书断绝水UNK烟淡倚高楼
+trg: 欲回兰棹更夷犹|事出沈思得自求|霜雁不来书断绝|水寒烟淡倚高楼
+out: 欲回兰棹更漫犹|事出沈求寄自求|烟雁不来书不绝|水烟寒断倚高楼
+
+epoch: 8, 1501/3767 39.8%, 0.13s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 2.009  ppl:7.45
+______________________
+key: 谈
+inp: 随UNKUNK苔石呼童煮涧芹不须谈世事诗思正纷纷
+trg: 随意坐苔石|呼童煮涧芹|不须谈世事|诗思正纷纷
+out: 随雨苔苔石|呼童煮涧芹|不须谈世事|诗思正纷纷
+
+epoch: 8, 1801/3767 47.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.998  ppl:7.37
+______________________
+key: 还家
+inp: 还家久近书难写破屋阴晴UNK屡移吾道UNK耶来旷野UNK生乐尔复何时
+trg: 还家久近书难写|破屋阴晴榻屡移|吾道非耶来旷野|人生乐尔复何时
+out: 还家近近书难写|破屋阴阴屡屡移|吾道太耶来野野|天生何尔复何时
+
+epoch: 8, 2101/3767 55.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.987  ppl:7.29
+______________________
+key: 斜阳
+inp: 慨息元军破宋UNK老僧UNK请读残碑山中竹院堪幽赏无奈斜阳欲UNK时
+trg: 慨息元军破宋诗|老僧邀请读残碑|山中竹院堪幽赏|无奈斜阳欲下时
+out: 慨息元军破宋基|老僧堪请读残碑|山中竹竹堪怀赏|无奈斜阳欲暮时
+
+epoch: 8, 2401/3767 63.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.976  ppl:7.21
+______________________
+key: 离离
+inp: 春来濯濯江边柳秋后离离UNKUNK花不羡千UNK买歌舞一篇珠玉是生涯
+trg: 春来濯濯江边柳|秋后离离湖上花|不羡千金买歌舞|一篇珠玉是生涯
+out: 春来濯濯江边柳|秋后离离花不花|不羡千家买歌舞|一篇珠玉是生涯
+
+epoch: 8, 2701/3767 71.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.965  ppl:7.14
+______________________
+key: 列
+inp: 筑塘列圃畦引流灌时UNK复在郊郭外正堪UNK者居
+trg: 筑塘列圃畦|引流灌时蔬|复在郊郭外|正堪静者居
+out: 筑塘列圃畦|引灌灌时野|正在郊郭外|正可乐者居
+
+epoch: 8, 3001/3767 79.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.955  ppl:7.06
+______________________
+key: 断霞
+inp: 峰岩百步翠重重UNK下春泉UNKUNK淙章帝旧宫今不见断霞犹出绣芙蓉
+trg: 峰岩百步翠重重|岩下春泉喷玉淙|章帝旧宫今不见|断霞犹出绣芙蓉
+out: 峰峰百步翠重重|春下春泉洗旧淙|兰帝旧宫今不见|断霞犹出绣芙蓉
+
+epoch: 8, 3301/3767 87.6%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.945  ppl:6.99
+______________________
+key: 佳人
+inp: 粤UNK佳UNK歌竹枝吴航归客不胜悲送君别后秦楼月尤见清光UNK昔时
+trg: 粤国佳人歌竹枝|吴航归客不胜悲|送君别后秦楼月|尤见清光似昔时
+out: 粤楚佳辰歌竹枝|吴吴归客不胜悲|送君别后秦台月|清见清光近昔时
+
+epoch: 8, 3601/3767 95.6%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.935  ppl:6.92
+______________________
+run validation...
+in training mode: 0
+epoch: 8, lr: 0.0003, tr: 0.85
+  gen loss: 1.172  ppl:3.23
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+key: 消磨
+inp: 消磨水上UNK蓉了岸UNK难兄正木彊遭UNK东坡一题品后来祇合字宜霜
+trg: 消磨水上芙蓉了|岸上难兄正木彊|遭际东坡一题品|后来祇合字宜霜
+out: 磨难水上芙蓉寺|雁难难兄正木难|难古东坡一题品|后来祇合字宜霜
+
+epoch: 9, 1/3767 0.0%, 0.00s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.929  ppl:6.88
+______________________
+key: 中原
+inp: 佛屋前头野草UNK贵妃轻骨此为UNK从来绝UNK知难得不破中原未是人
+trg: 佛屋前头野草春|贵妃轻骨此为尘|从来绝色知难得|不破中原未是人
+out: 佛屋前头野草春|贵妃轻骨此为身|从来绝就难难得|却是中原未是人
+
+epoch: 9, 301/3767 8.0%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.919  ppl:6.81
+______________________
+key: 阴阴
+inp: 避暑最须从朴野葛巾筠席更UNK当归来又好乘UNKUNK藤蔓阴阴著雨香
+trg: 避暑最须从朴野|葛巾筠席更相当|归来又好乘凉钓|藤蔓阴阴著雨香
+out: 避暑最须当朴野|葛巾筠席更当虚|归来好好乘藤好|藤杖阴阴著雨馀
+
+epoch: 9, 601/3767 16.0%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.909  ppl:6.75
+______________________
+key: 薰风
+inp: 紫燕黄鹂兴已阑薰风UNK院绿阴UNK儿童竞说新篁长只隔UNK窗懒去看
+trg: 紫燕黄鹂兴已阑|薰风庭院绿阴寒|儿童竞说新篁长|只隔前窗懒去看
+out: 紫燕黄鹂兴已阑|薰风新院绿阴寒|儿童竞说新篁长|只隔槐窗懒去看
+
+epoch: 9, 901/3767 23.9%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.899  ppl:6.68
+______________________
+key: 冷香
+inp: 一尊相属语UNK昏密雪飘零正UNK门记得江桥UNK马处冷香应断玉梅魂
+trg: 一尊相属语黄昏|密雪飘零正满门|记得江桥回马处|冷香应断玉梅魂
+out: 一尊相属语昏昏|密雪飘零正近门|记得桥桥骑马处|冷香应入玉梅魂
+
+epoch: 9, 1201/3767 31.9%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.889  ppl:6.62
+______________________
+key: 落日
+inp: UNK城落日与林平UNK入沧UNK照眼明坐对草堂浑不语谁将玉管调黄莺
+trg: 江城落日与林平|翻入沧波照眼明|坐对草堂浑不语|谁将玉管调黄莺
+out: 平城落日与林平|分入沧江照眼明|坐对草堂浑不语|谁将玉管泻黄莺
+
+epoch: 9, 1501/3767 39.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.880  ppl:6.55
+______________________
+key: 黄梁
+inp: 梦醒来看梦里UNK百千UNK梦指为真黄梁自是藏乌喙五百UNK年更误人
+trg: 梦醒来看梦里身|百千亿梦指为真|黄梁自是藏乌喙|五百馀年更误人
+out: 梦醒来看梦里身|百年里里想为真|黄梁自是藏乌喙|五百年年更误人
+
+epoch: 9, 1801/3767 47.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.871  ppl:6.49
+______________________
+key: 枕簟
+inp: 庭前槐UNK绿阴阴静听玄蝉尽日吟枕簟UNKUNK清梦境了无俗物动禅心
+trg: 庭前槐树绿阴阴|静听玄蝉尽日吟|枕簟虚凉清梦境|了无俗物动禅心
+out: 庭前槐阴绿阴阴|静听玄蝉尽日吟|枕簟清庭清俗境|了无俗物动禅心
+
+epoch: 9, 2101/3767 55.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.862  ppl:6.43
+______________________
+key: 春入
+inp: 未能达本且归根真照无知岂待言枯木岩前UNK失路那UNK春UNK武陵原
+trg: 未能达本且归根|真照无知岂待言|枯木岩前犹失路|那堪春入武陵原
+out: 未能达本未归根|无照无言岂是言|昆木岩前失失路|那知春梦武陵原
+
+epoch: 9, 2401/3767 63.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.853  ppl:6.38
+______________________
+key: 对君
+inp: 林UNK山色有无间展卷聊乘幕府闲一笑UNK君揩病目恰如欧UNK在平山
+trg: 林霏山色有无间|展卷聊乘幕府闲|一笑对君揩病目|恰如欧老在平山
+out: 林间山色有无间|卷卷乘鸾笑府闲|一笑一君揩病目|恰如欧幕到平山
+
+epoch: 9, 2701/3767 71.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.844  ppl:6.32
+______________________
+key: 夜阑
+inp: 夜阑烧烛对残樽欲UNK犹怜客未醺UNK舍儿童能UNK事琵琶声里惜离群
+trg: 夜阑烧烛对残樽|欲罢犹怜客未醺|邻舍儿童能解事|琵琶声里惜离群
+out: 夜阑烧烛对残樽|欲欲怜怜客未醺|儿舍儿童能说事|琵琶声里惜离群
+
+epoch: 9, 3001/3767 79.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.835  ppl:6.27
+______________________
+key: 银烛
+inp: 罗浮UNK下月昏黄曾倚春风试淡妆UNK夜画屏银烛UNK却啼红泪湿衣裳
+trg: 罗浮山下月昏黄|曾倚春风试淡妆|今夜画屏银烛冷|却啼红泪湿衣裳
+out: 罗浮山下月昏黄|曾倚春风试淡妆|夜夜画屏银烛上|却看红泪湿罗裳
+
+epoch: 9, 3301/3767 87.6%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.827  ppl:6.21
+______________________
+key: 邯郸
+inp: 可惜邯郸梦UNK成数闻僧UNK木鱼声寒鸡有意催UNK起早解孤舟晓月行
+trg: 可惜邯郸梦未成|数闻僧舍木鱼声|寒鸡有意催人起|早解孤舟晓月行
+out: 可惜邯郸梦不成|数家家舍片溪声|寒鸡有早催孤急|早晚孤舟晓月行
+
+epoch: 9, 3601/3767 95.6%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.818  ppl:6.16
+______________________
+run validation...
+in training mode: 0
+epoch: 9, lr: 0.0003, tr: 0.85
+  gen loss: 1.135  ppl:3.11
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+key: 凌云
+inp: 盘UNK回栈几千层径欲凌云揽玉绳浪得虚名UNK鄙俗古来天UNK绝阶升
+trg: 盘峰回栈几千层|径欲凌云揽玉绳|浪得虚名夸鄙俗|古来天险绝阶升
+out: 盘回回几几千层|径欲凌云揽玉泉|浪得虚名怀鄙俗|古来天际绝尘楹
+
+epoch: 10, 1/3767 0.0%, 0.00s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.814  ppl:6.13
+______________________
+key: 回首
+inp: 一梦江湖三十年青山隐隐水漫漫当UNK把酒谁人在UNK首重来UNK倚阑
+trg: 一梦江湖三十年|青山隐隐水漫漫|当时把酒谁人在|回首重来独倚阑
+out: 一梦江湖三十年|青山隐隐水漫漫|当时把酒谁人在|漫首重来独倚阑
+
+epoch: 10, 301/3767 8.0%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.805  ppl:6.08
+______________________
+key: 脂粉
+inp: 合UNK舟泛跃龙池端午争悬百彩丝新赐承UNK脂粉硙上UNK不敢妒蛾眉
+trg: 合宫舟泛跃龙池|端午争悬百彩丝|新赐承恩脂粉硙|上阳不敢妒蛾眉
+out: 合龙舟泛跃龙池|午午争悬百彩丝|新赐承脂脂粉硙|上应不妒妒蛾眉
+
+epoch: 10, 601/3767 16.0%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.797  ppl:6.03
+______________________
+key: 劝君
+inp: UNK吟UNK忆君一忆一回老泪滴王维句劝君苦不早
+trg: 孤吟必忆君|一忆一回老|泪滴王维句|劝君苦不早
+out: 吟吟忆忆君|一忆一回老|泪滴王维句|劝君苦不早
+
+epoch: 10, 901/3767 23.9%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.788  ppl:5.98
+______________________
+key: 枝头
+inp: 山UNK云寒枕簟清隔窗残月不分明黄莺未UNK人先醒卧听枝头UNK一声
+trg: 山馆云寒枕簟清|隔窗残月不分明|黄莺未醒人先醒|卧听枝头第一声
+out: 山枕云寒枕簟清|隔窗残月不分明|黄莺未醒人先听|卧听枝头一一声
+
+epoch: 10, 1201/3767 31.9%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.780  ppl:5.93
+______________________
+key: 潭
+inp: 方六七十如五十七六方成一百UNK清秋千古UNK相似鹤在UNK风月在潭
+trg: 方六七十如五十|七六方成一百三|清秋千古谁相似|鹤在松风月在潭
+out: 方七七十如五十|七百方成一百秋|清秋千古相相似|鹤在西风月在潭
+
+epoch: 10, 1501/3767 39.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.772  ppl:5.88
+______________________
+key: 枝头
+inp: 点检枝头春UNK来不应UNK负掌中杯与君索笑须宜早莫待城头UNK落梅
+trg: 点检枝头春已来|不应辜负掌中杯|与君索笑须宜早|莫待城头吹落梅
+out: 点检春头春色来|不应频与酒中杯|与君索笑须频早|莫待城头早落梅
+
+epoch: 10, 1801/3767 47.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.765  ppl:5.84
+______________________
+key: 天风
+inp: 昨夜花间成酩酊今日天风吹始醒炉香深炷UNK中庭UNK看UNK梢移午影
+trg: 昨夜花间成酩酊|今日天风吹始醒|炉香深炷坐中庭|独看竹梢移午影
+out: 昨夜花间成酩酊|今日风风吹始醒|炉香深炷炉庭间|移移移梢移午雨
+
+epoch: 10, 2101/3767 55.8%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.757  ppl:5.79
+______________________
+key: 春信
+inp: 数声嘹唳渡榆关尽UNK虚弦落照间却讶征鸿偏有胆又随春UNKUNK天山
+trg: 数声嘹唳渡榆关|尽罢虚弦落照间|却讶征鸿偏有胆|又随春信到天山
+out: 数声榆唳渡榆关|尽日虚弦落照间|却讶征鸿偏有胆|又随春水到天山
+
+epoch: 10, 2401/3767 63.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.749  ppl:5.75
+______________________
+key: 玄真
+inp: 名满人间未足多胸UNK万顷著烟波松江风月无UNK见UNK与玄真画钓蓑
+trg: 名满人间未足多|胸中万顷著烟波|松江风月无人见|谁与玄真画钓蓑
+out: 名满人间未足多|胸中万顷著烟波|松江风月无人见|只与玄真画钓蓑
+
+epoch: 10, 2701/3767 71.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.742  ppl:5.71
+______________________
+key: 饱看
+inp: 几年清济沁UNK脾端UNK官家养桷榱恐是锦屏应饱看莫嫌UNK取栋梁迟
+trg: 几年清济沁诗脾|端为官家养桷榱|恐是锦屏应饱看|莫嫌来取栋梁迟
+out: 几年清济沁毛时|端笏官家列锦榱|恐是锦屏惟饱看|莫嫌看取栋梁枝
+
+epoch: 10, 3001/3767 79.7%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.734  ppl:5.67
+______________________
+key: 论心
+inp: 扶病UNK将弓试力感恩UNK与剑论心明妃UNK遇英雄世青冢何由怨陆沈
+trg: 扶病暂将弓试力|感恩重与剑论心|明妃若遇英雄世|青冢何由怨陆沈
+out: 扶病试将金力力|感恩伤与剑心心|明年不遇英雄死|青冢何由怨陆沈
+
+epoch: 10, 3301/3767 87.6%, 0.11s per iter, lr: 0.0003, tr: 0.85
+  gen loss: 1.727  ppl:5.63
+______________________
+key: 君恩
+inp: 香车红粉斗芳UNK黄帽曾蒙中选人倘UNK君恩UNK雨露试从青草认前身
+trg: 香车红粉斗芳尘|黄帽曾蒙中选人|倘得君恩如雨露|试从青草认前身
+out: 香车红粉斗芳春|黄帽曾蒙中选人|倘得君恩烟雨露|试从青草试中身
+
+epoch: 10, 3601/3767 95.6%, 0.11s per iter, lr: 0.0002, tr: 0.85
+  gen loss: 1.720  ppl:5.59
+______________________
+run validation...
+in training mode: 0
+epoch: 10, lr: 0.0002, tr: 0.85
+  gen loss: 1.103  ppl:3.01
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+dae pretraining done!
+classifier1 pretraining...
+layers.embed.weight torch.Size([7024, 256])
+layers.encoder.rnn.weight_ih_l0 torch.Size([1536, 256])
+layers.encoder.rnn.weight_hh_l0 torch.Size([1536, 512])
+layers.encoder.rnn.bias_ih_l0 torch.Size([1536])
+layers.encoder.rnn.bias_hh_l0 torch.Size([1536])
+layers.encoder.rnn.weight_ih_l0_reverse torch.Size([1536, 256])
+layers.encoder.rnn.weight_hh_l0_reverse torch.Size([1536, 512])
+layers.encoder.rnn.bias_ih_l0_reverse torch.Size([1536])
+layers.encoder.rnn.bias_hh_l0_reverse torch.Size([1536])
+layers.word_encoder.rnn.weight_ih_l0 torch.Size([256, 256])
+layers.word_encoder.rnn.weight_hh_l0 torch.Size([256, 256])
+layers.word_encoder.rnn.bias_ih_l0 torch.Size([256])
+layers.word_encoder.rnn.bias_hh_l0 torch.Size([256])
+layers.word_encoder.rnn.weight_ih_l0_reverse torch.Size([256, 256])
+layers.word_encoder.rnn.weight_hh_l0_reverse torch.Size([256, 256])
+layers.word_encoder.rnn.bias_ih_l0_reverse torch.Size([256])
+layers.word_encoder.rnn.bias_hh_l0_reverse torch.Size([256])
+layers.cl_xw1.mlp.linear_0.weight torch.Size([512, 1536])
+layers.cl_xw1.mlp.linear_0.bias torch.Size([512])
+layers.cl_xw1.mlp.linear_1.weight torch.Size([128, 512])
+layers.cl_xw1.mlp.linear_1.bias torch.Size([128])
+layers.cl_xw1.mlp.linear_2.weight torch.Size([3, 128])
+layers.cl_xw1.mlp.linear_2.bias torch.Size([3])
+layers.cl_w1.mlp.linear_0.weight torch.Size([256, 512])
+layers.cl_w1.mlp.linear_0.bias torch.Size([256])
+layers.cl_w1.mlp.linear_1.weight torch.Size([64, 256])
+layers.cl_w1.mlp.linear_1.bias torch.Size([64])
+layers.cl_w1.mlp.linear_2.weight torch.Size([3, 64])
+layers.cl_w1.mlp.linear_2.bias torch.Size([3])
+params num: 29
+building data for classifier, factor_id: 1 ...
+482081
+34210
+train batch num: 428
+valid batch num: 24
+epoch: 1, 1/428 0.2%, 0.000 s per iter, lr: 0.0000
+  cl_xw loss: 1.099, accu: 23.4, f1: 15.9; 
+  cl_w loss: 1.095, accu: 43.8, f1: 20.3; 
+______________________
+epoch: 1, 101/428 23.6%, 0.040 s per iter, lr: 0.0001
+  cl_xw loss: 1.031, accu: 53.4, f1: 46.4; 
+  cl_w loss: 1.097, accu: 35.2, f1: 18.9; 
+______________________
+epoch: 1, 201/428 47.0%, 0.039 s per iter, lr: 0.0002
+  cl_xw loss: 0.764, accu: 67.5, f1: 63.6; 
+  cl_w loss: 1.083, accu: 39.3, f1: 26.1; 
+______________________
+epoch: 1, 301/428 70.3%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.616, accu: 74.6, f1: 71.9; 
+  cl_w loss: 1.060, accu: 42.3, f1: 32.3; 
+______________________
+epoch: 1, 401/428 93.7%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.513, accu: 79.2, f1: 77.1; 
+  cl_w loss: 1.044, accu: 44.3, f1: 36.6; 
+______________________
+run validation...
+in training mode: 0
+epoch: 1, lr: 1.0000
+  cl_xw loss: 0.753, accu: 76.8, f1: 76.5; 
+  cl_w loss: 0.997, accu: 49.5, f1: 47.0; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 2, 1/428 0.2%, 0.000 s per iter, lr: 0.0004
+  cl_xw loss: 0.489, accu: 80.3, f1: 78.4; 
+  cl_w loss: 1.040, accu: 44.8, f1: 37.4; 
+______________________
+epoch: 2, 101/428 23.6%, 0.039 s per iter, lr: 0.0005
+  cl_xw loss: 0.415, accu: 83.4, f1: 81.8; 
+  cl_w loss: 1.026, accu: 46.4, f1: 40.2; 
+______________________
+epoch: 2, 201/428 47.0%, 0.039 s per iter, lr: 0.0006
+  cl_xw loss: 0.364, accu: 85.6, f1: 84.2; 
+  cl_w loss: 1.019, accu: 47.3, f1: 41.9; 
+______________________
+epoch: 2, 301/428 70.3%, 0.039 s per iter, lr: 0.0007
+  cl_xw loss: 0.323, accu: 87.2, f1: 86.0; 
+  cl_w loss: 1.012, accu: 48.0, f1: 43.2; 
+______________________
+epoch: 2, 401/428 93.7%, 0.039 s per iter, lr: 0.0008
+  cl_xw loss: 0.292, accu: 88.5, f1: 87.4; 
+  cl_w loss: 1.008, accu: 48.6, f1: 44.2; 
+______________________
+run validation...
+in training mode: 0
+epoch: 2, lr: 1.0000
+  cl_xw loss: 1.062, accu: 74.6, f1: 73.9; 
+  cl_w loss: 0.971, accu: 52.2, f1: 51.0; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 3, 1/428 0.2%, 0.001 s per iter, lr: 0.0008
+  cl_xw loss: 0.286, accu: 88.8, f1: 87.7; 
+  cl_w loss: 1.006, accu: 48.7, f1: 44.5; 
+______________________
+epoch: 3, 101/428 23.6%, 0.039 s per iter, lr: 0.0007
+  cl_xw loss: 0.261, accu: 89.7, f1: 88.8; 
+  cl_w loss: 0.999, accu: 49.4, f1: 45.5; 
+______________________
+epoch: 3, 201/428 47.0%, 0.039 s per iter, lr: 0.0007
+  cl_xw loss: 0.240, accu: 90.6, f1: 89.7; 
+  cl_w loss: 0.993, accu: 49.9, f1: 46.3; 
+______________________
+epoch: 3, 301/428 70.3%, 0.039 s per iter, lr: 0.0007
+  cl_xw loss: 0.222, accu: 91.3, f1: 90.5; 
+  cl_w loss: 0.989, accu: 50.4, f1: 47.0; 
+______________________
+epoch: 3, 401/428 93.7%, 0.040 s per iter, lr: 0.0006
+  cl_xw loss: 0.206, accu: 91.9, f1: 91.2; 
+  cl_w loss: 0.985, accu: 50.8, f1: 47.6; 
+______________________
+run validation...
+in training mode: 0
+epoch: 3, lr: 1.0000
+  cl_xw loss: 1.507, accu: 78.7, f1: 78.0; 
+  cl_w loss: 0.944, accu: 53.6, f1: 53.2; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 4, 1/428 0.2%, 0.000 s per iter, lr: 0.0006
+  cl_xw loss: 0.202, accu: 92.1, f1: 91.4; 
+  cl_w loss: 0.983, accu: 50.9, f1: 47.8; 
+______________________
+epoch: 4, 101/428 23.6%, 0.039 s per iter, lr: 0.0006
+  cl_xw loss: 0.189, accu: 92.6, f1: 92.0; 
+  cl_w loss: 0.977, accu: 51.4, f1: 48.4; 
+______________________
+epoch: 4, 201/428 47.0%, 0.040 s per iter, lr: 0.0006
+  cl_xw loss: 0.178, accu: 93.1, f1: 92.5; 
+  cl_w loss: 0.972, accu: 51.8, f1: 49.0; 
+______________________
+epoch: 4, 301/428 70.3%, 0.039 s per iter, lr: 0.0005
+  cl_xw loss: 0.168, accu: 93.5, f1: 92.9; 
+  cl_w loss: 0.968, accu: 52.1, f1: 49.4; 
+______________________
+epoch: 4, 401/428 93.7%, 0.039 s per iter, lr: 0.0005
+  cl_xw loss: 0.159, accu: 93.8, f1: 93.3; 
+  cl_w loss: 0.964, accu: 52.5, f1: 49.9; 
+______________________
+run validation...
+in training mode: 0
+epoch: 4, lr: 1.0000
+  cl_xw loss: 1.545, accu: 78.5, f1: 78.2; 
+  cl_w loss: 0.932, accu: 54.3, f1: 53.0; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 5, 1/428 0.2%, 0.000 s per iter, lr: 0.0005
+  cl_xw loss: 0.157, accu: 93.9, f1: 93.4; 
+  cl_w loss: 0.963, accu: 52.6, f1: 50.0; 
+______________________
+epoch: 5, 101/428 23.6%, 0.039 s per iter, lr: 0.0005
+  cl_xw loss: 0.149, accu: 94.2, f1: 93.7; 
+  cl_w loss: 0.958, accu: 52.9, f1: 50.5; 
+______________________
+epoch: 5, 201/428 47.0%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.142, accu: 94.5, f1: 94.0; 
+  cl_w loss: 0.954, accu: 53.3, f1: 50.9; 
+______________________
+epoch: 5, 301/428 70.3%, 0.039 s per iter, lr: 0.0005
+  cl_xw loss: 0.135, accu: 94.7, f1: 94.3; 
+  cl_w loss: 0.950, accu: 53.6, f1: 51.3; 
+______________________
+epoch: 5, 401/428 93.7%, 0.039 s per iter, lr: 0.0005
+  cl_xw loss: 0.129, accu: 95.0, f1: 94.5; 
+  cl_w loss: 0.947, accu: 53.9, f1: 51.7; 
+______________________
+run validation...
+in training mode: 0
+epoch: 5, lr: 1.0000
+  cl_xw loss: 1.642, accu: 81.1, f1: 80.8; 
+  cl_w loss: 0.932, accu: 55.6, f1: 55.0; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 6, 1/428 0.2%, 0.000 s per iter, lr: 0.0005
+  cl_xw loss: 0.128, accu: 95.0, f1: 94.6; 
+  cl_w loss: 0.946, accu: 53.9, f1: 51.7; 
+______________________
+epoch: 6, 101/428 23.6%, 0.039 s per iter, lr: 0.0005
+  cl_xw loss: 0.122, accu: 95.3, f1: 94.9; 
+  cl_w loss: 0.942, accu: 54.2, f1: 52.1; 
+______________________
+epoch: 6, 201/428 47.0%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.117, accu: 95.4, f1: 95.1; 
+  cl_w loss: 0.938, accu: 54.5, f1: 52.4; 
+______________________
+epoch: 6, 301/428 70.3%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.113, accu: 95.6, f1: 95.2; 
+  cl_w loss: 0.935, accu: 54.7, f1: 52.7; 
+______________________
+epoch: 6, 401/428 93.7%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.109, accu: 95.8, f1: 95.4; 
+  cl_w loss: 0.932, accu: 55.0, f1: 53.0; 
+______________________
+run validation...
+in training mode: 0
+epoch: 6, lr: 1.0000
+  cl_xw loss: 1.735, accu: 79.8, f1: 79.5; 
+  cl_w loss: 0.925, accu: 55.1, f1: 54.4; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 7, 1/428 0.2%, 0.000 s per iter, lr: 0.0004
+  cl_xw loss: 0.108, accu: 95.8, f1: 95.5; 
+  cl_w loss: 0.931, accu: 55.0, f1: 53.1; 
+______________________
+epoch: 7, 101/428 23.6%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.104, accu: 96.0, f1: 95.6; 
+  cl_w loss: 0.927, accu: 55.3, f1: 53.4; 
+______________________
+epoch: 7, 201/428 47.0%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.100, accu: 96.1, f1: 95.8; 
+  cl_w loss: 0.924, accu: 55.5, f1: 53.6; 
+______________________
+epoch: 7, 301/428 70.3%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.097, accu: 96.2, f1: 95.9; 
+  cl_w loss: 0.921, accu: 55.7, f1: 53.9; 
+______________________
+epoch: 7, 401/428 93.7%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.094, accu: 96.4, f1: 96.0; 
+  cl_w loss: 0.919, accu: 55.9, f1: 54.1; 
+______________________
+run validation...
+in training mode: 0
+epoch: 7, lr: 1.0000
+  cl_xw loss: 1.802, accu: 79.2, f1: 78.7; 
+  cl_w loss: 0.922, accu: 55.9, f1: 55.4; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 8, 1/428 0.2%, 0.000 s per iter, lr: 0.0004
+  cl_xw loss: 0.093, accu: 96.4, f1: 96.1; 
+  cl_w loss: 0.918, accu: 56.0, f1: 54.2; 
+______________________
+epoch: 8, 101/428 23.6%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.090, accu: 96.5, f1: 96.2; 
+  cl_w loss: 0.915, accu: 56.2, f1: 54.4; 
+______________________
+epoch: 8, 201/428 47.0%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.088, accu: 96.6, f1: 96.3; 
+  cl_w loss: 0.911, accu: 56.4, f1: 54.7; 
+______________________
+epoch: 8, 301/428 70.3%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.085, accu: 96.7, f1: 96.4; 
+  cl_w loss: 0.909, accu: 56.5, f1: 54.9; 
+______________________
+epoch: 8, 401/428 93.7%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.083, accu: 96.8, f1: 96.5; 
+  cl_w loss: 0.907, accu: 56.7, f1: 55.1; 
+______________________
+run validation...
+in training mode: 0
+epoch: 8, lr: 1.0000
+  cl_xw loss: 2.111, accu: 80.4, f1: 80.1; 
+  cl_w loss: 0.925, accu: 55.9, f1: 55.4; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 9, 1/428 0.2%, 0.000 s per iter, lr: 0.0004
+  cl_xw loss: 0.082, accu: 96.8, f1: 96.6; 
+  cl_w loss: 0.906, accu: 56.7, f1: 55.1; 
+______________________
+epoch: 9, 101/428 23.6%, 0.039 s per iter, lr: 0.0004
+  cl_xw loss: 0.080, accu: 96.9, f1: 96.6; 
+  cl_w loss: 0.903, accu: 56.9, f1: 55.3; 
+______________________
+epoch: 9, 201/428 47.0%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.078, accu: 97.0, f1: 96.7; 
+  cl_w loss: 0.901, accu: 57.1, f1: 55.5; 
+______________________
+epoch: 9, 301/428 70.3%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.076, accu: 97.1, f1: 96.8; 
+  cl_w loss: 0.899, accu: 57.2, f1: 55.7; 
+______________________
+epoch: 9, 401/428 93.7%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.074, accu: 97.1, f1: 96.9; 
+  cl_w loss: 0.896, accu: 57.3, f1: 55.8; 
+______________________
+run validation...
+in training mode: 0
+epoch: 9, lr: 1.0000
+  cl_xw loss: 2.782, accu: 78.7, f1: 78.3; 
+  cl_w loss: 0.926, accu: 57.1, f1: 56.5; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 10, 1/428 0.2%, 0.000 s per iter, lr: 0.0003
+  cl_xw loss: 0.073, accu: 97.2, f1: 96.9; 
+  cl_w loss: 0.896, accu: 57.4, f1: 55.9; 
+______________________
+epoch: 10, 101/428 23.6%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.072, accu: 97.2, f1: 97.0; 
+  cl_w loss: 0.893, accu: 57.6, f1: 56.1; 
+______________________
+epoch: 10, 201/428 47.0%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.070, accu: 97.3, f1: 97.1; 
+  cl_w loss: 0.891, accu: 57.7, f1: 56.2; 
+______________________
+epoch: 10, 301/428 70.3%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.068, accu: 97.4, f1: 97.1; 
+  cl_w loss: 0.889, accu: 57.8, f1: 56.4; 
+______________________
+epoch: 10, 401/428 93.7%, 0.039 s per iter, lr: 0.0003
+  cl_xw loss: 0.067, accu: 97.4, f1: 97.2; 
+  cl_w loss: 0.887, accu: 58.0, f1: 56.6; 
+______________________
+run validation...
+in training mode: 0
+epoch: 10, lr: 1.0000
+  cl_xw loss: 2.259, accu: 79.3, f1: 78.9; 
+  cl_w loss: 0.915, accu: 57.2, f1: 56.6; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+classifier1 pretraining done!
+classifier2 pretraining...
+layers.embed.weight torch.Size([7024, 256])
+layers.encoder.rnn.weight_ih_l0 torch.Size([1536, 256])
+layers.encoder.rnn.weight_hh_l0 torch.Size([1536, 512])
+layers.encoder.rnn.bias_ih_l0 torch.Size([1536])
+layers.encoder.rnn.bias_hh_l0 torch.Size([1536])
+layers.encoder.rnn.weight_ih_l0_reverse torch.Size([1536, 256])
+layers.encoder.rnn.weight_hh_l0_reverse torch.Size([1536, 512])
+layers.encoder.rnn.bias_ih_l0_reverse torch.Size([1536])
+layers.encoder.rnn.bias_hh_l0_reverse torch.Size([1536])
+layers.word_encoder.rnn.weight_ih_l0 torch.Size([256, 256])
+layers.word_encoder.rnn.weight_hh_l0 torch.Size([256, 256])
+layers.word_encoder.rnn.bias_ih_l0 torch.Size([256])
+layers.word_encoder.rnn.bias_hh_l0 torch.Size([256])
+layers.word_encoder.rnn.weight_ih_l0_reverse torch.Size([256, 256])
+layers.word_encoder.rnn.weight_hh_l0_reverse torch.Size([256, 256])
+layers.word_encoder.rnn.bias_ih_l0_reverse torch.Size([256])
+layers.word_encoder.rnn.bias_hh_l0_reverse torch.Size([256])
+layers.cl_xw2.mlp.linear_0.weight torch.Size([512, 1536])
+layers.cl_xw2.mlp.linear_0.bias torch.Size([512])
+layers.cl_xw2.mlp.linear_1.weight torch.Size([128, 512])
+layers.cl_xw2.mlp.linear_1.bias torch.Size([128])
+layers.cl_xw2.mlp.linear_2.weight torch.Size([2, 128])
+layers.cl_xw2.mlp.linear_2.bias torch.Size([2])
+layers.cl_w2.mlp.linear_0.weight torch.Size([256, 512])
+layers.cl_w2.mlp.linear_0.bias torch.Size([256])
+layers.cl_w2.mlp.linear_1.weight torch.Size([64, 256])
+layers.cl_w2.mlp.linear_1.bias torch.Size([64])
+layers.cl_w2.mlp.linear_2.weight torch.Size([2, 64])
+layers.cl_w2.mlp.linear_2.bias torch.Size([2])
+params num: 29
+building data for classifier, factor_id: 2 ...
+482081
+34210
+train batch num: 318
+valid batch num: 17
+epoch: 1, 1/318 0.3%, 0.001 s per iter, lr: 0.0000
+  cl_xw loss: 0.697, accu: 39.1, f1: 34.4; 
+  cl_w loss: 0.709, accu: 40.6, f1: 30.9; 
+______________________
+epoch: 1, 101/318 31.8%, 0.040 s per iter, lr: 0.0001
+  cl_xw loss: 0.681, accu: 56.9, f1: 53.6; 
+  cl_w loss: 0.693, accu: 50.2, f1: 43.7; 
+______________________
+epoch: 1, 201/318 63.2%, 0.040 s per iter, lr: 0.0002
+  cl_xw loss: 0.622, accu: 64.5, f1: 62.4; 
+  cl_w loss: 0.690, accu: 52.6, f1: 44.4; 
+______________________
+epoch: 1, 301/318 94.7%, 0.040 s per iter, lr: 0.0003
+  cl_xw loss: 0.548, accu: 70.6, f1: 69.0; 
+  cl_w loss: 0.688, accu: 53.7, f1: 45.8; 
+______________________
+run validation...
+in training mode: 0
+epoch: 1, lr: 1.0000
+  cl_xw loss: 0.841, accu: 66.0, f1: 64.5; 
+  cl_w loss: 0.689, accu: 53.5, f1: 45.2; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 2, 1/318 0.3%, 0.000 s per iter, lr: 0.0003
+  cl_xw loss: 0.534, accu: 71.6, f1: 70.1; 
+  cl_w loss: 0.688, accu: 53.7, f1: 45.7; 
+______________________
+epoch: 2, 101/318 31.8%, 0.041 s per iter, lr: 0.0004
+  cl_xw loss: 0.445, accu: 77.0, f1: 75.9; 
+  cl_w loss: 0.687, accu: 54.2, f1: 47.2; 
+______________________
+epoch: 2, 201/318 63.2%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.375, accu: 80.9, f1: 80.0; 
+  cl_w loss: 0.686, accu: 54.6, f1: 48.2; 
+______________________
+epoch: 2, 301/318 94.7%, 0.040 s per iter, lr: 0.0006
+  cl_xw loss: 0.323, accu: 83.7, f1: 82.9; 
+  cl_w loss: 0.685, accu: 54.8, f1: 48.9; 
+______________________
+run validation...
+in training mode: 0
+epoch: 2, lr: 1.0000
+  cl_xw loss: 1.443, accu: 64.5, f1: 63.8; 
+  cl_w loss: 0.685, accu: 56.9, f1: 54.8; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 3, 1/318 0.3%, 0.000 s per iter, lr: 0.0006
+  cl_xw loss: 0.316, accu: 84.1, f1: 83.3; 
+  cl_w loss: 0.685, accu: 54.9, f1: 49.1; 
+______________________
+epoch: 3, 101/318 31.8%, 0.040 s per iter, lr: 0.0007
+  cl_xw loss: 0.280, accu: 86.0, f1: 85.4; 
+  cl_w loss: 0.683, accu: 55.5, f1: 50.2; 
+______________________
+epoch: 3, 201/318 63.2%, 0.040 s per iter, lr: 0.0008
+  cl_xw loss: 0.253, accu: 87.5, f1: 86.9; 
+  cl_w loss: 0.682, accu: 55.7, f1: 50.7; 
+______________________
+epoch: 3, 301/318 94.7%, 0.040 s per iter, lr: 0.0007
+  cl_xw loss: 0.230, accu: 88.7, f1: 88.1; 
+  cl_w loss: 0.682, accu: 55.9, f1: 51.3; 
+______________________
+run validation...
+in training mode: 0
+epoch: 3, lr: 1.0000
+  cl_xw loss: 1.792, accu: 69.8, f1: 68.8; 
+  cl_w loss: 0.686, accu: 57.4, f1: 56.6; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 4, 1/318 0.3%, 0.001 s per iter, lr: 0.0007
+  cl_xw loss: 0.226, accu: 88.9, f1: 88.3; 
+  cl_w loss: 0.682, accu: 56.0, f1: 51.4; 
+______________________
+epoch: 4, 101/318 31.8%, 0.040 s per iter, lr: 0.0007
+  cl_xw loss: 0.207, accu: 89.8, f1: 89.4; 
+  cl_w loss: 0.680, accu: 56.4, f1: 52.1; 
+______________________
+epoch: 4, 201/318 63.2%, 0.040 s per iter, lr: 0.0007
+  cl_xw loss: 0.192, accu: 90.6, f1: 90.2; 
+  cl_w loss: 0.679, accu: 56.5, f1: 52.4; 
+______________________
+epoch: 4, 301/318 94.7%, 0.040 s per iter, lr: 0.0006
+  cl_xw loss: 0.179, accu: 91.3, f1: 90.9; 
+  cl_w loss: 0.678, accu: 56.7, f1: 52.8; 
+______________________
+run validation...
+in training mode: 0
+epoch: 4, lr: 1.0000
+  cl_xw loss: 1.921, accu: 68.3, f1: 67.6; 
+  cl_w loss: 0.687, accu: 56.6, f1: 55.7; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 5, 1/318 0.3%, 0.000 s per iter, lr: 0.0006
+  cl_xw loss: 0.176, accu: 91.4, f1: 91.0; 
+  cl_w loss: 0.678, accu: 56.8, f1: 52.9; 
+______________________
+epoch: 5, 101/318 31.8%, 0.040 s per iter, lr: 0.0006
+  cl_xw loss: 0.165, accu: 92.0, f1: 91.6; 
+  cl_w loss: 0.676, accu: 57.2, f1: 53.5; 
+______________________
+epoch: 5, 201/318 63.2%, 0.040 s per iter, lr: 0.0006
+  cl_xw loss: 0.155, accu: 92.5, f1: 92.1; 
+  cl_w loss: 0.675, accu: 57.4, f1: 53.9; 
+______________________
+epoch: 5, 301/318 94.7%, 0.041 s per iter, lr: 0.0006
+  cl_xw loss: 0.146, accu: 92.9, f1: 92.6; 
+  cl_w loss: 0.674, accu: 57.6, f1: 54.2; 
+______________________
+run validation...
+in training mode: 0
+epoch: 5, lr: 1.0000
+  cl_xw loss: 1.985, accu: 63.7, f1: 62.6; 
+  cl_w loss: 0.679, accu: 57.8, f1: 55.3; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 6, 1/318 0.3%, 0.000 s per iter, lr: 0.0005
+  cl_xw loss: 0.145, accu: 93.0, f1: 92.7; 
+  cl_w loss: 0.674, accu: 57.6, f1: 54.2; 
+______________________
+epoch: 6, 101/318 31.8%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.137, accu: 93.4, f1: 93.1; 
+  cl_w loss: 0.672, accu: 57.9, f1: 54.7; 
+______________________
+epoch: 6, 201/318 63.2%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.130, accu: 93.7, f1: 93.5; 
+  cl_w loss: 0.670, accu: 58.2, f1: 55.0; 
+______________________
+epoch: 6, 301/318 94.7%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.123, accu: 94.1, f1: 93.8; 
+  cl_w loss: 0.670, accu: 58.4, f1: 55.3; 
+______________________
+run validation...
+in training mode: 0
+epoch: 6, lr: 1.0000
+  cl_xw loss: 2.762, accu: 67.2, f1: 65.9; 
+  cl_w loss: 0.691, accu: 55.5, f1: 53.0; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 7, 1/318 0.3%, 0.001 s per iter, lr: 0.0005
+  cl_xw loss: 0.122, accu: 94.1, f1: 93.8; 
+  cl_w loss: 0.669, accu: 58.4, f1: 55.3; 
+______________________
+epoch: 7, 101/318 31.8%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.117, accu: 94.4, f1: 94.1; 
+  cl_w loss: 0.667, accu: 58.7, f1: 55.7; 
+______________________
+epoch: 7, 201/318 63.2%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.112, accu: 94.6, f1: 94.4; 
+  cl_w loss: 0.666, accu: 58.9, f1: 56.0; 
+______________________
+epoch: 7, 301/318 94.7%, 0.040 s per iter, lr: 0.0005
+  cl_xw loss: 0.107, accu: 94.9, f1: 94.6; 
+  cl_w loss: 0.665, accu: 59.1, f1: 56.3; 
+______________________
+run validation...
+in training mode: 0
+epoch: 7, lr: 1.0000
+  cl_xw loss: 2.634, accu: 66.6, f1: 65.2; 
+  cl_w loss: 0.693, accu: 57.1, f1: 54.5; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 8, 1/318 0.3%, 0.000 s per iter, lr: 0.0005
+  cl_xw loss: 0.106, accu: 94.9, f1: 94.7; 
+  cl_w loss: 0.665, accu: 59.1, f1: 56.3; 
+______________________
+epoch: 8, 101/318 31.8%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.102, accu: 95.1, f1: 94.9; 
+  cl_w loss: 0.662, accu: 59.4, f1: 56.7; 
+______________________
+epoch: 8, 201/318 63.2%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.098, accu: 95.3, f1: 95.1; 
+  cl_w loss: 0.661, accu: 59.6, f1: 56.9; 
+______________________
+epoch: 8, 301/318 94.7%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.095, accu: 95.5, f1: 95.3; 
+  cl_w loss: 0.660, accu: 59.7, f1: 57.2; 
+______________________
+run validation...
+in training mode: 0
+epoch: 8, lr: 1.0000
+  cl_xw loss: 2.612, accu: 67.8, f1: 67.0; 
+  cl_w loss: 0.711, accu: 56.9, f1: 55.5; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+epoch: 9, 1/318 0.3%, 0.000 s per iter, lr: 0.0004
+  cl_xw loss: 0.094, accu: 95.5, f1: 95.3; 
+  cl_w loss: 0.660, accu: 59.8, f1: 57.2; 
+______________________
+epoch: 9, 101/318 31.8%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.091, accu: 95.7, f1: 95.5; 
+  cl_w loss: 0.658, accu: 60.0, f1: 57.5; 
+______________________
+epoch: 9, 201/318 63.2%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.087, accu: 95.8, f1: 95.6; 
+  cl_w loss: 0.656, accu: 60.2, f1: 57.7; 
+______________________
+epoch: 9, 301/318 94.7%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.085, accu: 96.0, f1: 95.8; 
+  cl_w loss: 0.655, accu: 60.4, f1: 58.0; 
+______________________
+run validation...
+in training mode: 0
+epoch: 9, lr: 1.0000
+  cl_xw loss: 2.625, accu: 69.7, f1: 69.0; 
+  cl_w loss: 0.703, accu: 57.8, f1: 56.3; 
+______________________
+validation Done: 1
+shuffle data...
+epoch: 10, 1/318 0.3%, 0.000 s per iter, lr: 0.0004
+  cl_xw loss: 0.084, accu: 96.0, f1: 95.8; 
+  cl_w loss: 0.655, accu: 60.4, f1: 58.0; 
+______________________
+epoch: 10, 101/318 31.8%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.082, accu: 96.1, f1: 95.9; 
+  cl_w loss: 0.653, accu: 60.6, f1: 58.3; 
+______________________
+epoch: 10, 201/318 63.2%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.079, accu: 96.2, f1: 96.1; 
+  cl_w loss: 0.652, accu: 60.8, f1: 58.5; 
+______________________
+epoch: 10, 301/318 94.7%, 0.040 s per iter, lr: 0.0004
+  cl_xw loss: 0.077, accu: 96.4, f1: 96.2; 
+  cl_w loss: 0.650, accu: 61.0, f1: 58.7; 
+______________________
+run validation...
+in training mode: 0
+epoch: 10, lr: 1.0000
+  cl_xw loss: 2.820, accu: 67.9, f1: 66.7; 
+  cl_w loss: 0.715, accu: 57.3, f1: 55.5; 
+______________________
+validation Done: 1
+saving model...
+shuffle data...
+classifier2 pretraining done!
+restore checkpoint from ../checkpoint/model_ckpt_cl2_10e.tar
+loading...
+load state dic, params: 141...
+checkpoint exsits! directly recover!
+building data for mixpoet...
+482081
+34210
+train batch num: 3767
+valid batch num: 268
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 垂杨
+trg: 一春寒卧拥香篝|每恨东风吹满楼|故遣垂杨与垂柳|千丝万缕搅人愁
+out_post: 书炉炉号|张灯五||
+out_prior: 声驼城东头|浇灌圣几何|耆今静里相|将扣寒参过
+
+epoch: 1, 1/3767 0.0%, 0.001 s per iter, lr: 0.0000, tr: 1.00, tau: 0.999, noise: 1.000
+  ppl:42914257.0, rec loss: 17.575, entropy loss: -0.074, cl loss w: 1.891, cl loss xw: 0.000
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 朝朝
+trg: 饮酒成诗二十篇|诗成多在菊花边|秋英掇取枝头露|想见朝朝起卯前
+out_post: 春人千峰已更云|欲思蓬莱放花朝|千风独夜须南玉|未是元王作故人
+out_prior: 风柳千枝起|仙子飘飖已著萍|午夜香魂同醉日|金丝怅望荷从心
+
+epoch: 1, 201/3767 5.3%, 0.139 s per iter, lr: 0.0000, tr: 1.00, tau: 0.857, noise: 1.000
+  ppl:41852.1, rec loss: 10.642, entropy loss: -0.094, cl loss w: 1.818, cl loss xw: 0.139
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 垂
+trg: 剖心青掌露|蓬首紫髯垂|花孕鱼堪馔|枝重鸟不窥
+out_post: 白水数苔上|一片欲云刀|欲落寒龙起|不头不作知
+out_prior: 高卧长安无|胡儿似故乡|挺仙还可笑|捷马可怜然
+
+epoch: 1, 401/3767 10.6%, 0.137 s per iter, lr: 0.0001, tr: 1.00, tau: 0.735, noise: 1.000
+  ppl:3262.7, rec loss: 8.090, entropy loss: -0.178, cl loss w: 1.768, cl loss xw: 0.142
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 嶙峋
+trg: 千峰遥望碧嶙峋|正忆绳床偃卧人|莫倚岩窗轻郡郭|相看都未是闲身
+out_post: 山峰山望石云峋|一是山中一蹇闲|不见此前无相事|不逢不是有闲人
+out_prior: 此兴相逢喜别|那堪嫌相人|便应林外草相疏|闲泛乘舟泛小舟
+
+epoch: 1, 601/3767 16.0%, 0.133 s per iter, lr: 0.0001, tr: 1.00, tau: 0.630, noise: 1.000
+  ppl:1089.9, rec loss: 6.994, entropy loss: -0.257, cl loss w: 1.752, cl loss xw: 0.149
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 感慨
+trg: 誓酒应须立志坚|波流逐逐岂其然|一时感慨无难事|老叔今逾四十年
+out_post: 一酒相须更战平|一心不客古心生|一心万慨今心事|一夜流传泪百年
+out_prior: 日日初无利目烽|精神顿觉战尘中|料应筦骨无边事|料得精神毕竟功
+
+epoch: 1, 801/3767 21.3%, 0.136 s per iter, lr: 0.0001, tr: 1.00, tau: 0.541, noise: 1.000
+  ppl:569.9, rec loss: 6.345, entropy loss: -0.312, cl loss w: 1.746, cl loss xw: 0.150
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 归客
+trg: 澹澹烟波南浦春|临流挥手易沾巾|啼鹃不解留归客|岸柳偏能送去人
+out_post: 翠泊烟波春浦春|青风一泪向成巾|春莺自为寻春去|不柳无多不酒人
+out_prior: 春风一长长|春色遥岑春尚传|春风遥岑渺茫茫|孤云渺渺烟濛翠
+
+epoch: 1, 1001/3767 26.6%, 0.137 s per iter, lr: 0.0001, tr: 1.00, tau: 0.464, noise: 1.000
+  ppl:366.1, rec loss: 5.903, entropy loss: -0.350, cl loss w: 1.743, cl loss xw: 0.149
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 经行
+trg: 旧花一一斩新春|慰荐经行自在身|且使缓开常照眼|莫教轻堕恐伤神
+out_post: 此花不日见新君|自我花年亦在心|莫莫眼花难不睫|不教憔苦不堪心
+out_prior: 我问京朝归去迟|悔将身世去还归|却言汉帝今何处|白首关山今几何
+
+epoch: 1, 1201/3767 31.9%, 0.136 s per iter, lr: 0.0002, tr: 1.00, tau: 0.398, noise: 1.000
+  ppl:261.4, rec loss: 5.566, entropy loss: -0.376, cl loss w: 1.742, cl loss xw: 0.147
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 主人
+trg: 主人骨相花难比|折赠双花副丽辞|为报此花香第一|何须铅粉巧妆褫
+out_post: 主人相肉似相胜|花得花花似似妆|若是阿娇相似蜜|可须花粉并相婆
+out_prior: 长门远草长须臾|一旦良晨早使知|何日东家早知己|何年方朔博黄河
+
+epoch: 1, 1401/3767 37.2%, 0.136 s per iter, lr: 0.0002, tr: 1.00, tau: 0.341, noise: 1.000
+  ppl:198.3, rec loss: 5.290, entropy loss: -0.397, cl loss w: 1.742, cl loss xw: 0.143
+  dis loss: 0.000, adv loss: 0.000, latent dist: 0.000, factors dist: 0.000
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: 0
+key: 童子
+trg: 山中好处无人别|涧梅伪作山中雪|野客相逢夜不眠|山中童子烧松节
+out_post: 山中好景无人迹|山水山山山更看|山中不逢不我还|留童留子留黄子
+out_prior: 宝髻垂杨拥万条|监门曾目目三都|陈空万里今重见|杨柳空阶一倍伤
+
+epoch: 1, 1601/3767 42.5%, 0.263 s per iter, lr: 0.0002, tr: 1.00, tau: 0.293, noise: 0.296
+  ppl:156.9, rec loss: 5.056, entropy loss: -0.414, cl loss w: 1.741, cl loss xw: 0.141
+  dis loss: 0.542, adv loss: 0.921, latent dist: 21.684, factors dist: 22.790
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 弟子
+trg: 玉女泉边翠藻多|石池涵影媚宫娥|可怜绣岭啼春鸟|犹似梨园弟子歌
+out_post: 玉女瑶流竹羽裳|玉梁兰芷似名娥|玉怜白段春春色|犹似蛾园怨子悲
+out_prior: 清气爽人兴未成|高楼高士尚成名|金陵门外非堪覆|何日为君问大招
+
+epoch: 1, 1801/3767 47.8%, 0.384 s per iter, lr: 0.0002, tr: 1.00, tau: 0.251, noise: 0.289
+  ppl:128.2, rec loss: 4.854, entropy loss: -0.428, cl loss w: 1.742, cl loss xw: 0.137
+  dis loss: 0.268, adv loss: 1.953, latent dist: 23.047, factors dist: 22.755
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 画屏
+trg: 平生意气压曹瞒|却为夫人鬓作斑|堂上横刀何足问|五兵只在画屏间
+out_post: 何生有气著人瞒|试作曹瞒作石斑|试上石戈何处道|画人犹在画图间
+out_prior: 雪后南窗捲地寒|冻花飞入玉窗寒|地来二寸飘零乱|马上无人得梦难
+
+epoch: 1, 2001/3767 53.1%, 0.385 s per iter, lr: 0.0003, tr: 1.00, tau: 0.215, noise: 0.282
+  ppl:107.3, rec loss: 4.676, entropy loss: -0.440, cl loss w: 1.743, cl loss xw: 0.134
+  dis loss: 0.173, adv loss: 2.839, latent dist: 24.964, factors dist: 22.761
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 秋雨
+trg: 舍南舍北逢秋雨|十日相望不出门|闻自新凉罢汤熨|秖今含哺弄儿孙
+out_post: 北南北望离离色|昨日相看恰入门|昨说新声兼新雨|那闻谁遣竹精裙
+out_prior: 飞扬出郭似流云|归日微风得雨还|一笑长驱归似草|归来应似郭王心
+
+epoch: 1, 2201/3767 58.4%, 0.386 s per iter, lr: 0.0003, tr: 1.00, tau: 0.185, noise: 0.275
+  ppl:91.6, rec loss: 4.517, entropy loss: -0.450, cl loss w: 1.744, cl loss xw: 0.132
+  dis loss: 0.131, adv loss: 3.415, latent dist: 25.453, factors dist: 22.777
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 烛花
+trg: 东阁小诗书梦破|后堂残醉烛花明|春风客散茶香在|寂寞人间万古情
+out_post: 小烛读诗诗画后|梅人花月照花香|香风吹散香香梦|寂寞人间万古情
+out_prior: 万象曾来自一珍|此泓相见秀澄潭|胸中此理无多惜|一一枝头一个由
+
+epoch: 1, 2401/3767 63.7%, 0.389 s per iter, lr: 0.0003, tr: 1.00, tau: 0.158, noise: 0.268
+  ppl:79.7, rec loss: 4.379, entropy loss: -0.459, cl loss w: 1.745, cl loss xw: 0.131
+  dis loss: 0.113, adv loss: 3.630, latent dist: 26.107, factors dist: 22.786
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 草色
+trg: 刻桷朱楹堕绀纱|裙腰草色趁阶斜|谁知剥落亭中石|曾听宣和玉树花
+out_post: 手手朱丝草绛纱|草堂风树转谁邪|谁知玉啄西前树|曾听红和树树花
+out_prior: 吐吞寒轮照斜晖|且看千古孰之归|孔丘扪目方丈室|方孰求之何必归
+
+epoch: 1, 2601/3767 69.0%, 0.386 s per iter, lr: 0.0003, tr: 1.00, tau: 0.136, noise: 0.261
+  ppl:70.8, rec loss: 4.260, entropy loss: -0.466, cl loss w: 1.745, cl loss xw: 0.133
+  dis loss: 0.095, adv loss: 3.929, latent dist: 26.705, factors dist: 22.798
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 炎凉
+trg: 炎凉苍狗变|光景白驹驰|忽见镜中者|惊询汝是谁
+out_post: 炎炎尘狗变|岁晚逐云驰|正觉惊中散|惊鸥彼自谁
+out_prior: 登君出汉王|回首俯湖海|雄豪气满身|俯仰垂扬客
+
+epoch: 1, 2801/3767 74.4%, 0.388 s per iter, lr: 0.0004, tr: 1.00, tau: 0.117, noise: 0.254
+  ppl:63.6, rec loss: 4.153, entropy loss: -0.472, cl loss w: 1.747, cl loss xw: 0.133
+  dis loss: 0.085, adv loss: 4.092, latent dist: 27.370, factors dist: 22.830
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 罗裙
+trg: 十年闭户不作舞|为客一整红罗裙|莫倚琵琶解写怨|朱帘垂下阿谁闻
+out_post: 十年不作不容花|醉把红尊红裙裙|莫把尊琶莫颜处|绿门对下闻谁闻
+out_prior: 山林寺外云山寺|客去风沙系马还|远客苍苔系孤月|我来还欲到苍苔
+
+epoch: 1, 3001/3767 79.7%, 0.385 s per iter, lr: 0.0004, tr: 1.00, tau: 0.100, noise: 0.247
+  ppl:58.1, rec loss: 4.062, entropy loss: -0.477, cl loss w: 1.747, cl loss xw: 0.133
+  dis loss: 0.081, adv loss: 4.113, latent dist: 28.841, factors dist: 22.858
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 枝
+trg: 林阜玉参差|寒乌千万斯|直疑飞绕处|错认月明枝
+out_post: 青汉万何之|孤空万万枝|直须空上鹤|直见雪枝枝
+out_prior: 雷霆不敢敲|白石白如蛇|吾以伯牙齿|何以从此家
+
+epoch: 1, 3201/3767 85.0%, 0.384 s per iter, lr: 0.0004, tr: 1.00, tau: 0.086, noise: 0.240
+  ppl:54.2, rec loss: 3.993, entropy loss: -0.480, cl loss w: 1.748, cl loss xw: 0.140
+  dis loss: 0.078, adv loss: 4.108, latent dist: 31.128, factors dist: 22.879
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 倚
+trg: 金阁倚云开|朱轩犯雪来|三冬辛苦样|天意似难栽
+out_post: 金阁倚云开|金盘看雪来|金冬无限护|为遣为裴开
+out_prior: 不放晓风起|小窗还自间|一般风似洗|谁与写相关
+
+epoch: 1, 3401/3767 90.3%, 0.388 s per iter, lr: 0.0005, tr: 1.00, tau: 0.074, noise: 0.233
+  ppl:51.3, rec loss: 3.937, entropy loss: -0.483, cl loss w: 1.748, cl loss xw: 0.146
+  dis loss: 0.078, adv loss: 4.054, latent dist: 36.403, factors dist: 22.978
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 痴云
+trg: 化工错玉满京都|尚有痴云似积酥|马上官人冻颜赤|拥炉还羡老生无
+out_post: 化工玉认在衣裳|却见山顽著雪天|晓起罗山浑初起|试衣顽被老人生
+out_prior: 赠君千里赠诗情|赠得湘娥句未成|赠得青梅枝上月|绿缄深处有馀生
+
+epoch: 1, 3601/3767 95.6%, 0.386 s per iter, lr: 0.0005, tr: 1.00, tau: 0.063, noise: 0.226
+  ppl:49.0, rec loss: 3.891, entropy loss: -0.485, cl loss w: 1.748, cl loss xw: 0.152
+  dis loss: 0.080, adv loss: 3.967, latent dist: 37.451, factors dist: 22.990
+______________________
+run validation...
+in training mode: 0
+epoch: 1, lr: 0.001, tr: 0.85, tau: 1.000, noise: 0.220
+  ppl:23.0, rec loss: 3.134, entropy loss: -0.507, cl loss w: 1.764, cl loss xw: 1.733
+  dis loss: 0.308, adv loss: 1.753
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 春梦
+trg: 诗人常说岭头梅|往往春风自此来|我到岭头都不见|空将春梦又空回
+out_post: 诗诗诗作雪头梅|诗事春风到此来|诗到黄头犹不得|春馀春梦到春回
+out_prior: 两日将军换夏机|海棠初遣野人衣|从来好鸟知无数|春草惊飞不是家
+
+epoch: 2, 1/3767 0.0%, 0.006 s per iter, lr: 0.0005, tr: 1.00, tau: 0.055, noise: 0.220
+  ppl:47.5, rec loss: 3.862, entropy loss: -0.487, cl loss w: 1.749, cl loss xw: 0.160
+  dis loss: 0.083, adv loss: 3.904, latent dist: 39.438, factors dist: 23.003
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 玉笋
+trg: 聊辍清都玉笋班|虎符犹得控荆蛮|已见五溪谈笑了|坐追九辨典刑还
+out_post: 飞检三班五案班|九丘犹喜九尘关|九收九百收已已|未久未鼎未衣还
+out_prior: 一作家山作雨催|堂堂深处见多愁|十年不作长门泪|为作寒窗法化存
+
+epoch: 2, 201/3767 5.3%, 0.389 s per iter, lr: 0.0005, tr: 1.00, tau: 0.048, noise: 0.213
+  ppl:45.4, rec loss: 3.816, entropy loss: -0.490, cl loss w: 1.750, cl loss xw: 0.164
+  dis loss: 0.089, adv loss: 3.805, latent dist: 42.382, factors dist: 23.020
+______________________
+factor1 label: 1
+factor2 label: 0
+key: 残雪
+trg: 禅客无心杖锡还|沃洲深处草堂闲|身随敝屦经残雪|手绽寒衣入旧山
+out_post: 江里心心任屦还|孤江深处是鞋深|孤随俗屦随霜雪|雪扫霜衣带旧山
+out_prior: 红叶不闻江上客|白头谁复似秋风|短篷短艇不成寐|风雨打鱼何处是
+
+epoch: 2, 401/3767 10.6%, 0.406 s per iter, lr: 0.0006, tr: 1.00, tau: 0.041, noise: 0.206
+  ppl:43.7, rec loss: 3.778, entropy loss: -0.492, cl loss w: 1.750, cl loss xw: 0.168
+  dis loss: 0.099, adv loss: 3.690, latent dist: 47.441, factors dist: 23.054
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 好音
+trg: 好音终在耻争先|谷外寒多故后迁|已过花时亦何恨|不妨夏木绿参天
+out_post: 已生新日伏平平|晚口新山燕国情|不过不时不不事|不知直在过参天
+out_prior: 夜月青山小妇家|小园新月对床头|夜深灯火班班户|夜夜新𥬠入梦家
+
+epoch: 2, 601/3767 16.0%, 0.417 s per iter, lr: 0.0006, tr: 1.00, tau: 0.035, noise: 0.199
+  ppl:42.3, rec loss: 3.744, entropy loss: -0.493, cl loss w: 1.751, cl loss xw: 0.169
+  dis loss: 0.114, adv loss: 3.568, latent dist: 55.976, factors dist: 23.098
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 平芜
+trg: 九月淮天百草枯|晓分千骑猎平芜|弯弓射杀南山豹|归醉吴姬卖酒垆
+out_post: 九衢平边未战连|平晴晴骑已平川|黄弧未酒山山豹|买骑桃姬一酒钱
+out_prior: 青山寄语富人家|著我玄玄幻幻华|此处好乖酬酢会|可人寸寸可淹留
+
+epoch: 2, 801/3767 21.3%, 0.394 s per iter, lr: 0.0006, tr: 1.00, tau: 0.030, noise: 0.192
+  ppl:41.0, rec loss: 3.715, entropy loss: -0.496, cl loss w: 1.752, cl loss xw: 0.172
+  dis loss: 0.133, adv loss: 3.452, latent dist: 67.767, factors dist: 23.153
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 1
+key: 睢阳
+trg: 太息睢阳事|重围保障孤|兄公能死节|女子亦捐躯
+out_post: 保守徇阳地|千忧保障忧|男公能保母|子子徇徒躯
+out_prior: 谁家曾说妾|说妾不曾无|说与商家女|添他古母边
+
+epoch: 2, 1001/3767 26.6%, 0.374 s per iter, lr: 0.0006, tr: 1.00, tau: 0.026, noise: 0.185
+  ppl:40.0, rec loss: 3.689, entropy loss: -0.498, cl loss w: 1.752, cl loss xw: 0.174
+  dis loss: 0.149, adv loss: 3.346, latent dist: 88.509, factors dist: 23.251
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: 0
+key: 明年
+trg: 落潮洗鱼浦|倾荷枕驿楼|明年菊花熟|洛东泛觞游
+out_post: 饮花须酒浦|漂酒泛上楼|东朝泛花熟|泛浦泛酒来
+out_prior: 寒梢青石上|妙处不堪论|折得幽人立|苔痕仔细看
+
+epoch: 2, 1201/3767 31.9%, 0.367 s per iter, lr: 0.0007, tr: 1.00, tau: 0.022, noise: 0.178
+  ppl:39.2, rec loss: 3.668, entropy loss: -0.500, cl loss w: 1.753, cl loss xw: 0.175
+  dis loss: 0.163, adv loss: 3.261, latent dist: 114.552, factors dist: 23.313
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 他日
+trg: 投罾政尔不能逃|偶逭还遭别网要|此意岂能知数罟|不论他日且今朝
+out_post: 嗟言未尔不能言|举逭柯思死意余|此日不能当此日|此妨终日已其嗟
+out_prior: 散散芳洲生绿杨|问名场草种青青|生涯才子终须问|散着闲愁一犁锄
+
+epoch: 2, 1401/3767 37.2%, 0.387 s per iter, lr: 0.0007, tr: 1.00, tau: 0.019, noise: 0.171
+  ppl:38.4, rec loss: 3.649, entropy loss: -0.502, cl loss w: 1.754, cl loss xw: 0.177
+  dis loss: 0.172, adv loss: 3.201, latent dist: 154.277, factors dist: 23.355
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: 0
+key: 世事
+trg: 世事何反覆|一身难可料|头白翻折腰|还家私自笑
+out_post: 世事难难计|一笑首一笑|红白首红红|红有自自笑
+out_prior: 香酒袭人力|风声入户庭|幽香读书句|呼酒作山屏
+
+epoch: 2, 1601/3767 42.5%, 0.381 s per iter, lr: 0.0007, tr: 1.00, tau: 0.016, noise: 0.163
+  ppl:37.9, rec loss: 3.636, entropy loss: -0.504, cl loss w: 1.755, cl loss xw: 0.180
+  dis loss: 0.184, adv loss: 3.131, latent dist: 181.727, factors dist: 23.397
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 水滨
+trg: 为爱新秋至|朝来步水滨|微风犹未起|凉意满青苹
+out_post: 爱爱人人好|人来水白傍|白风犹未去|犹雨傍青苹
+out_prior: 尔尔扶桑梓|风餐尔解颐|万灵无所解|万种愧何如
+
+epoch: 2, 1801/3767 47.8%, 0.392 s per iter, lr: 0.0007, tr: 1.00, tau: 0.014, noise: 0.156
+  ppl:37.5, rec loss: 3.624, entropy loss: -0.505, cl loss w: 1.756, cl loss xw: 0.183
+  dis loss: 0.193, adv loss: 3.080, latent dist: 206.661, factors dist: 23.429
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 芳丛
+trg: 冰开池面初浮绿|日促花梢始破红|谩道春光来眼底|茫然无意对芳丛
+out_post: 镜霜霜涨涨浮雪|狂日乘飞看放狂|要道春光随去看|狂然一计换梅丛
+out_prior: 淮津勃窣间凡凡|行客行踪藻藻行|淮甸鱼鱼无别性|别离刺史百端须
+
+epoch: 2, 2001/3767 53.1%, 0.389 s per iter, lr: 0.0008, tr: 1.00, tau: 0.012, noise: 0.149
+  ppl:37.2, rec loss: 3.617, entropy loss: -0.507, cl loss w: 1.757, cl loss xw: 0.189
+  dis loss: 0.203, adv loss: 3.027, latent dist: 229.624, factors dist: 23.465
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 仙家
+trg: 还携国手出人间|洞里云封玉局闲|却道仙家无岁月|误他樵斧烂春山
+out_post: 长家洞室托柴间|洞口云封鹤洞班|却笑洞家住洞月|也他年斧却柯山
+out_prior: 托根新叶踏春衣|白露新花落翠微|焚罢焚香对山雨|春风已是雨花知
+
+epoch: 2, 2201/3767 58.4%, 0.388 s per iter, lr: 0.0008, tr: 1.00, tau: 0.010, noise: 0.142
+  ppl:37.2, rec loss: 3.616, entropy loss: -0.508, cl loss w: 1.758, cl loss xw: 0.198
+  dis loss: 0.214, adv loss: 2.974, latent dist: 239.419, factors dist: 23.499
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 宵征
+trg: 碧芦自愁绝|黄芦正枯折|宵征雁影孤|堕此桥下月
+out_post: 青芦自生乱|白叶乱枯脾|欲来拂鹜孤|危驴捉头吼
+out_prior: 日低寒伏枕|细雨滴青青|细雨新亭午|吟哦细细吟
+
+epoch: 2, 2401/3767 63.7%, 0.388 s per iter, lr: 0.0008, tr: 1.00, tau: 0.010, noise: 0.135
+  ppl:37.2, rec loss: 3.616, entropy loss: -0.509, cl loss w: 1.759, cl loss xw: 0.208
+  dis loss: 0.220, adv loss: 2.938, latent dist: 259.039, factors dist: 23.522
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 重山
+trg: 扑扑烟岚绕四阿|物华终恨未能多|故应陡起三千丈|始奈重山复岭何
+out_post: 破面山岚万郭山|朝华万日未全归|朝山山觉朝山里|却觉山来一自西
+out_prior: 九九生长九日开|九霄风土两皑皑|九霄觌面还相问|两脚袈裟遍九垓
+
+epoch: 2, 2601/3767 69.0%, 0.392 s per iter, lr: 0.0008, tr: 1.00, tau: 0.010, noise: 0.128
+  ppl:37.3, rec loss: 3.620, entropy loss: -0.509, cl loss w: 1.760, cl loss xw: 0.217
+  dis loss: 0.229, adv loss: 2.894, latent dist: 275.931, factors dist: 23.555
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 1
+key: 铜驼
+trg: 暮烽侦海边笳急|秋烧弥山宝物荒|玉队依然松柏老|铜驼零落泪双行
+out_post: 泪年侦泪泪门急|泪雨赤原四泪鲜|泪泪垂然依柏子|泪驼泪落旧痕行
+out_prior: 凤辇翩翩入帝京|惊人忽见化为惊|惊人忽见惊飞燕|散入尘埃化彩翎
+
+epoch: 2, 2801/3767 74.4%, 0.388 s per iter, lr: 0.0008, tr: 1.00, tau: 0.010, noise: 0.121
+  ppl:37.6, rec loss: 3.628, entropy loss: -0.510, cl loss w: 1.761, cl loss xw: 0.227
+  dis loss: 0.238, adv loss: 2.858, latent dist: 284.384, factors dist: 23.578
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 积水
+trg: 按节鸣笳中贵催|红旌白旆满船开|迎愁湓浦登城望|西见荆门积水来
+out_post: 暂节催笳怨夜羞|重妆劲马度庭头|明风不浦重高望|不望衡花望雪回
+out_prior: 牡丹花鸟去来看|百尺青苔藓晕斑|百尺青苔骑马去|牡丹花鸟正纷纷
+
+epoch: 2, 3001/3767 79.7%, 0.385 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.114
+  ppl:38.0, rec loss: 3.637, entropy loss: -0.511, cl loss w: 1.761, cl loss xw: 0.237
+  dis loss: 0.251, adv loss: 2.809, latent dist: 295.585, factors dist: 23.609
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 1
+key: 春草
+trg: 半岭松声樵客分|一溪春草鹿成群|采芝人入翠微去|丹灶石坛空白云
+out_post: 云岩残阴半采路|半枝深色满麋群|谁菱莫去长微处|听灶时泉人翠云
+out_prior: 丹心不是恋人衣|那得闲来问字诗|莫怪文章弹指点|紫芝飞上紫薇枝
+
+epoch: 2, 3201/3767 85.0%, 0.387 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.107
+  ppl:38.5, rec loss: 3.650, entropy loss: -0.511, cl loss w: 1.762, cl loss xw: 0.250
+  dis loss: 0.257, adv loss: 2.791, latent dist: 310.095, factors dist: 23.625
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 芦花
+trg: 芦花新有雁|四面水连天|清净非人世|吾诗咏不全
+out_post: 野花一绿酒|长面不茫天|不浅不吾世|长家不不传
+out_prior: 牛背看潮落|潮来鱼不鸣|危桥履无迹|趺坐听松声
+
+epoch: 2, 3401/3767 90.3%, 0.383 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.100
+  ppl:39.0, rec loss: 3.663, entropy loss: -0.512, cl loss w: 1.763, cl loss xw: 0.260
+  dis loss: 0.271, adv loss: 2.741, latent dist: 317.323, factors dist: 23.656
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 森森
+trg: 森森高节劲深深|绿发青衫万士林|应是主人看不足|就中谁解作龙吟
+out_post: 百森玉节凛如严|玉玉朱青不里心|不是玉人归不得|不中犹是曳仙吟
+out_prior: 双鬓双双双白鹭|儿童犹喜见新𥬠|儿童自是无人识|归去犹闻说旧游
+
+epoch: 2, 3601/3767 95.6%, 0.383 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.093
+  ppl:39.5, rec loss: 3.675, entropy loss: -0.512, cl loss w: 1.764, cl loss xw: 0.270
+  dis loss: 0.278, adv loss: 2.715, latent dist: 318.409, factors dist: 23.672
+______________________
+run validation...
+in training mode: 0
+epoch: 2, lr: 0.001, tr: 1.00, tau: 1.000, noise: 0.087
+  ppl:75.8, rec loss: 4.328, entropy loss: -0.526, cl loss w: 1.784, cl loss xw: 1.442
+  dis loss: 1.062, adv loss: 0.480
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 司马
+trg: 并列西京侍从多|吾丘司马岂同科|孤忠祇有囊书在|独见丁宁为偃戈
+out_post: 衮马乌湖第女军|却曹不马自徒科|却臣不自西书在|却有遗宁戒赋戈
+out_prior: 我欲从来不敢劳|天然心事已无馀|天教一夜传宣写|何必当年负圣朝
+
+epoch: 3, 1/3767 0.0%, 0.006 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.087
+  ppl:39.9, rec loss: 3.685, entropy loss: -0.512, cl loss w: 1.764, cl loss xw: 0.278
+  dis loss: 0.287, adv loss: 2.688, latent dist: 321.033, factors dist: 23.698
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 醉归
+trg: 祇应王母宴瑶池|宴罢群仙趁醉归|驾凤鞭鸾仍驭鹤|满空风捲羽毛飞
+out_post: 忆将天谢宴瑶池|月坐瑶仙逐月歌|风鹤霓笞云不寞|夜林风露凤仪飞
+out_prior: 古木槎牙泻浅泉|流泉流水与渔樵|菱歌不管人间世|更向虚空作酒缸
+
+epoch: 3, 201/3767 5.3%, 0.387 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.080
+  ppl:40.3, rec loss: 3.696, entropy loss: -0.513, cl loss w: 1.765, cl loss xw: 0.285
+  dis loss: 0.304, adv loss: 2.633, latent dist: 325.312, factors dist: 23.732
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 君王
+trg: 外戚封侯自有恩|平明通籍九华门|金唐公主年应小|二十君王未许婚
+out_post: 万国未书未有馀|此生何此是疑新|若陵未子多年在|未十年前万是身
+out_prior: 道人曾犯二三台|万里行人仗阿仪|不道二仙难进士|要须倾倒酹金瓯
+
+epoch: 3, 401/3767 10.6%, 0.388 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.073
+  ppl:40.7, rec loss: 3.706, entropy loss: -0.513, cl loss w: 1.765, cl loss xw: 0.292
+  dis loss: 0.309, adv loss: 2.605, latent dist: 324.578, factors dist: 23.756
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 头
+trg: 李蔡下中尔|万目指骞腾|何蕃头欲白|秋窗耿青灯
+out_post: 天白气南流|天里不天抟|天人天上白|天风倚耿冥
+out_prior: 夜深闻杵臼|夜夜月明杵|夜夜月明中|夜夜愁杀关
+
+epoch: 3, 601/3767 16.0%, 0.407 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.066
+  ppl:41.1, rec loss: 3.715, entropy loss: -0.514, cl loss w: 1.766, cl loss xw: 0.298
+  dis loss: 0.312, adv loss: 2.595, latent dist: 324.587, factors dist: 23.770
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 圆
+trg: 山泉酿出苦醅硬|野蔓生来酸子圆|此味不投甜世界|遣教参透石翁禅
+out_post: 山云石熟石嘈红|石服山来不不同|不地不能山底疾|不来人法法渠禅
+out_prior: 每为一别忘机事|便拟论交却得名|莫道忘机难妄想|且闲聊复一闲情
+
+epoch: 3, 801/3767 21.3%, 0.414 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.059
+  ppl:41.5, rec loss: 3.725, entropy loss: -0.514, cl loss w: 1.766, cl loss xw: 0.304
+  dis loss: 0.323, adv loss: 2.563, latent dist: 327.671, factors dist: 23.804
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 东门
+trg: 三忠祠在上东门|古道飞沙白日昏|唯有前朝松柏树|霜枝聊可赠王孙
+out_post: 五十持下五林城|万木长来日日新|何有黄身新下在|不毫先作报君孙
+out_prior: 松门日日月明中|人在烟波杳霭中|闻道幽人无觅处|隔溪烟树隔人间
+
+epoch: 3, 1001/3767 26.6%, 0.393 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.052
+  ppl:41.8, rec loss: 3.733, entropy loss: -0.515, cl loss w: 1.766, cl loss xw: 0.312
+  dis loss: 0.326, adv loss: 2.551, latent dist: 327.949, factors dist: 23.819
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 萧条
+trg: 大漠风悲青盖遥|七陵烟雨暮萧条|康王若得真龙驭|肯向钱塘问海潮
+out_post: 一地平沙花草岸|春星春树过云萧|东衢不问知如种|莫为东塘买钓潮
+out_prior: 花落花开春欲归|故人相忆旧时时|相逢莫问前朝事|不见儿童笑语时
+
+epoch: 3, 1201/3767 31.9%, 0.389 s per iter, lr: 0.0007, tr: 1.00, tau: 0.010, noise: 0.045
+  ppl:42.2, rec loss: 3.741, entropy loss: -0.515, cl loss w: 1.767, cl loss xw: 0.320
+  dis loss: 0.334, adv loss: 2.538, latent dist: 326.930, factors dist: 23.845
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 江声
+trg: 三春川峡下荆门|襄汉江声万马翻|锦缆棋舟成辇道|琉璃新筑帝城垣
+out_post: 三月马上接江州|万帝重南共里奔|何帐玉声成独路|江璃天月小王门
+out_prior: 万里江湖一望通|千里江湖渺渺茫|今日孤舟泊舟楫|不知何处吊湘川
+
+epoch: 3, 1401/3767 37.2%, 0.387 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.038
+  ppl:42.5, rec loss: 3.749, entropy loss: -0.516, cl loss w: 1.767, cl loss xw: 0.326
+  dis loss: 0.342, adv loss: 2.517, latent dist: 327.992, factors dist: 23.863
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 长途
+trg: 花下销魂似渴饥|从来情性被花欺|长途仆马颠连甚|犹令东园折杏枝
+out_post: 金发风金不寇饮|不今不绪不风期|东安不子饶狂甚|不有周君有角枝
+out_prior: 一醉狂歌不自由|不知何事更谁留|东风又向东南去|犹得君王不顾愁
+
+epoch: 3, 1601/3767 42.5%, 0.389 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.031
+  ppl:42.8, rec loss: 3.756, entropy loss: -0.516, cl loss w: 1.768, cl loss xw: 0.331
+  dis loss: 0.345, adv loss: 2.512, latent dist: 327.419, factors dist: 23.882
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 白帝
+trg: 连云不断三危路|雄略犹残八阵图|巫峡剑门天地险|锦官白帝霸王都
+out_post: 金蜷冉作楚更峡|大笔茫传鬼阵图|莫峡三门三地尽|不囊犹雪怨王郎
+out_prior: 大庾雄名不可怜|却将春色付诸天|不知天上无消息|却是东风第二年
+
+epoch: 3, 1801/3767 47.8%, 0.390 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.023
+  ppl:43.1, rec loss: 3.762, entropy loss: -0.516, cl loss w: 1.768, cl loss xw: 0.337
+  dis loss: 0.349, adv loss: 2.508, latent dist: 327.544, factors dist: 23.892
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 夜夜
+trg: 案上有书勤著眼|壶中无酒懒衔杯|心闲自有行窝乐|笑看灯花夜夜开
+out_post: 老上新书无问眼|竹中无酒不相杯|老中莫有闲人处|莫我梅前作雨来
+out_prior: 高楼高卧白云深|松下松风鹤自鸣|谁道长松修竹里|松风吹作一枝声
+
+epoch: 3, 2001/3767 53.1%, 0.388 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.016
+  ppl:43.3, rec loss: 3.768, entropy loss: -0.516, cl loss w: 1.768, cl loss xw: 0.342
+  dis loss: 0.354, adv loss: 2.493, latent dist: 329.228, factors dist: 23.910
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: 0
+key: 关东
+trg: 千岩曙雪旌门上|十月寒花辇路中|不睹声明与文物|自伤流滞去关东
+out_post: 江里万色护旗外|万里江潮雪路风|一是西名归天锦|何怜一水更无中
+out_prior: 一声啼鸟闹春风|无限春风到柳阴|千里无人无路入|一枝疏雨满林风
+
+epoch: 3, 2201/3767 58.4%, 0.382 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.009
+  ppl:43.6, rec loss: 3.774, entropy loss: -0.517, cl loss w: 1.769, cl loss xw: 0.348
+  dis loss: 0.359, adv loss: 2.479, latent dist: 330.318, factors dist: 23.929
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 空阶
+trg: 空阶日晚雨才乾|小婢相随倚画阑|金钗误挂绯桃落|罗袖愁依翠竹寒
+out_post: 清林草日见声疏|小小无呼不杖阑|一磬玉落金袍树|不袖香眉万袖寒
+out_prior: 一片孤山万古山|山空古木古人闲|古来不是无人会|空把青青问此山
+
+epoch: 3, 2401/3767 63.7%, 0.388 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.002
+  ppl:43.8, rec loss: 3.780, entropy loss: -0.517, cl loss w: 1.769, cl loss xw: 0.355
+  dis loss: 0.359, adv loss: 2.476, latent dist: 331.101, factors dist: 23.946
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 落英
+trg: 秋入重阳气倍清|东篱采菊眼偏明|杯中要作茱萸伴|不是湘累餐落英
+out_post: 朝风江阳未已清|朝风西药亦尤明|朝中已识朝萸赠|不是南妃南玉英
+out_prior: 一曲琵琶泪满城|千年万事付心情|不知何处堪吹笛|犹向东风刷羽旌
+
+epoch: 3, 2601/3767 69.0%, 0.388 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:44.0, rec loss: 3.785, entropy loss: -0.517, cl loss w: 1.769, cl loss xw: 0.361
+  dis loss: 0.358, adv loss: 2.483, latent dist: 329.767, factors dist: 23.966
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 数月
+trg: 雨患先淫后必悭|春来数月为眉攒|如今早稻黄几遍|却怕收时雨未乾
+out_post: 一后萧生夜代难|一风犹日到谁攒|不今不报三金许|不忆春书自露乾
+out_prior: 小小新添一线长|小窗疏竹映窗纱|小窗睡起无人唤|闲看鸳鸯浴碧桃
+
+epoch: 3, 2801/3767 74.4%, 0.381 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:44.3, rec loss: 3.790, entropy loss: -0.517, cl loss w: 1.770, cl loss xw: 0.367
+  dis loss: 0.362, adv loss: 2.477, latent dist: 331.312, factors dist: 23.970
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 出家
+trg: 早知皆是自拘囚|不学因循到白头|汝既出家还扰扰|何人更得死前休
+out_post: 春晚春是有家囚|不是人循得此头|自是自门非自扰|不人不觅到生休
+out_prior: 万里相逢一日程|不知何处吊湘灵|谁知此日登高兴|不见当年叔子兵
+
+epoch: 3, 3001/3767 79.7%, 0.374 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:44.5, rec loss: 3.795, entropy loss: -0.517, cl loss w: 1.770, cl loss xw: 0.372
+  dis loss: 0.366, adv loss: 2.474, latent dist: 334.825, factors dist: 24.008
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 0
+key: 数家
+trg: 风捲暮云归碧嶂|叶随野水入寒塘|数家篱落枫林外|枳UNK垂青菊绽黄
+out_post: 山雨云云飞不树|江舟潮艇漾船塘|山声茅落寒林下|不棘风杨水未黄
+out_prior: 千里风流万马奔|江头一夜雨廉纤|凭君莫问西湖路|听说前程是曲人
+
+epoch: 3, 3201/3767 85.0%, 0.391 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:44.7, rec loss: 3.800, entropy loss: -0.518, cl loss w: 1.770, cl loss xw: 0.376
+  dis loss: 0.366, adv loss: 2.479, latent dist: 335.485, factors dist: 24.020
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 名花
+trg: 野径风来阵阵香|名花未省植何方|却思一卉何能尔|应是春原集众芳
+out_post: 一花无烟水阵开|一花不必是桑郎|一从一片无曾事|不是君风有旧芳
+out_prior: 洞庭秋水净无尘|日日清风动客尘|莫遣俗人来往事|满城风雨属人人
+
+epoch: 3, 3401/3767 90.3%, 0.388 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:44.9, rec loss: 3.804, entropy loss: -0.518, cl loss w: 1.770, cl loss xw: 0.381
+  dis loss: 0.368, adv loss: 2.479, latent dist: 335.114, factors dist: 24.031
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 沧浪
+trg: 畏日炎炎火伞张|扁舟挂席泛沧浪|飞流溅沫倾三峡|过崄方知有底忙
+out_post: 江途东风照伞间|山舟夜岸出沧浪|江来不沫山城峡|不眼犹知是底忙
+out_prior: 云中天气晓云开|万壑千岩万壑开|不是人间无处著|一声何处笛声来
+
+epoch: 3, 3601/3767 95.6%, 0.391 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:45.1, rec loss: 3.808, entropy loss: -0.518, cl loss w: 1.770, cl loss xw: 0.386
+  dis loss: 0.372, adv loss: 2.468, latent dist: 333.311, factors dist: 24.059
+______________________
+run validation...
+in training mode: 0
+epoch: 3, lr: 0.001, tr: 1.00, tau: 1.000, noise: 0.000
+  ppl:77.9, rec loss: 4.356, entropy loss: -0.491, cl loss w: 1.782, cl loss xw: 1.580
+  dis loss: 0.347, adv loss: 1.659
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 辕门
+trg: 半欹乌帽病参军|万里从戎未策勋|不有辕门贤主帅|飘零谁与慰残魂
+out_post: 一生一帽一身军|一里风来不有勋|一见一门通圣帅|谁零谁敢汉衰坟
+out_prior: 朝来已觉鬓毛斑|不见南枝已自闲|今日长斋春已老|故人相送到南山
+
+epoch: 4, 1/3767 0.0%, 0.007 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:45.2, rec loss: 3.812, entropy loss: -0.518, cl loss w: 1.771, cl loss xw: 0.390
+  dis loss: 0.373, adv loss: 2.468, latent dist: 331.988, factors dist: 24.077
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 海色
+trg: 夜久扶桑海色分|珠宫望拜赤龙君|洞庭未省君山在|元是昆仑一朵云
+out_post: 玉来清疏日上鲜|玉帘初断月城文|自庭未是花王下|犹是龙仑第点云
+out_prior: 一枝春色满庭除|不是春风不可怜|自是东风无限恨|不知何处觅残书
+
+epoch: 4, 201/3767 5.3%, 0.349 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:45.4, rec loss: 3.815, entropy loss: -0.518, cl loss w: 1.771, cl loss xw: 0.393
+  dis loss: 0.372, adv loss: 2.473, latent dist: 329.216, factors dist: 24.101
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 闲庭
+trg: 移得烟溪竹数竿|闲庭栽处绿阴寒|虚心高节真堪爱|不放常人暂入看
+out_post: 山花山霞入影竿|江云绿竹绿阴浓|不明不卧无如赏|不见青时说不山
+out_prior: 一年春事已蹉跎|不见当年杜牧多|莫怪年来无限意|只今犹有未曾多
+
+epoch: 4, 401/3767 10.6%, 0.390 s per iter, lr: 0.0006, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:45.5, rec loss: 3.818, entropy loss: -0.517, cl loss w: 1.771, cl loss xw: 0.395
+  dis loss: 0.372, adv loss: 2.480, latent dist: 327.066, factors dist: 24.103
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 风物
+trg: 满拂春光一番雨|闹花如海麦摇波|静观物化知如幻|奈此撩人风物何
+out_post: 一地青风一径新|一花无雪水初天|不中不物无音此|不此何人奈雨多
+out_prior: 云山不是梦魂迷|何处归来不见归|一夜月明天上月|落花飞絮满空飞
+
+epoch: 4, 601/3767 16.0%, 0.408 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:45.6, rec loss: 3.821, entropy loss: -0.517, cl loss w: 1.771, cl loss xw: 0.399
+  dis loss: 0.374, adv loss: 2.478, latent dist: 324.788, factors dist: 24.115
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 解
+trg: 千里无烟已十年|一朝许洛翠秧田|乾坤渠肯容曹操|聊为苍生解倒悬
+out_post: 一年相踪一一分|一时风我更微田|何坤不是随颜植|何为君生作作眠
+out_prior: 一一一声雷震动|一声霹雳震天河|天公自古无遗恨|一任乾坤一寸波
+
+epoch: 4, 801/3767 21.3%, 0.432 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:45.8, rec loss: 3.824, entropy loss: -0.517, cl loss w: 1.771, cl loss xw: 0.401
+  dis loss: 0.375, adv loss: 2.479, latent dist: 323.145, factors dist: 24.117
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 寒食
+trg: 北邙新旧只累累|何惜心怀不醉归|是处人家作寒食|海棠初发杏花飞
+out_post: 春风春雨绿堪累|今处人期似可时|莫处有家有新食|不棠花发不花枝
+out_prior: 一自长安在此中|不知何处是真龙|自从天上麒麟阁|不是当年避世功
+
+epoch: 4, 1001/3767 26.6%, 0.403 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:45.9, rec loss: 3.826, entropy loss: -0.517, cl loss w: 1.771, cl loss xw: 0.404
+  dis loss: 0.374, adv loss: 2.485, latent dist: 323.059, factors dist: 24.125
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 侵
+trg: 烧松共话到更深|衣薄钟残雪又侵|住得此山非近世|不须重问祖师心
+out_post: 山灯未语古头深|不钵黄声梦满侵|不在山心无有日|不知更问老师心
+out_prior: 万里旌旗万里天|万家风雪满貂蝉|谁知汉帝功名薄|不信金钱买断钱
+
+epoch: 4, 1201/3767 31.9%, 0.402 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.0, rec loss: 3.829, entropy loss: -0.517, cl loss w: 1.772, cl loss xw: 0.406
+  dis loss: 0.374, adv loss: 2.494, latent dist: 320.606, factors dist: 24.139
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 荷锄
+trg: 菊莳陶篱本|兰滋楚畹芳|荷锄春雨后|怀古意何长
+out_post: 江花秋秋菊|风芽蕙畹香|谁花何雨后|不抱有何如
+out_prior: 山中有佳客|人事已成空|不为人间世|谁知此地中
+
+epoch: 4, 1401/3767 37.2%, 0.391 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.1, rec loss: 3.831, entropy loss: -0.517, cl loss w: 1.772, cl loss xw: 0.408
+  dis loss: 0.373, adv loss: 2.501, latent dist: 320.859, factors dist: 24.146
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 送子
+trg: 送子江头水亦悲|更能随我定何时|垂杨但为秋来瘦|不为秋来有别离
+out_post: 天君归头春拍清|扁将携处到何为|东杨不觉东风雨|不是人风作雁离
+out_prior: 人间万事不须磨|却是山中有所思|莫怪此身非故事|祇应无语是人知
+
+epoch: 4, 1601/3767 42.5%, 0.396 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.2, rec loss: 3.834, entropy loss: -0.517, cl loss w: 1.772, cl loss xw: 0.411
+  dis loss: 0.375, adv loss: 2.495, latent dist: 321.869, factors dist: 24.166
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 春风
+trg: 江头千树发参差|得似披图见一枝|莫恨春风开较晚|苦心结实待明时
+out_post: 一南一里雪毵差|一似人图一面枝|不向春风不不晚|春寒犹实未黄时
+out_prior: 山色青青水满溪|山人不见雁来稀|秋风吹散秋云净|落日孤帆落日低
+
+epoch: 4, 1801/3767 47.8%, 0.391 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.3, rec loss: 3.836, entropy loss: -0.518, cl loss w: 1.772, cl loss xw: 0.413
+  dis loss: 0.376, adv loss: 2.493, latent dist: 322.352, factors dist: 24.199
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 著书
+trg: 轮囷香事已|郁郁著书画|谁能入吾室|脱汝世俗械
+out_post: 不蹄无不来|日郁不青迟|不识不画园|不巾亦间吁
+out_prior: 春风吹不尽|花落雨霏霏|何处堪携酒|孤舟载酒归
+
+epoch: 4, 2001/3767 53.1%, 0.410 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.4, rec loss: 3.838, entropy loss: -0.518, cl loss w: 1.772, cl loss xw: 0.416
+  dis loss: 0.374, adv loss: 2.502, latent dist: 320.880, factors dist: 24.212
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 老去
+trg: 老去骊歌不好听|此生知有再趋庭|下阶更莫频回顾|法界如今世念停
+out_post: 南去无龙不可留|天身何是几经庭|君朝欲有知相首|三界无今有有清
+out_prior: 老夫爱此竹枝歌|老去情怀不奈何|欲问老人无事业|更无人到竹斋多
+
+epoch: 4, 2201/3767 58.4%, 0.412 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.5, rec loss: 3.840, entropy loss: -0.517, cl loss w: 1.773, cl loss xw: 0.420
+  dis loss: 0.372, adv loss: 2.511, latent dist: 319.896, factors dist: 24.220
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 忠魂
+trg: 出境鞭尸报父雠|吴兵勇锐越兵忧|忠魂怨气江云在|日见炉香烟上浮
+out_post: 老门之名似晓师|不王释退祀山休|若臣不别如南外|不暮江烟不雨楼
+out_prior: 一曲清风万里秋|萧萧芦苇荻芦秋|扁舟载酒归何处|独倚阑干看白鸥
+
+epoch: 4, 2401/3767 63.7%, 0.397 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.6, rec loss: 3.842, entropy loss: -0.517, cl loss w: 1.773, cl loss xw: 0.422
+  dis loss: 0.372, adv loss: 2.516, latent dist: 319.071, factors dist: 24.227
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 蓬莱
+trg: 云烟缥缈郁孤台|积翠浮空雨半开|想见之罘观海市|绛宫明灭是蓬莱
+out_post: 万气缥缈凤苍云|万雪重沈万自开|一见玉罘开盛内|一霞金日照仙莱
+out_prior: 玉树参差玉树清|玉箫吹彻玉箫声|玉箫吹彻瑶台月|疑是瑶池宴夜声
+
+epoch: 4, 2601/3767 69.0%, 0.398 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.7, rec loss: 3.844, entropy loss: -0.517, cl loss w: 1.773, cl loss xw: 0.424
+  dis loss: 0.372, adv loss: 2.517, latent dist: 317.564, factors dist: 24.234
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 心情
+trg: 八年趁得梅花发|忽到窗前把一杯|岁晚心情吾醉矣|人应问我数能来
+out_post: 春月春得此花发|春见梅前梅酒杯|莫岁相期无不客|不生相我独行来
+out_prior: 山头一夜雨声寒|溪水平铺碧瓦滩|不见青山遮画处|白云深处见青山
+
+epoch: 4, 2801/3767 74.4%, 0.403 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.8, rec loss: 3.845, entropy loss: -0.517, cl loss w: 1.773, cl loss xw: 0.425
+  dis loss: 0.370, adv loss: 2.529, latent dist: 316.920, factors dist: 24.242
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 游魂
+trg: 馀刃西屠横海鲲|应余诗谶是游魂|归来趁别陶弘景|看挂衣冠神武门
+out_post: 玉香无来不玉潮|玉将此句负长魂|从来不得寻彭景|不取南冠万武门
+out_prior: 万古千秋万古名|一时长啸独凄清|不知何处无人问|独有松楸一寸明
+
+epoch: 4, 3001/3767 79.7%, 0.390 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.8, rec loss: 3.847, entropy loss: -0.517, cl loss w: 1.773, cl loss xw: 0.427
+  dis loss: 0.371, adv loss: 2.532, latent dist: 315.569, factors dist: 24.252
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 天语
+trg: 文章聊复尔|经济亦何为|谁识小堂上|高高天语垂
+out_post: 人章何自尔|人术不何为|不为高乔子|时人人下时
+out_prior: 山中有佳节|我亦不能言|我亦怜衰病|相逢不问津
+
+epoch: 4, 3201/3767 85.0%, 0.402 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:46.9, rec loss: 3.848, entropy loss: -0.517, cl loss w: 1.773, cl loss xw: 0.429
+  dis loss: 0.371, adv loss: 2.533, latent dist: 314.394, factors dist: 24.281
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 暮雨
+trg: 滉漾平湖影碧空|千重树色尽朦胧|春光何处尤堪赏|多是梨花暮雨中
+out_post: 江漾湖湖水浸流|一秋万色一秋胧|不来不处无无赏|只少人花不雨中
+out_prior: 一片青青万里秋|一声声动碧梧秋|不知身是非无意|何似当时不得休
+
+epoch: 4, 3401/3767 90.3%, 0.407 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:47.0, rec loss: 3.850, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.430
+  dis loss: 0.370, adv loss: 2.542, latent dist: 312.413, factors dist: 24.291
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 琼瑶
+trg: 猛将谋臣气霭云|兴邦雪耻在奇勋|因思卫国琼瑶报|更忆吴人组练军
+out_post: 万士文臣问象间|玉来虎后尚前勋|何循欲士千琚地|千有龙山旧练文
+out_prior: 白云深处有仙踪|白发萧萧白发翁|莫道此时无别物|恐非今日见青松
+
+epoch: 4, 3601/3767 95.6%, 0.401 s per iter, lr: 0.0005, tr: 1.00, tau: 0.010, noise: 0.000
+  ppl:47.1, rec loss: 3.851, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.432
+  dis loss: 0.369, adv loss: 2.549, latent dist: 310.604, factors dist: 24.313
+______________________
+run validation...
+in training mode: 0
+epoch: 4, lr: 0.000, tr: 1.00, tau: 1.000, noise: 0.000
+  ppl:79.5, rec loss: 4.376, entropy loss: -0.494, cl loss w: 1.791, cl loss xw: 1.766
+  dis loss: 0.359, adv loss: 1.446
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 野老
+trg: 昕朝避黄屋|露祷动苍穹|野老安知帝|豚蹄赛社公
+out_post: 万火虽贼犊|暮冕不可苔|今老不排否|无蹄不社来
+out_prior: 老子情何苦|相逢各自伤|莫言关外路|不是是春光
+
+epoch: 5, 1/3767 0.0%, 0.006 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:47.1, rec loss: 3.852, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.433
+  dis loss: 0.369, adv loss: 2.555, latent dist: 310.524, factors dist: 24.323
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 秦人
+trg: 纸上观秦尚过秦|那堪山作眼中尘|为言高阁登临者|莫作秦人视越人
+out_post: 天帐新书不未方|天知重下断中尘|如君不士无临处|不道人人旧世人
+out_prior: 一夜东风吹雨声|一枝一夜一枝横|人间花落无人见|只有梅花一样清
+
+epoch: 5, 201/3767 5.3%, 0.442 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:47.3, rec loss: 3.857, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.434
+  dis loss: 0.367, adv loss: 2.565, latent dist: 309.771, factors dist: 24.338
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 红尘
+trg: 人爱红尘我爱山|寻山重叩白云间|子真避客游都市|月上梧桐未肯还
+out_post: 一间山林一不山|一常处叠白云闲|一来不世寻人市|不在人桐不肯还
+out_prior: 一夜清风吹不成|月明何处不相惊|不知今夜无人到|却是山中有月明
+
+epoch: 5, 401/3767 10.6%, 0.423 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:47.5, rec loss: 3.861, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.435
+  dis loss: 0.366, adv loss: 2.570, latent dist: 309.462, factors dist: 24.332
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 1
+key: 化
+trg: 闹居常愤切|易箦愈昭融|一二人家化|骎骎似洛中
+out_post: 一酒无苦毒|不箦不何陵|不念三间在|何骎未昔河
+out_prior: 一生不可见|此日更何人|不是无情物|何如独闭门
+
+epoch: 5, 601/3767 16.0%, 0.432 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:47.7, rec loss: 3.866, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.436
+  dis loss: 0.369, adv loss: 2.564, latent dist: 307.960, factors dist: 24.335
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 山顶
+trg: 一日一夜雨如倾|北山山顶垂天绅|是间去海只咫尺|缓流何用走踆踆
+out_post: 一片寒片雪中山|万望风雨浪云明|西时不年无如尺|不与不处不天踆
+out_prior: 三年不见一年来|今日重来旧旧游|今日重来无一事|今朝又喜见天台
+
+epoch: 5, 801/3767 21.3%, 0.426 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:47.9, rec loss: 3.870, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.436
+  dis loss: 0.367, adv loss: 2.575, latent dist: 306.596, factors dist: 24.345
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 风尘
+trg: 秋入林坰晚觉凉|闲寻诗景步斜阳|笑渠羸马风尘客|底事匆匆有许忙
+out_post: 雨风江塘水更凉|小来幽句到虚阳|不看不马东前里|不事匆匆不梦忙
+out_prior: 不见桃花不记春|谁知此日更谁新|如何不作山中态|只恐梅花不耐春
+
+epoch: 5, 1001/3767 26.6%, 0.435 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:48.1, rec loss: 3.873, entropy loss: -0.517, cl loss w: 1.774, cl loss xw: 0.436
+  dis loss: 0.369, adv loss: 2.580, latent dist: 305.961, factors dist: 24.346
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 西风
+trg: 小桥划水剪荷花|两岸西风晕晚霞|恍似瑶池初宴罢|万妃醉脸沁铅华
+out_post: 山雨流水碧轻花|不见横风落脸霞|莫惚江池春梦罢|月山红落不红华
+out_prior: 一年春色满江头|一夜东风吹不休|莫道无心无别恨|空馀一片在空流
+
+epoch: 5, 1201/3767 31.9%, 0.428 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:48.2, rec loss: 3.876, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.436
+  dis loss: 0.367, adv loss: 2.591, latent dist: 306.515, factors dist: 24.358
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 0
+key: 忘归
+trg: 山鸟闲催句|溪风冷透衣|笑言深树底|相对憺忘归
+out_post: 山深飞人侣|山流吹似苔|不人人院里|不对白忘归
+out_prior: 不见桃李树|春风亦何人|不知何处去|不是有寒云
+
+epoch: 5, 1401/3767 37.2%, 0.428 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:48.4, rec loss: 3.880, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.436
+  dis loss: 0.365, adv loss: 2.600, latent dist: 304.899, factors dist: 24.370
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 桃李
+trg: 比屋桑麻三月雨|夹溪桃李四时春|谁欤幻出山前景|指似堂中觅句人
+out_post: 一屋人麻已变光|一城流李已成开|不知此出天中路|不是当前老句人
+out_prior: 清风明月下帘帷|玉辇金鞍拥鼻衣|莫道广文官府吏|玉鞭金勒奏金衣
+
+epoch: 5, 1601/3767 42.5%, 0.424 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:48.6, rec loss: 3.884, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.436
+  dis loss: 0.364, adv loss: 2.608, latent dist: 303.701, factors dist: 24.374
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 1
+key: 玉辇
+trg: 郡治楼同五凤楼|当年玉辇此南游|无情太华空成冢|有恨金沙不覆舟
+out_post: 老邑无台白月寒|金年曾局侍遨州|不人共守峰中赋|不客何陵不下舟
+out_prior: 一生一死不成尘|一夜清风一梦春|一夜玉堂清梦觉|满庭风露湿衣巾
+
+epoch: 5, 1801/3767 47.8%, 0.424 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:48.8, rec loss: 3.887, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.437
+  dis loss: 0.363, adv loss: 2.617, latent dist: 302.821, factors dist: 24.382
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 暮雨
+trg: 昔日奸邪事可哀|如今空筑望思台|冥冥恨魄何之去|唯有南山暮雨来
+out_post: 山年曾邪不已嗟|今今秋谷望江台|春冥不不无曾去|不有幽山不雨来
+out_prior: 山中有客不知名|此去何时得暂停|今日偶来风雨恶|不知何处是神京
+
+epoch: 5, 2001/3767 53.1%, 0.405 s per iter, lr: 0.0005, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:48.9, rec loss: 3.890, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.437
+  dis loss: 0.361, adv loss: 2.629, latent dist: 302.732, factors dist: 24.397
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 垂垂
+trg: 苍松寒翳翳|瑶草秋垂垂|平冈如偃月|偏与落星宜
+out_post: 山烟荫不翳|清草不风白|不见秋水蹇|清照此花明
+out_prior: 一夜不可见|明月照空明|何处堪惆怅|清风吹不成
+
+epoch: 5, 2201/3767 58.4%, 0.424 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:49.1, rec loss: 3.893, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.439
+  dis loss: 0.359, adv loss: 2.640, latent dist: 301.437, factors dist: 24.408
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 雨过
+trg: 雨过横塘蛙吹闹|日融芳圃蜜脾香|一痕心事难消遣|双鹊飞鸣过短墙
+out_post: 一过春塘水黾鸣|山斜山草一脾香|一樽一绪无消遣|一眼看花是短墙
+out_prior: 春风吹雨过江南|一路春来不见村|今日扁舟寻旧路|柳花飞絮满春村
+
+epoch: 5, 2401/3767 63.7%, 0.437 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:49.2, rec loss: 3.896, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.439
+  dis loss: 0.357, adv loss: 2.656, latent dist: 300.376, factors dist: 24.430
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 风流
+trg: 每上平山把酒卮|海鸿泉骥满乌丝|风流人物诗书帅|万字千钟更属谁
+out_post: 一日青芜一望家|一棠飞下不天飞|山流一世无人帅|不里千秋不不谁
+out_prior: 一年一度见春风|不是春风不惜红|不是春风吹不尽|只教桃李漫开红
+
+epoch: 5, 2601/3767 69.0%, 0.394 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:49.4, rec loss: 3.899, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.439
+  dis loss: 0.355, adv loss: 2.669, latent dist: 298.768, factors dist: 24.442
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 云雨
+trg: 凤女新调玉管箫|碧桃花底夜迢迢|阳台一段闲云雨|总向襄王梦里消
+out_post: 一夜宫妆玉笛吹|玉桃花下醉深迢|玉春不曲春吟散|不是人阳梦里行
+out_prior: 山头风雨暗江干|不见人家住处安|一抹蒹葭烟雨里|却疑身在画图看
+
+epoch: 5, 2801/3767 74.4%, 0.402 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:49.5, rec loss: 3.902, entropy loss: -0.517, cl loss w: 1.775, cl loss xw: 0.441
+  dis loss: 0.353, adv loss: 2.678, latent dist: 297.718, factors dist: 24.463
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 阊阖
+trg: 万国儒绅肃鹭行|九天阊阖觐龙光|东连碣石悬𫛛鹊|南度秦淮有凤凰
+out_post: 一里归臣一此群|一天风露一时文|不风南石通江鹊|不北西淮北北凰
+out_prior: 春风吹雨过江城|不见江南万里程|今日江南江北望|不知何处是春城
+
+epoch: 5, 3001/3767 79.7%, 0.405 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:49.6, rec loss: 3.905, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.441
+  dis loss: 0.350, adv loss: 2.693, latent dist: 296.230, factors dist: 24.475
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 西湖
+trg: 八月西湖镜里天|中流柔橹下轻烟|回头指点青山好|有个白鸥飞上船
+out_post: 山月江头万里开|白间一橹过江烟|渔人渔点渔山外|不个渔云飞上天
+out_prior: 春风吹雨过江南|不见梅花雪满园|春色不知春色里|春风吹过五更门
+
+epoch: 5, 3201/3767 85.0%, 0.397 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:49.8, rec loss: 3.908, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.442
+  dis loss: 0.348, adv loss: 2.706, latent dist: 294.771, factors dist: 24.497
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 1
+key: 胡尘
+trg: 烽火去不息|胡尘高际天|长驱救东北|战解城亦全
+out_post: 山火连不灭|空人不不天|谁驱铁虎穴|何骨出中无
+out_prior: 山水无人迹|孤舟旅泊时|悠悠江水限|不见泪痕垂
+
+epoch: 5, 3401/3767 90.3%, 0.396 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:49.9, rec loss: 3.910, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.444
+  dis loss: 0.346, adv loss: 2.714, latent dist: 293.816, factors dist: 24.504
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 天孙
+trg: 百年佳会几今宵|脉脉相看一水遥|漫道天孙解专巧|却教鸟鹊为成桥
+out_post: 山尺高人不千存|不脉分依意线清|不说不公无别策|不将天雀报谁行
+out_prior: 一年春色满江南|一片飞花落晚风|莫道春愁无限恨|不须惆怅怨春风
+
+epoch: 5, 3601/3767 95.6%, 0.403 s per iter, lr: 0.0004, tr: 0.90, tau: 0.010, noise: 0.000
+  ppl:50.0, rec loss: 3.913, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.444
+  dis loss: 0.345, adv loss: 2.724, latent dist: 294.463, factors dist: 24.515
+______________________
+run validation...
+in training mode: 0
+epoch: 5, lr: 0.000, tr: 0.90, tau: 1.000, noise: 0.000
+  ppl:78.7, rec loss: 4.365, entropy loss: -0.529, cl loss w: 1.786, cl loss xw: 1.798
+  dis loss: 0.104, adv loss: 2.877
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 麝香
+trg: 断踠缘风血|燥蹄亦一般|麝香葶苈子|贯众及黄丹
+out_post: 一石无何雨|含蹄不自春|莫香无处菜|不日倚人丹
+out_prior: 一夜一枝雪|千年万古心|不人不可问|空有旧时心
+
+epoch: 6, 1/3767 0.0%, 0.007 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:50.1, rec loss: 3.915, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.445
+  dis loss: 0.342, adv loss: 2.741, latent dist: 293.845, factors dist: 24.514
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 飞升
+trg: 共道梦非真|谁知醒复伪|飞升羡吕公|亦是梦中事
+out_post: 春酌春中真|不知复者醒|不来一此来|不有人中者
+out_prior: 幽居无俗客|独有岁寒心|不是无人识|何人识此心
+
+epoch: 6, 201/3767 5.3%, 0.397 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:50.3, rec loss: 3.918, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.445
+  dis loss: 0.339, adv loss: 2.755, latent dist: 292.971, factors dist: 24.532
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 雪
+trg: 秋雨空山夜|非君不此来|高于剡溪雪|一棹到门回
+out_post: 一风一山色|秋关一见情|一楼一一水|一夜一黄来
+out_prior: 一月照江水|江流如水流|江湖有钓者|不是钓鱼舟
+
+epoch: 6, 401/3767 10.6%, 0.393 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:50.4, rec loss: 3.920, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.444
+  dis loss: 0.337, adv loss: 2.768, latent dist: 291.639, factors dist: 24.539
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 长
+trg: 散尽残云碧甃开|灵鱼石缝露星腮|寒生镜底长清浅|泉脉流从印土来
+out_post: 一步花灯不玉阴|一山一上自初腮|一鸦一里无如浅|不脉无传到不来
+out_prior: 一夜寒声到枕边|一声啼鸟隔林烟|山中有客无人到|一夜相思梦不眠
+
+epoch: 6, 601/3767 16.0%, 0.405 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:50.5, rec loss: 3.923, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.444
+  dis loss: 0.335, adv loss: 2.778, latent dist: 290.374, factors dist: 24.554
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 日
+trg: 万石列寒滩|什什复伍伍|轻舟疾无影|帆正日卓午
+out_post: 一里不山泉|山萝飞相伍|不舟轻于声|不风风乍急
+out_prior: 一日不可见|一花如可怜|一枝春不管|一片落花前
+
+epoch: 6, 801/3767 21.3%, 0.404 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:50.7, rec loss: 3.925, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.444
+  dis loss: 0.333, adv loss: 2.793, latent dist: 289.950, factors dist: 24.575
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 封侯
+trg: 姑嫜有妾奉|征战盍郎行|早取封侯去|封侯妾亦荣
+out_post: 白射宫神女|不虏不相心|莫晚黄侯印|何侯不不深
+out_prior: 一别三年别|长江万里秋|如何江上客|不见汉江楼
+
+epoch: 6, 1001/3767 26.6%, 0.402 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:50.8, rec loss: 3.927, entropy loss: -0.517, cl loss w: 1.776, cl loss xw: 0.444
+  dis loss: 0.331, adv loss: 2.803, latent dist: 288.904, factors dist: 24.591
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 萧疏
+trg: 太湖西岸景萧疏|竹外山旋碧玉螺|明月一天风满地|爽人秋意不须多
+out_post: 一平湖畔接阳萧|一树阴阴一玉条|一片不声风露地|不光何色在胜招
+out_prior: 一日春风不自由|不知何处是蓬莱|谁知此日登高兴|不见青山不肯回
+
+epoch: 6, 1201/3767 31.9%, 0.389 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:50.9, rec loss: 3.930, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.444
+  dis loss: 0.329, adv loss: 2.817, latent dist: 288.187, factors dist: 24.597
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 空翠
+trg: 平波细若剪|远岫膏于沐|嗒坐舫斋中|空翠时一扑
+out_post: 秋生如如练|万水飞粱翠|风然观前前|清濛烟雨霁
+out_prior: 山水连天远|秋风入画图|一声云树里|不见石羊羊
+
+epoch: 6, 1401/3767 37.2%, 0.400 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.0, rec loss: 3.932, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.444
+  dis loss: 0.327, adv loss: 2.825, latent dist: 288.312, factors dist: 24.602
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 浮沈
+trg: 落树乌成白|催人鬓欲斑|轻质何曾定|浮沈烟雨间
+out_post: 山日带啼树|孤人白欲斑|不舟不人见|空云却雾间
+out_prior: 一月照清泚|凉风吹秋叶|何处不相思|月明人已去
+
+epoch: 6, 1601/3767 42.5%, 0.413 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.1, rec loss: 3.935, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.444
+  dis loss: 0.325, adv loss: 2.837, latent dist: 287.318, factors dist: 24.613
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: 1
+key: 凋零
+trg: 如何有此用|幽滞在岩坰|岁月不尔驻|孤芳坐凋零
+out_post: 一何不佳心|不人许人隈|不晚无知处|春云自岁零
+out_prior: 一夜霜风劲|霜凋雪鬓寒|霜风吹不散|吹笛上阑干
+
+epoch: 6, 1801/3767 47.8%, 0.408 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.3, rec loss: 3.937, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.444
+  dis loss: 0.322, adv loss: 2.852, latent dist: 287.717, factors dist: 24.630
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 青山
+trg: 悬崖曲曲水潺潺|九里江城十八湾|两岸幽篁深蔽日|忽然断处见青山
+out_post: 山崖瀑径水潺潺|石上泉流一二滩|何岸芦人深树处|不惊飞出落人山
+out_prior: 山径崎岖路欲迷|山深无路鸟飞啼|行人不到西山路|只在山深处处啼
+
+epoch: 6, 2001/3767 53.1%, 0.413 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.4, rec loss: 3.939, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.444
+  dis loss: 0.320, adv loss: 2.864, latent dist: 286.669, factors dist: 24.647
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 碧天
+trg: 柿叶翻红霜景秋|碧天如水倚红楼|隔窗爱竹无人问|遣向邻房觅户钩
+out_post: 山叶红红雨叶繁|小窗风水浸天楼|西溪风杀无人语|一我溪翁住白头
+out_prior: 一片青山万里云|白云深处见黄昏|不知此日登高处|白日青山独倚门
+
+epoch: 6, 2201/3767 58.4%, 0.403 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.5, rec loss: 3.941, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.443
+  dis loss: 0.318, adv loss: 2.880, latent dist: 286.650, factors dist: 24.659
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 村北
+trg: 村北硗田久废耕|试投嘉谷望秋成|天时地力难前料|万粒须期一粒生
+out_post: 白落村确稻粱田|野看农木过中鹰|山风不下无防辈|一里风弥一日生
+out_prior: 一山云水接天涯|一片秋风入梦赊|今日相逢重相见|不知何处是梅花
+
+epoch: 6, 2401/3767 63.7%, 0.423 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.6, rec loss: 3.944, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.442
+  dis loss: 0.316, adv loss: 2.894, latent dist: 285.641, factors dist: 24.669
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 游鱼
+trg: 清河水原清|湛湛见沙石|镇日倚篷看|游鱼尾还赤
+out_post: 一年水中上|天湛澄天汀|一日登天看|不鱼亦翻上
+out_prior: 一年一春酒|一夜不成眠|一夜风雨过|何人知此贤
+
+epoch: 6, 2601/3767 69.0%, 0.404 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.7, rec loss: 3.946, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.443
+  dis loss: 0.314, adv loss: 2.907, latent dist: 284.461, factors dist: 24.679
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 林下
+trg: 林下横门隔断桥|溪边草径入云遥|青山绿树知多少|谁道书声到市朝
+out_post: 山下风斜日日桥|青边流木乱云迷|春山不树人何少|独识春生到枕桥
+out_prior: 一年春风一笑间|桃花流水几人间|不知何处寻芳迹|却忆春风十二间
+
+epoch: 6, 2801/3767 74.4%, 0.420 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.8, rec loss: 3.948, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.444
+  dis loss: 0.312, adv loss: 2.921, latent dist: 283.358, factors dist: 24.692
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 燕
+trg: 桃叶渡头鱼𪡋春|莫愁堂上燕依人|玉觞欲举心先醉|痛忆当时迹未尘
+out_post: 一李花头春欲通|水将桃上有鱼然|可怜不醉无无达|不饮当年不已传
+out_prior: 一年一度一番新|一见当年一笑人|不是老夫元不恶|不如今日是谁人
+
+epoch: 6, 3001/3767 79.7%, 0.439 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:51.9, rec loss: 3.950, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.444
+  dis loss: 0.310, adv loss: 2.932, latent dist: 282.497, factors dist: 24.701
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 借问
+trg: 石桥小立感怀多|借问当年事若何|不识天人相胜理|朔风凄烈漫长歌
+out_post: 一上横截水云沙|万问何年奈若何|不是此台真顾处|不风吹切一如歌
+out_prior: 一日相逢一笑然|不知何处是何年|只今身在西湖上|不是人间有几年
+
+epoch: 6, 3201/3767 85.0%, 0.444 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:52.0, rec loss: 3.951, entropy loss: -0.517, cl loss w: 1.777, cl loss xw: 0.443
+  dis loss: 0.307, adv loss: 2.945, latent dist: 282.055, factors dist: 24.709
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 淡月
+trg: 雪树生香淡月边|相媒相合斗清妍|空庭冷落秋千影|虚度良宵亦可怜
+out_post: 一花寒涯不淡华|一逢相对不婵妍|不山不落无风里|不度东宵一自怜
+out_prior: 一年春色满皇都|一见梅花一笑无|不是东风吹不去|不知春色到江湖
+
+epoch: 6, 3401/3767 90.3%, 0.398 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:52.1, rec loss: 3.954, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.443
+  dis loss: 0.305, adv loss: 2.959, latent dist: 281.353, factors dist: 24.719
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 初见
+trg: 北江二月政春寒|初见桃花喜未残|腊月潮州见桃李|元来不作好春看
+out_post: 一风南月水无寒|一见梅花照见阑|不日不生春天李|不无不是雪风看
+out_prior: 一年春色满江湖|一夜东风拂柳条|莫道春风无限好|一枝斜倚画檐多
+
+epoch: 6, 3601/3767 95.6%, 0.415 s per iter, lr: 0.0004, tr: 0.87, tau: 0.010, noise: 0.000
+  ppl:52.2, rec loss: 3.955, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.443
+  dis loss: 0.304, adv loss: 2.970, latent dist: 280.797, factors dist: 24.735
+______________________
+run validation...
+in training mode: 0
+epoch: 6, lr: 0.000, tr: 0.87, tau: 1.000, noise: 0.000
+  ppl:78.3, rec loss: 4.361, entropy loss: -0.456, cl loss w: 1.801, cl loss xw: 2.245
+  dis loss: 0.105, adv loss: 2.756
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+factor1 label: 2
+factor2 label: -1, inferred: 1
+key: 春水
+trg: 隼起青旻霜拂地|鸿飞紫海月当霄|仙舟此日登瀛近|春水花光已动UNK
+out_post: 一旟风草势满地|一雁不气白云时|天人不去无高眼|不色无开满自摇
+out_prior: 一水平湖浸碧流|一声声里水悠悠|不知何处无人到|只在西湖一片秋
+
+epoch: 7, 1/3767 0.0%, 0.009 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:52.3, rec loss: 3.957, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.443
+  dis loss: 0.302, adv loss: 2.983, latent dist: 280.266, factors dist: 24.746
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 清献
+trg: 午夫荷担在山阿|膏血如何有许多|不若扁舟竟归去|休从清献墓前过
+out_post: 一年曾花小何中|一雨何何不此多|莫道沃洲寻胜处|不言此泪濯缨歌
+out_prior: 春风吹雨过江城|雨过风吹杂柳绵|回首白云飞不尽|青山依旧绕青天
+
+epoch: 7, 201/3767 5.3%, 0.391 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:52.4, rec loss: 3.959, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.442
+  dis loss: 0.300, adv loss: 2.997, latent dist: 279.323, factors dist: 24.757
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 寒梅
+trg: 象台老守亦悠哉|问水寻山日几回|一道涧泉烟锁断|白云庵底有寒梅
+out_post: 一龙山柏已无然|一讯何花几又回|一夜山中泉雨断|一云飞里自僧来
+out_prior: 江上风光日日新|江南风景似相亲|扁舟载酒江湖去|不是江湖有钓人
+
+epoch: 7, 401/3767 10.6%, 0.401 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:52.5, rec loss: 3.961, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.442
+  dis loss: 0.298, adv loss: 3.016, latent dist: 279.047, factors dist: 24.775
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 意气
+trg: 丛台意气俄销歇|故垒歌钟几劫尘|只有蔺卿生气在|坟前衰草镇如新
+out_post: 一桂玉气转清明|一国无来动度中|一有一卿相意象|不头一草尽长神
+out_prior: 一年一度见春风|一日相看意气中|不是春来无限意|一花开遍柳枝红
+
+epoch: 7, 601/3767 16.0%, 0.392 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:52.6, rec loss: 3.963, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.441
+  dis loss: 0.296, adv loss: 3.027, latent dist: 278.798, factors dist: 24.782
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 作家
+trg: 切莫撞钟领众迎|作家相见要情真|亦庵自是优婆塞|知事当人定不瞑
+out_post: 一切轻风出禁山|不诗何对在人间|不知寂有无心饼|不是人时不有人
+out_prior: 一年不见一枝梅|曾向梅花句句开|莫道春风无别意|玉堂诗句写花开
+
+epoch: 7, 801/3767 21.3%, 0.387 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:52.7, rec loss: 3.965, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.441
+  dis loss: 0.294, adv loss: 3.037, latent dist: 277.748, factors dist: 24.796
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 梅花
+trg: 月照梅花雪点春|小舟危坐醉中身|一时为爱溪山去|本是无心见故人
+out_post: 一明江花雪满寒|不桥摇坐水醺春|江声不作清山好|不是江人不主人
+out_prior: 一径萦纡翠欲流|一声啼鸟自鸣鸠|山中有意无人到|独有寒梅伴石头
+
+epoch: 7, 1001/3767 26.6%, 0.386 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:52.8, rec loss: 3.967, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.440
+  dis loss: 0.292, adv loss: 3.049, latent dist: 276.813, factors dist: 24.802
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 鬓丝
+trg: 司谏王郎我旧知|薛逢诗句李憨棋|曾从虎口中间过|赢得归来两鬓丝
+out_post: 一马文孙鬓自游|西公贤酒为生休|不闻此豹论兴业|今得诗来一鬓丝
+out_prior: 玉堂金阙郁岧峣|玉署金銮下九霄|不见凤皇池上望|御沟流水漾清波
+
+epoch: 7, 1201/3767 31.9%, 0.437 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:52.9, rec loss: 3.969, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.439
+  dis loss: 0.291, adv loss: 3.061, latent dist: 275.737, factors dist: 24.815
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 文武
+trg: 文武千官岁仗兵|万方同轨奏升平|上皇一御含元殿|丹凤门开白日明
+out_post: 一章风载擅寒深|一年千轨一尊沉|当皇若上传风殿|万凤楼前第一明
+out_prior: 一年不见一年馀|万里长安在目前|今日重来无一事|不知何处是菟毡
+
+epoch: 7, 1401/3767 37.2%, 0.407 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.0, rec loss: 3.970, entropy loss: -0.518, cl loss w: 1.778, cl loss xw: 0.439
+  dis loss: 0.289, adv loss: 3.072, latent dist: 275.293, factors dist: 24.828
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 夕照
+trg: 短桥留夕照|烟树隔江深|过客应回棹|疏钟出定林
+out_post: 山棹卧客照|风火隔溪云|日客无无路|孤钟自岫闻
+out_prior: 一片春风里|孤舟不可攀|何人同一去|何处不人间
+
+epoch: 7, 1601/3767 42.5%, 0.405 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.1, rec loss: 3.972, entropy loss: -0.517, cl loss w: 1.778, cl loss xw: 0.439
+  dis loss: 0.287, adv loss: 3.084, latent dist: 274.504, factors dist: 24.843
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 松竹
+trg: 净界曾无一点尘|风疏松竹响天真|从来此意少人会|只道林闲无至人
+out_post: 一几无尘一水尘|不流帘竹净萧真|山来不日无人意|不有山间不主人
+out_prior: 一云漠漠水淙淙|野水平桥水拍天|野水平桥人不见|一溪溪水浸渔船
+
+epoch: 7, 1801/3767 47.8%, 0.417 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.2, rec loss: 3.974, entropy loss: -0.518, cl loss w: 1.778, cl loss xw: 0.438
+  dis loss: 0.285, adv loss: 3.094, latent dist: 273.491, factors dist: 24.847
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 牙旗
+trg: 帐前银甲映朱旄|帐外牙旗捲日高|白书红尘飞一骑|尚方新赐玉麟袍
+out_post: 一中金烛洗红栏|一底琵签万缕寒|不马不知不不片|不馀星句一龙冠
+out_prior: 一来春色满江城|一树桃花照眼明|不是不知人世界|不知何处是春城
+
+epoch: 7, 2001/3767 53.1%, 0.424 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.3, rec loss: 3.976, entropy loss: -0.518, cl loss w: 1.778, cl loss xw: 0.438
+  dis loss: 0.284, adv loss: 3.105, latent dist: 273.537, factors dist: 24.862
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 衡门
+trg: 蚤探春信到梅花|夜静无风气候佳|依旧衡门飞燕子|留台御史近还家
+out_post: 一岁花草到长安|不半风人月象闲|不旧不门松竹坐|一连今史看人衙
+out_prior: 山林斜日映溪扉|野树苍苍野径迷|野水无人知我意|隔林遥望夕阳低
+
+epoch: 7, 2201/3767 58.4%, 0.444 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.4, rec loss: 3.977, entropy loss: -0.518, cl loss w: 1.778, cl loss xw: 0.437
+  dis loss: 0.282, adv loss: 3.117, latent dist: 273.297, factors dist: 24.876
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 匆匆
+trg: 忆昔初乘上峡船|雪滩云岫过联翩|匆匆不暇寻高隐|遗恨于今四十年
+out_post: 一昔曾年溯濑船|今中霜水暮横桥|如匆不识频常处|犹迹重今在十年
+out_prior: 小窗疏影月微明|睡起茶香睡未醒|梦觉春寒犹未醒|杏花香里蝶蜂惊
+
+epoch: 7, 2401/3767 63.7%, 0.429 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.5, rec loss: 3.979, entropy loss: -0.518, cl loss w: 1.778, cl loss xw: 0.437
+  dis loss: 0.280, adv loss: 3.130, latent dist: 272.319, factors dist: 24.882
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 星星
+trg: 九载星星复种种|投荒不死趋大梁|西州华屋那可见|黄鹤台南堪断肠
+out_post: 白重山行一几瓜|不簪地地亦庭书|人风吹发萧堪此|老叶矶前旧断肠
+out_prior: 一年春风一夜愁|夜深灯火照银钩|不知不是无人处|只有西风一点愁
+
+epoch: 7, 2601/3767 69.0%, 0.416 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.5, rec loss: 3.981, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.437
+  dis loss: 0.278, adv loss: 3.142, latent dist: 272.045, factors dist: 24.890
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 云开
+trg: 轻风熨贴晚云开|为放中秋半月来|待得月圆多值雨|不如今夕共樽罍
+out_post: 春风吹雨小风开|一报春丞夜月来|欲得春明明处雪|不知今夜更徘罍
+out_prior: 山中云雨湿青山|云外青山隔暮山|欲问故人何处去|一双飞鸟过江关
+
+epoch: 7, 2801/3767 74.4%, 0.405 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.6, rec loss: 3.982, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.436
+  dis loss: 0.276, adv loss: 3.155, latent dist: 271.606, factors dist: 24.901
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 柴门
+trg: 桑阴绕扶疏|墙下亦已树|柴门不须关|野老自来去
+out_post: 山叶翳茅疏|山外一可具|鸟门掩掩关|一鸟无相对
+out_prior: 山中有佳客|相思不可论|不知何处去|空有白云庵
+
+epoch: 7, 3001/3767 79.7%, 0.414 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.7, rec loss: 3.984, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.436
+  dis loss: 0.275, adv loss: 3.167, latent dist: 270.794, factors dist: 24.912
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 山郭
+trg: 山郭媚晴曦|浮岚散芳树|鸡犬寂无声|人家已深处
+out_post: 山色远幽晖|山云生翠树|山犬鸣无人|山人在如处
+out_prior: 一片白云中|一片青山碧|不见白云人|何人有知己
+
+epoch: 7, 3201/3767 85.0%, 0.405 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.8, rec loss: 3.985, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.435
+  dis loss: 0.273, adv loss: 3.177, latent dist: 270.196, factors dist: 24.922
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 行人
+trg: 扬子江头浪最深|行人到此尽沉吟|他时若向无波处|还似有波时用心
+out_post: 一子江头春拍高|一人不此不知心|何年若问江人上|不是人人无得深
+out_prior: 一年不见一人知|况是山中有所思|若使此生真可恨|不应无地可为谁
+
+epoch: 7, 3401/3767 90.3%, 0.392 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:53.9, rec loss: 3.987, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.435
+  dis loss: 0.271, adv loss: 3.187, latent dist: 269.481, factors dist: 24.936
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 城西
+trg: 谯楼伟观接城西|天遣公来重以诗|岂是江山与人助|江山元是以人知
+out_post: 一楼高下月华边|万上群家事勒齐|一是故南无天事|不南江是一人知
+out_prior: 一年春风一日闲|一时无事可怜闲|不知不是东华客|何事人间不得闲
+
+epoch: 7, 3601/3767 95.6%, 0.415 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.0, rec loss: 3.988, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.434
+  dis loss: 0.270, adv loss: 3.195, latent dist: 269.150, factors dist: 24.947
+______________________
+run validation...
+in training mode: 0
+epoch: 7, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:77.7, rec loss: 4.353, entropy loss: -0.484, cl loss w: 1.777, cl loss xw: 2.660
+  dis loss: 0.068, adv loss: 3.440
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 感激
+trg: 梦寐周公制作心|遗编厚贶辱遥临|焚香拜罢时开卷|感激于君定几深
+out_post: 山回从家十作衣|不知聊贶自承岑|不香读罢无无卷|月激生斯不有音
+out_prior: 一日春风一线长|一枝花发映红妆|不知不是春光好|只有梅花一样香
+
+epoch: 8, 1/3767 0.0%, 0.007 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.0, rec loss: 3.990, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.434
+  dis loss: 0.269, adv loss: 3.204, latent dist: 268.734, factors dist: 24.959
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 招提
+trg: 淡云疏雨护清虚|藓壁苍林石径纡|踏遍招提三百二|逢人惟说藕花居
+out_post: 一淡淡淡暗山城|万壁苍藤翠径纡|一破苍提三百里|一人不说是花图
+out_prior: 一年春风一日晴|一花如雪满春城|东风不管人间世|吹落胭脂一片轻
+
+epoch: 8, 201/3767 5.3%, 0.410 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.1, rec loss: 3.991, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.433
+  dis loss: 0.267, adv loss: 3.215, latent dist: 267.855, factors dist: 24.964
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 水长
+trg: 水长雨不歇|沧江深更深|行人苦无渡|折尽济川心
+out_post: 山落天不尽|江浪水处深|不人不知意|舟柳不川心
+out_prior: 一水通南浦|春风入洞门|不知何处去|一听白云门
+
+epoch: 8, 401/3767 10.6%, 0.395 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.2, rec loss: 3.992, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.432
+  dis loss: 0.265, adv loss: 3.226, latent dist: 267.433, factors dist: 24.978
+______________________
+factor1 label: 2
+factor2 label: -1, inferred: 0
+key: 草色
+trg: 烟霞占绝迥尘棼|洞里书藏草色薰|隐并鹿门瞻紫气|光分藜阁付青云
+out_post: 江雨霏霏雨初收|一里春生一木新|天隐仙家双望气|不明彩杖待清云
+out_prior: 一片云山一片云|一山风雨不胜春|谁知此日重来日|不是江南第一人
+
+epoch: 8, 601/3767 16.0%, 0.422 s per iter, lr: 0.0004, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.2, rec loss: 3.993, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.431
+  dis loss: 0.264, adv loss: 3.237, latent dist: 266.618, factors dist: 24.988
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 长街
+trg: 湖南城郭好长街|竟栽柳树不栽槐|百姓奔窜无一事|只是椎芒织草鞋
+out_post: 一年风北尽相官|一日人阴不可栽|今年名流无一事|一今寻牛扫草鞋
+out_prior: 白云深处敞深山|白日青山共往还|欲问故人消息处|白云深处见青山
+
+epoch: 8, 801/3767 21.3%, 0.409 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.3, rec loss: 3.994, entropy loss: -0.518, cl loss w: 1.779, cl loss xw: 0.430
+  dis loss: 0.262, adv loss: 3.245, latent dist: 265.795, factors dist: 24.998
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 白鸥
+trg: 落叶积沙水|寒花带石丛|白鸥随病客|日日泛溪中
+out_post: 山日满阴洲|春云落雨飞|何人不处去|不暮送舟归
+out_prior: 山水灌园蔬|青山照白屋|不知何处来|惟有白云卧
+
+epoch: 8, 1001/3767 26.6%, 0.453 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.3, rec loss: 3.995, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.429
+  dis loss: 0.261, adv loss: 3.253, latent dist: 265.381, factors dist: 25.015
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 落梅
+trg: 沙际春烟湿未消|落梅风急送轻桡|江边有客寻诗去|应在西湖第六桥
+out_post: 一头烟风水翠消|一花飞雨送春桡|扁南杨客无常句|一是江南第一桥
+out_prior: 江南江北雁声长|万里江山一梦长|何处不堪回首望|江南江北雁南行
+
+epoch: 8, 1201/3767 31.9%, 0.434 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.4, rec loss: 3.996, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.428
+  dis loss: 0.260, adv loss: 3.263, latent dist: 264.805, factors dist: 25.028
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 凌风
+trg: 楼角凌风迥|孤城隐雾深|万事随转烛|秋光近青岑
+out_post: 山色秋风雨|寒舟落日深|一山无缘尽|无风射远岑
+out_prior: 春风吹不尽|春草满庭除|莫道无情物|春风不可无
+
+epoch: 8, 1401/3767 37.2%, 0.410 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.5, rec loss: 3.998, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.428
+  dis loss: 0.258, adv loss: 3.271, latent dist: 264.100, factors dist: 25.038
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: 0
+key: 浔阳
+trg: 水边垂柳赤栏桥|洞里仙人碧玉箫|近得麻姑音信否|浔阳江上不通潮
+out_post: 一晶宫殿不城干|一曲风人掌上霄|一日侍姑春信息|月阳宫里几曾潮
+out_prior: 一山云树碧玲珑|一树桃花满树红|不是春风吹不散|满园桃杏杏花红
+
+epoch: 8, 1601/3767 42.5%, 0.422 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.5, rec loss: 3.999, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.427
+  dis loss: 0.257, adv loss: 3.280, latent dist: 263.419, factors dist: 25.049
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 消息
+trg: 先生万虑尽空时|元气浑沦可得窥|还有发生消息在|挥毫烟雨一枝枝
+out_post: 一生不事尽消虚|不是无如一百株|不有当生真息在|不毫先雨一时知
+out_prior: 一年不见一年期|今日重来事已非|今日相逢重相忆|不知何处是男儿
+
+epoch: 8, 1801/3767 47.8%, 0.427 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.6, rec loss: 4.000, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.426
+  dis loss: 0.256, adv loss: 3.290, latent dist: 262.908, factors dist: 25.051
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 细草
+trg: 纤腰睡起芳情足|谁道春风浪拘束|日暮天涯细草多|轻飞误入阑干曲
+out_post: 一纤轻起怯菲地|不识春风不得花|不暮江涯无细芽|不舟不入鸳干曲
+out_prior: 一树梅花雪满枝|春风吹雨暗相宜|不知何处归来晚|只有梅花一片时
+
+epoch: 8, 2001/3767 53.1%, 0.417 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.6, rec loss: 4.001, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.426
+  dis loss: 0.254, adv loss: 3.299, latent dist: 262.296, factors dist: 25.064
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 桃源
+trg: 跻攀不辞远|微汗湿红粉|万一有桃源|当期郎共隐
+out_post: 山攀跻知处|不风自人尘|不里不青花|相年采下语
+out_prior: 一日无人见|春风吹客心|不知何处去|犹有旧时琴
+
+epoch: 8, 2201/3767 58.4%, 0.411 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.7, rec loss: 4.002, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.425
+  dis loss: 0.253, adv loss: 3.306, latent dist: 261.771, factors dist: 25.078
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 秋光
+trg: 隐迹混樵踪|幽居碧涧东|秋光胜春色|红树白云中
+out_post: 日暮江烟者|山空无人壑|山风满不尽|白叶夕云中
+out_prior: 日落山无定|山深客未归|不知春草绿|犹得几时归
+
+epoch: 8, 2401/3767 63.7%, 0.416 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.8, rec loss: 4.003, entropy loss: -0.519, cl loss w: 1.779, cl loss xw: 0.425
+  dis loss: 0.251, adv loss: 3.316, latent dist: 261.024, factors dist: 25.095
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 饶
+trg: 才看腊后得春饶|愁见风前作雪飘|脱蕊收将熬粥吃|落英仍好当香烧
+out_post: 一子新月已春华|不见春光一雨消|今却忽来红熬饭|不花应复子规妻
+out_prior: 一年不见一年年|不见人间有几年|莫道无人无不见|空山犹自有人烟
+
+epoch: 8, 2601/3767 69.0%, 0.439 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.8, rec loss: 4.004, entropy loss: -0.520, cl loss w: 1.779, cl loss xw: 0.424
+  dis loss: 0.250, adv loss: 3.321, latent dist: 260.260, factors dist: 25.101
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 作诗
+trg: 莫亲于父子|天性有时移|竟以妇为厉|空令传作诗
+out_post: 一道无今老|今地亦馀人|不日曹溪子|无存一古师
+out_prior: 天地有馀地|人间万事存|至今犹未灭|犹自有馀君
+
+epoch: 8, 2801/3767 74.4%, 0.399 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.9, rec loss: 4.005, entropy loss: -0.520, cl loss w: 1.779, cl loss xw: 0.423
+  dis loss: 0.249, adv loss: 3.329, latent dist: 260.067, factors dist: 25.111
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 春光
+trg: 春光明日是长安|杨柳青青傍酒寒|也自道君为客好|那应犹作故园看
+out_post: 一上山月一帘圆|不见花青照眼看|莫是不人心不少|不知不在少人看
+out_prior: 一山山水自相家|一水东流一派花|今日重来无一事|不知何处是天涯
+
+epoch: 8, 3001/3767 79.7%, 0.431 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:54.9, rec loss: 4.006, entropy loss: -0.520, cl loss w: 1.779, cl loss xw: 0.422
+  dis loss: 0.248, adv loss: 3.336, latent dist: 259.466, factors dist: 25.126
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 天山
+trg: 振威驰突过天山|擒敌如神指顾间|底事战尘收不起|陈云西下望阳关
+out_post: 一廪风雨走关关|万虎江何不顾间|不事不场无不尽|不蕃不望望青山
+out_prior: 一日风光日日长|春风吹尽绿阴凉|东风不管春来早|一夜东风到海棠
+
+epoch: 8, 3201/3767 85.0%, 0.410 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.0, rec loss: 4.007, entropy loss: -0.520, cl loss w: 1.780, cl loss xw: 0.422
+  dis loss: 0.247, adv loss: 3.343, latent dist: 258.673, factors dist: 25.141
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 绿苔
+trg: 石冈清绝处|兰若傍岩开|年远僧稀少|经廊生绿苔
+out_post: 山色云昼夜|古棹鹤还栖|欲识玄真意|时年步步苔
+out_prior: 一日不可见|青山何处来|何人为一醉|为我一徘徊
+
+epoch: 8, 3401/3767 90.3%, 0.462 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.0, rec loss: 4.008, entropy loss: -0.520, cl loss w: 1.780, cl loss xw: 0.421
+  dis loss: 0.245, adv loss: 3.353, latent dist: 257.863, factors dist: 25.155
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 短发
+trg: 刁骚短发半垂黄|深觉闲中气味长|买得溪山犹是错|往来杖屦却成忙
+out_post: 一年不发不成垂|一院春风有味长|不得牡头好未客|不来风屦自徜行
+out_prior: 一日相逢不问津|一年相见一年春|今朝又见花前柳|别后相思不见人
+
+epoch: 8, 3601/3767 95.6%, 0.409 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.1, rec loss: 4.009, entropy loss: -0.520, cl loss w: 1.780, cl loss xw: 0.421
+  dis loss: 0.244, adv loss: 3.360, latent dist: 257.283, factors dist: 25.164
+______________________
+run validation...
+in training mode: 0
+epoch: 8, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:77.2, rec loss: 4.346, entropy loss: -0.491, cl loss w: 1.792, cl loss xw: 2.802
+  dis loss: 0.075, adv loss: 3.395
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 欹枕
+trg: 夜凉欹枕数清漏|秋早出门怜露花|莫道五湖归未得|山城十亩旧桑麻
+out_post: 一深风枕梦枝凉|月色梧门还未华|一片秋更秋未得|不中吹里是桑麻
+out_prior: 一年一日到江城|万里风尘一笑情|今日相逢无别事|不知谁是旧时名
+
+epoch: 9, 1/3767 0.0%, 0.009 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.1, rec loss: 4.010, entropy loss: -0.520, cl loss w: 1.780, cl loss xw: 0.420
+  dis loss: 0.243, adv loss: 3.366, latent dist: 256.557, factors dist: 25.176
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 高台
+trg: 雨洗淮天旱始摧|正堪凭远上高台|萸津菊润斋醅熟|共助重阳辟恶杯
+out_post: 一馀青山白未通|一须南槛倚青峰|山花一曲无中熟|不酌清阳一谷风
+out_prior: 春风吹雨过江城|一夜扁舟系柳城|莫道江南春色好|梅花如雪不如明
+
+epoch: 9, 201/3767 5.3%, 0.403 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.2, rec loss: 4.010, entropy loss: -0.520, cl loss w: 1.780, cl loss xw: 0.419
+  dis loss: 0.242, adv loss: 3.373, latent dist: 256.033, factors dist: 25.187
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 花明
+trg: 茜罗绉薄剪薰风|已自花明蒂亦同|不肯染时轻著色|却将密绿护深红
+out_post: 春罗衫尽玉刀裁|一觉分开照眼开|春色不香春一笑|不须春叶洒春红
+out_prior: 一日春风一日晴|春风吹雨不曾晴|春风吹尽桃花雨|一夜春风吹雨声
+
+epoch: 9, 401/3767 10.6%, 0.407 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.2, rec loss: 4.011, entropy loss: -0.521, cl loss w: 1.780, cl loss xw: 0.418
+  dis loss: 0.241, adv loss: 3.377, latent dist: 255.793, factors dist: 25.202
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 惊起
+trg: 腊雪飞如真脑子|水仙开似小莲花|睡云正美俄惊起|且唤诗僧与斗茶
+out_post: 一雪初来雪玉子|天边分处玉池中|一魔不是人惊觉|却喜茶人煮酒茶
+out_prior: 一年一度见花时|今日重来又几时|今日相逢无别事|不知春色满花枝
+
+epoch: 9, 601/3767 16.0%, 0.409 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.2, rec loss: 4.012, entropy loss: -0.521, cl loss w: 1.780, cl loss xw: 0.418
+  dis loss: 0.240, adv loss: 3.384, latent dist: 255.101, factors dist: 25.220
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 金波
+trg: 一脉金波唤作泉|孤城小小带疏烟|从容三让登车后|黼黻炎刘四百年
+out_post: 一日泉波照碧围|一舟一雨更凄妍|不今不十春临兴|不座何光亿百年
+out_prior: 一云飞尽碧天低|一片飞云过石溪|不是山中无限意|杜鹃啼处杜鹃啼
+
+epoch: 9, 801/3767 21.3%, 0.416 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.3, rec loss: 4.012, entropy loss: -0.521, cl loss w: 1.780, cl loss xw: 0.417
+  dis loss: 0.239, adv loss: 3.389, latent dist: 254.578, factors dist: 25.220
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 茅屋
+trg: 茅屋隔榆林|孤舟系柳阴|明时无逸客|谁在白云深
+out_post: 山水连溪水|溪流带浦湾|渔歌歌一兴|不识白云深
+out_prior: 山径萦纡径|溪桥带夕岚|山中无限景|不用倚青岚
+
+epoch: 9, 1001/3767 26.6%, 0.412 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.3, rec loss: 4.013, entropy loss: -0.521, cl loss w: 1.780, cl loss xw: 0.416
+  dis loss: 0.238, adv loss: 3.393, latent dist: 254.254, factors dist: 25.229
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 落日
+trg: 钱塘江上撑空塔|塔外遥山翠作堆|酒罢凭栏呼落日|水云深处子陵台
+out_post: 一塘江上月银回|一影山看翠霭堆|不是不栏人不日|江晶山处有猷台
+out_prior: 春风吹雨湿花钿|一片春风不自怜|莫道春来无处着|一枝春在绿杨边
+
+epoch: 9, 1201/3767 31.9%, 0.394 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.4, rec loss: 4.014, entropy loss: -0.521, cl loss w: 1.780, cl loss xw: 0.415
+  dis loss: 0.237, adv loss: 3.400, latent dist: 253.465, factors dist: 25.238
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 名花
+trg: 名花楚楚近清尊|蛱蝶春生五色痕|金屋琼窗无锁钥|蓬莱飞坠太真魂
+out_post: 雨园落日人重秋|独蝶纷纷未色门|莫谷玉楼无一钥|清香何上玉清孙
+out_prior: 一年春色满江头|一夜春风吹不休|今日相逢无相见|一番春雨一番愁
+
+epoch: 9, 1401/3767 37.2%, 0.413 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.4, rec loss: 4.015, entropy loss: -0.521, cl loss w: 1.780, cl loss xw: 0.414
+  dis loss: 0.236, adv loss: 3.407, latent dist: 252.958, factors dist: 25.250
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 荔子
+trg: 白鸦谷口叶盘秋|荔子今无驿使求|零落共谁一笑粲|殷勤为报赤心投
+out_post: 一云飞口一初黄|一子花开一使舟|一落满呼知夜老|不勤一我一城头
+out_prior: 一年春风吹不成|一花落尽柳花明|谁知此日无人到|一夜看花到短亭
+
+epoch: 9, 1601/3767 42.5%, 0.418 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.4, rec loss: 4.015, entropy loss: -0.522, cl loss w: 1.780, cl loss xw: 0.414
+  dis loss: 0.235, adv loss: 3.412, latent dist: 252.753, factors dist: 25.252
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 烟火
+trg: 阒阚前头第一班|绝无烟火上朱颜|问渠何事长如此|不语行拖双玉环
+out_post: 一阚秋山花一峰|春胜人语照人阑|何君何事今安此|莫到山人不鬓颜
+out_prior: 一山无数不知年|一水何人到此泉|何处不知何处是|一溪春水一潺湲
+
+epoch: 9, 1801/3767 47.8%, 0.434 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.5, rec loss: 4.016, entropy loss: -0.522, cl loss w: 1.780, cl loss xw: 0.413
+  dis loss: 0.233, adv loss: 3.418, latent dist: 252.459, factors dist: 25.261
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 水部
+trg: 月露洗沐秋容净|姑山初逢冰雪仙|风流水部与藻饰|从此梅花应并传
+out_post: 一明瀼瀼夜风淡|月下风静桂雪姿|一曲一曲清人饰|不管弦歌无不传
+out_prior: 春风吹雨过江城|一夜东风吹不成|不是春风吹柳絮|一枝红叶满枝城
+
+epoch: 9, 2001/3767 53.1%, 0.428 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.5, rec loss: 4.016, entropy loss: -0.522, cl loss w: 1.780, cl loss xw: 0.413
+  dis loss: 0.232, adv loss: 3.425, latent dist: 251.888, factors dist: 25.280
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 携尊
+trg: 出郭携尊屡|寻园步屧迟|莫言春事晚|犹是百花时
+out_post: 一门无一钵|携访去路来|不知今草晚|不有旧时时
+out_prior: 一夜寒风起|吹花落月明|不知何处是|月在白云生
+
+epoch: 9, 2201/3767 58.4%, 0.423 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.5, rec loss: 4.017, entropy loss: -0.522, cl loss w: 1.780, cl loss xw: 0.412
+  dis loss: 0.231, adv loss: 3.432, latent dist: 251.281, factors dist: 25.287
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 空阔
+trg: 裘马风尘欲白头|湘江空阔自眠鸥|秋来应起张翰思|年少知几万户侯
+out_post: 春马长驱马满头|一江风阔水悠鸥|不风不有无公墨|不少风君不里侯
+out_prior: 春风吹雨过江城|一夜江头月正明|莫怪诗人频入梦|不知何处是诗情
+
+epoch: 9, 2401/3767 63.7%, 0.417 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.6, rec loss: 4.018, entropy loss: -0.522, cl loss w: 1.780, cl loss xw: 0.411
+  dis loss: 0.231, adv loss: 3.436, latent dist: 250.580, factors dist: 25.297
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 哀哀
+trg: 莫遂终养志|难酬罔极恩|哀哀父母句|肠断不堪闻
+out_post: 一叹吾衰病|难为季极悲|黄金泣母死|死断楚无丝
+out_prior: 一月生寒夜|孤灯照夜明|不知何处是|依旧照人明
+
+epoch: 9, 2601/3767 69.0%, 0.407 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.6, rec loss: 4.018, entropy loss: -0.523, cl loss w: 1.780, cl loss xw: 0.410
+  dis loss: 0.230, adv loss: 3.441, latent dist: 249.949, factors dist: 25.305
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 远客
+trg: 远客厌征路|流年逢素秋|不知今夜月|还照几人愁
+out_post: 一山思归雁|归程又别秋|明知何夜月|还照旧人愁
+out_prior: 白发生长者|青青白发新|不知何处去|犹有白云人
+
+epoch: 9, 2801/3767 74.4%, 0.418 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.6, rec loss: 4.019, entropy loss: -0.523, cl loss w: 1.780, cl loss xw: 0.410
+  dis loss: 0.229, adv loss: 3.447, latent dist: 249.345, factors dist: 25.312
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 去年
+trg: 去年巢穴画梁边|春暖双双绕槛前|莫讶主人帘不捲|恐衔泥土污花砖
+out_post: 一年今父已蹉州|今去春凫半树头|今道不人心半捲|不惊花滑在春前
+out_prior: 天涯一夜雨霏霏|一夜相思梦觉稀|泪湿满腮红泪湿|满天风雨湿征衣
+
+epoch: 9, 3001/3767 79.7%, 0.400 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.7, rec loss: 4.019, entropy loss: -0.523, cl loss w: 1.780, cl loss xw: 0.409
+  dis loss: 0.228, adv loss: 3.450, latent dist: 248.677, factors dist: 25.323
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 1
+key: 荔枝
+trg: 荔枝可饱瓜先熟|橘子将成笋尚肥|莫笑野夫犹抱瓮|半生吾已息吾机
+out_post: 野子初笑山樱熟|野柚初来未蕨肥|老道老人无不瓮|山年还欲厌尘衣
+out_prior: 一日无人不自持|一来风雨又凄凄|山中有客无寻处|不见山僧不自知
+
+epoch: 9, 3201/3767 85.0%, 0.397 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.7, rec loss: 4.020, entropy loss: -0.523, cl loss w: 1.780, cl loss xw: 0.408
+  dis loss: 0.227, adv loss: 3.455, latent dist: 248.563, factors dist: 25.332
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 1
+key: 衡门
+trg: 陋室群书满|衡门俗客稀|饥肠何以疗|园芋正丰肥
+out_post: 山巷无山集|人门独掩还|山寒堪所报|无复自为灾
+out_prior: 白发生长者|青青与世同|不知千里外|犹自有馀风
+
+epoch: 9, 3401/3767 90.3%, 0.406 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.7, rec loss: 4.021, entropy loss: -0.523, cl loss w: 1.780, cl loss xw: 0.408
+  dis loss: 0.226, adv loss: 3.460, latent dist: 247.920, factors dist: 25.339
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 明年
+trg: 何如相见复相违|衰柳江边带夕晖|话到别离心便咽|明年又恐送君归
+out_post: 一年天见不何亲|一草萧边日夕晖|莫到江来情不觉|不知何是是君归
+out_prior: 一年春色满皇都|一日相逢又一年|今日重来无别事|白云堆里看青天
+
+epoch: 9, 3601/3767 95.6%, 0.405 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.8, rec loss: 4.021, entropy loss: -0.523, cl loss w: 1.780, cl loss xw: 0.407
+  dis loss: 0.226, adv loss: 3.462, latent dist: 247.540, factors dist: 25.354
+______________________
+run validation...
+in training mode: 0
+epoch: 9, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:77.1, rec loss: 4.345, entropy loss: -0.502, cl loss w: 1.781, cl loss xw: 2.860
+  dis loss: 0.234, adv loss: 2.395
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 花下
+trg: 胧明春月照花枝|花下音声是管儿|却笑西京李员外|五更骑马趁朝时
+out_post: 一胧不色满窗明|一落风书总不诗|莫是西湖人员外|不湖风马过春时
+out_prior: 一日山中日日闲|一时风雨又春还|今朝又见青山屐|不见青山在白山
+
+epoch: 10, 1/3767 0.0%, 0.009 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.8, rec loss: 4.022, entropy loss: -0.523, cl loss w: 1.780, cl loss xw: 0.406
+  dis loss: 0.225, adv loss: 3.463, latent dist: 247.080, factors dist: 25.367
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 草堂
+trg: 翠竹高梧一径斜|草堂开占白鸥沙|秋来几阵催寒雨|报道芙蓉又着花
+out_post: 一竹深低竹叶斜|春堂无卷一云沙|春风不度风租暑|不见春蓉未落花
+out_prior: 一日山中一局棋|一人相见不相知|山中不识天涯路|日暮行人不自悲
+
+epoch: 10, 201/3767 5.3%, 0.441 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.8, rec loss: 4.022, entropy loss: -0.524, cl loss w: 1.780, cl loss xw: 0.406
+  dis loss: 0.224, adv loss: 3.465, latent dist: 246.424, factors dist: 25.380
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 试看
+trg: 问君能不绘予心|只在青天月下寻|莫怪病骸还偃蹇|试看野鹤在松林
+out_post: 一讯何几为元丰|自恐天山白下寻|一问山来无自蹇|要看一鹿伴高林
+out_prior: 春风吹雨满江干|一夜相思梦里间|不是君王多乐事|不知何处是人间
+
+epoch: 10, 401/3767 10.6%, 0.418 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.9, rec loss: 4.023, entropy loss: -0.524, cl loss w: 1.780, cl loss xw: 0.405
+  dis loss: 0.224, adv loss: 3.468, latent dist: 245.834, factors dist: 25.390
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 看君
+trg: 更作东山住|寻盟尚有诗|看君腾踏去|及我未归时
+out_post: 不见山风梦|谁梅访未情|春花看绝雪|留我一忘时
+out_prior: 白发千年老|孤忠万古存|忠臣诚死死|忠孝答天恩
+
+epoch: 10, 601/3767 16.0%, 0.401 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.9, rec loss: 4.023, entropy loss: -0.524, cl loss w: 1.780, cl loss xw: 0.404
+  dis loss: 0.223, adv loss: 3.469, latent dist: 245.252, factors dist: 25.398
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 0
+key: 意气
+trg: 山僧如病鹤|意气独离群|思共孤峰月|闲分半榻云
+out_post: 山色不相客|我气入来披|何事清溪上|相逢一夜云
+out_prior: 一月照清夜|月明秋水清|嫦娥无限意|不许濯衣声
+
+epoch: 10, 801/3767 21.3%, 0.404 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.9, rec loss: 4.023, entropy loss: -0.524, cl loss w: 1.781, cl loss xw: 0.403
+  dis loss: 0.222, adv loss: 3.475, latent dist: 244.833, factors dist: 25.406
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 林下
+trg: 越山千万云门绝|西僧貌古还名月|清朝扫石行道归|林下眠禅看松雪
+out_post: 一王山里古山开|一望一得千家家|白风写地坐中庭|何下幽泉听不下
+out_prior: 一年春色到江南|一夜东风吹梦酣|莫道仙翁多少事|梅花应有待郎言
+
+epoch: 10, 1001/3767 26.6%, 0.420 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.9, rec loss: 4.024, entropy loss: -0.525, cl loss w: 1.781, cl loss xw: 0.402
+  dis loss: 0.221, adv loss: 3.476, latent dist: 244.478, factors dist: 25.414
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 灵光
+trg: 石匮埋神物|灵光照夜多|龙归天上后|无复更风波
+out_post: 一上生龙物|风符护汉开|一蟠虎地去|应复见无波
+out_prior: 一日无一事|今日见新晴|不见归来日|春风满满城
+
+epoch: 10, 1201/3767 31.9%, 0.412 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:55.9, rec loss: 4.024, entropy loss: -0.525, cl loss w: 1.781, cl loss xw: 0.401
+  dis loss: 0.220, adv loss: 3.482, latent dist: 244.039, factors dist: 25.423
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 0
+key: 城郭
+trg: 谁云边塞地|城郭近来空|闻道延州将|犹称列郡雄
+out_post: 山谓一城云|不见一南时|但道今陵客|相闻汉日公
+out_prior: 一日不可人|一水复何处|一夜不成眠|日日山中宿
+
+epoch: 10, 1401/3767 37.2%, 0.398 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.0, rec loss: 4.025, entropy loss: -0.525, cl loss w: 1.781, cl loss xw: 0.401
+  dis loss: 0.220, adv loss: 3.483, latent dist: 243.450, factors dist: 25.433
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 青衫
+trg: 文字无凭据|高低在识衔|不知邵康节|原是一青衫
+out_post: 风章虽非阑|功名岂世难|不知清平节|犹是配家衫
+out_prior: 山中有烽火|山鬼哭悲鸣|不是无人事|谁知此意生
+
+epoch: 10, 1601/3767 42.5%, 0.405 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.0, rec loss: 4.025, entropy loss: -0.525, cl loss w: 1.781, cl loss xw: 0.400
+  dis loss: 0.219, adv loss: 3.485, latent dist: 242.956, factors dist: 25.444
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 子云
+trg: 同学书生已冕旒|未将换与一羊裘|子云到老不晓事|不信人间有许由
+out_post: 一年同生学海旒|不曾功业付封裘|如孙不是无如事|一与人间有一由
+out_prior: 一月清风满帝畿|一人何处是天涯|不知何处堪乘兴|不见江南有别离
+
+epoch: 10, 1801/3767 47.8%, 0.421 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.0, rec loss: 4.026, entropy loss: -0.525, cl loss w: 1.781, cl loss xw: 0.399
+  dis loss: 0.219, adv loss: 3.487, latent dist: 242.274, factors dist: 25.457
+______________________
+factor1 label: 2
+factor2 label: -1, inferred: 1
+key: 忘忧
+trg: 道大如天不可求|修其可见致其幽|愿子笃实慎勿浮|发愤忘食乐忘忧
+out_post: 一年江何不可怜|一身如是老吾身|一将不馀勿勿去|不时不机不天忧
+out_prior: 一年一度见新诗|不见梅花雪满枝|莫道梅花成底事|不须重理旧题诗
+
+epoch: 10, 2001/3767 53.1%, 0.429 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.0, rec loss: 4.026, entropy loss: -0.526, cl loss w: 1.781, cl loss xw: 0.398
+  dis loss: 0.218, adv loss: 3.488, latent dist: 241.480, factors dist: 25.466
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 弄
+trg: 后时独立诚难事|犹赖阶庭有菊丛|绰约霜前弄姿态|非如群木万株红
+out_post: 一来无立诚斋说|不有山前著语花|一约不知花春态|一缘何事得年中
+out_prior: 一人不是一人知|一日相逢各自知|若使胸中无一事|不须更问小姑诗
+
+epoch: 10, 2201/3767 58.4%, 0.442 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.1, rec loss: 4.027, entropy loss: -0.526, cl loss w: 1.781, cl loss xw: 0.398
+  dis loss: 0.218, adv loss: 3.488, latent dist: 240.961, factors dist: 25.472
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 倒
+trg: 主人开燕倒金钟|坐客俱吟柳絮风|应念人间有贫者|炉星拨尽酒瓶空
+out_post: 一人不爱老杯钱|一入山无鬓絮风|不是不间无一贱|一烟元火不垆空
+out_prior: 一溪春水绿于苔|一水桃花水自开|不是春风吹不得|不知谁是牡丹来
+
+epoch: 10, 2401/3767 63.7%, 0.426 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.1, rec loss: 4.027, entropy loss: -0.526, cl loss w: 1.781, cl loss xw: 0.397
+  dis loss: 0.217, adv loss: 3.490, latent dist: 240.452, factors dist: 25.480
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 江亭
+trg: 经旬不出户|忘却城南道|江亭细雨过|一夜生春草
+out_post: 山旬不不寐|一却在山山|不知坐雨来|一水松寒水
+out_prior: 一日无人到|风吹落叶稀|一声何处去|不待月明归
+
+epoch: 10, 2601/3767 69.0%, 0.411 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.1, rec loss: 4.027, entropy loss: -0.526, cl loss w: 1.781, cl loss xw: 0.396
+  dis loss: 0.217, adv loss: 3.490, latent dist: 240.003, factors dist: 25.490
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 笔
+trg: 上阁便见海|入门方是山|塔高端似笔|城转曲如环
+out_post: 一有有无面|前身复丈游|如声如不水|妙外一江山
+out_prior: 一日不可见|天然一一身|不然一寸土|不是世人人
+
+epoch: 10, 2801/3767 74.4%, 0.393 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.1, rec loss: 4.028, entropy loss: -0.526, cl loss w: 1.781, cl loss xw: 0.396
+  dis loss: 0.216, adv loss: 3.491, latent dist: 239.584, factors dist: 25.505
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 松杉
+trg: 山围明镜易成圆|四壁松杉黯似烟|花缺依稀知峡口|片帆斜出断厓边
+out_post: 一色水月照西昏|一面青山一淡烟|一鸟落稀人不口|不帆飞挂水桥边
+out_prior: 山林萧寺雨霏霏|白鸟相呼过夕晖|白鸟不知人世变|乱鸦飞乱夕阳飞
+
+epoch: 10, 3001/3767 79.7%, 0.433 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.2, rec loss: 4.028, entropy loss: -0.526, cl loss w: 1.781, cl loss xw: 0.395
+  dis loss: 0.215, adv loss: 3.492, latent dist: 239.051, factors dist: 25.517
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 回首
+trg: 琵琶心事曲中论|曾笑明妃负汉恩|明日天山山下路|不须回首望都门
+out_post: 一琶弦切总江流|一向东年泪病恩|莫月满涯如水路|不知惆首问青门
+out_prior: 一年三月已成尘|不见桃花不避人|一日一声惊鸟语|不知身在白头亲
+
+epoch: 10, 3201/3767 85.0%, 0.413 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.2, rec loss: 4.029, entropy loss: -0.527, cl loss w: 1.781, cl loss xw: 0.395
+  dis loss: 0.215, adv loss: 3.493, latent dist: 238.873, factors dist: 25.531
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 金石
+trg: 故家三径盛风流|六月林阴夏似秋|但有清香合金石|何须佳客引羊求
+out_post: 一人兄弟在邹州|一月风中尽日秋|我使黄风供供粟|不妨更处作鸣裘
+out_prior: 一年不见一枝春|一见梅花一笑新|莫道春风无限意|要知花貌是何人
+
+epoch: 10, 3401/3767 90.3%, 0.405 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.2, rec loss: 4.029, entropy loss: -0.527, cl loss w: 1.781, cl loss xw: 0.394
+  dis loss: 0.214, adv loss: 3.494, latent dist: 239.040, factors dist: 25.546
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 鹧鸪
+trg: 橘岸舟间罾网挂|茶坡日暖鹧鸪啼|女郎指点行人笑|知向花间路已迷
+out_post: 一树青青一水船|水烟烟水水鸪啼|山儿不点归人渡|不是人家有几迷
+out_prior: 山中水色云霞净|山雨濛濛湿翠岚|一片清溪寒食后|野人篱下水云庵
+
+epoch: 10, 3601/3767 95.6%, 0.408 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.2, rec loss: 4.029, entropy loss: -0.527, cl loss w: 1.781, cl loss xw: 0.394
+  dis loss: 0.214, adv loss: 3.494, latent dist: 238.561, factors dist: 25.558
+______________________
+run validation...
+in training mode: 0
+epoch: 10, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:76.9, rec loss: 4.342, entropy loss: -0.529, cl loss w: 1.788, cl loss xw: 2.892
+  dis loss: 0.063, adv loss: 3.429
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 聪明
+trg: 读礼三年守故庐|形容衰槁鬓毛疏|聪明不及前时远|虚负牙签架上书
+out_post: 一书诗人一故园|一骸一病不成疏|不明不是归朝事|犹有平签一上书
+out_prior: 一月江头雪未消|一花飞雪满山腰|不知何处归来晚|月满寒窗月满桥
+
+epoch: 11, 1/3767 0.0%, 0.010 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.030, entropy loss: -0.527, cl loss w: 1.781, cl loss xw: 0.393
+  dis loss: 0.213, adv loss: 3.494, latent dist: 238.386, factors dist: 25.571
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 门掩
+trg: 家住清溪口|门掩清溪树|溪上多白云|幽人自来去
+out_post: 野水溪溪口|溪前水溪水|门上石白云|溪人不来去
+out_prior: 山中有佳处|不见白云中|欲问桃源路|烟霞杳霭中
+
+epoch: 11, 201/3767 5.3%, 0.412 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.030, entropy loss: -0.528, cl loss w: 1.781, cl loss xw: 0.392
+  dis loss: 0.213, adv loss: 3.495, latent dist: 238.037, factors dist: 25.584
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 续命
+trg: 辟邪不用符为佩|续命何须彩结丝|逮下徽音继樛木|穰穰福履已来绥
+out_post: 一兵宫救鹿门群|血命无曾上缕长|不向黄音降天木|不侯不泽到千荒
+out_prior: 一月江头雪未消|一声风雨夜迢迢|不知何处归来晚|一夜寒灯照寂寥
+
+epoch: 11, 401/3767 10.6%, 0.436 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.030, entropy loss: -0.528, cl loss w: 1.781, cl loss xw: 0.392
+  dis loss: 0.212, adv loss: 3.495, latent dist: 237.700, factors dist: 25.608
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 梦魂
+trg: 客舍那堪闻杜鹃|梦魂惊断竟无眠|定知此境撩乡思|我亦曾非第二篇
+out_post: 一舍萧知别远鹃|梦魂飞梦夜何涯|梦知我日非人梦|不亦无经我二年
+out_prior: 山中一片水云间|一片浮云几度闲|何处不来寻旧迹|白云飞处是闲山
+
+epoch: 11, 601/3767 16.0%, 0.418 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.030, entropy loss: -0.528, cl loss w: 1.781, cl loss xw: 0.391
+  dis loss: 0.212, adv loss: 3.494, latent dist: 237.225, factors dist: 25.627
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 平
+trg: 臆前虽阔备|眼旷腹须平|项长筋骨促|尾骨短为精
+out_post: 我口有未足|老病懒慵饮|不阔不力瘦|未裤亦长轻
+out_prior: 一月一夜雨|秋风吹夜凉|不知何处去|不是有谁长
+
+epoch: 11, 801/3767 21.3%, 0.416 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.030, entropy loss: -0.528, cl loss w: 1.781, cl loss xw: 0.390
+  dis loss: 0.211, adv loss: 3.494, latent dist: 236.796, factors dist: 25.639
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 纷纭
+trg: 幽幽庭下草|悟悦有禅味|君看红紫场|纷纭乱人意
+out_post: 山禽谷院月|坐久晚凉心|不看白云茎|不纷白飞迹
+out_prior: 山中有佳趣|不知何所有|夜深风露深|明月照窗月
+
+epoch: 11, 1001/3767 26.6%, 0.423 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.031, entropy loss: -0.528, cl loss w: 1.781, cl loss xw: 0.389
+  dis loss: 0.211, adv loss: 3.493, latent dist: 236.312, factors dist: 25.651
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 山径
+trg: 老屋三门山径幽|中藏无限古今愁|新诗吟罢春云合|塔里金仙笑点头
+out_post: 山来无月不水斜|一间一复碧人愁|山僧不罢无归去|不到溪鸡不白头
+out_prior: 一山山色一溪云|水面山光一样新|不是山中无俗客|只今无酒不闲人
+
+epoch: 11, 1201/3767 31.9%, 0.393 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.031, entropy loss: -0.529, cl loss w: 1.781, cl loss xw: 0.389
+  dis loss: 0.211, adv loss: 3.493, latent dist: 236.065, factors dist: 25.651
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 北归
+trg: 荆楚南来又北归|分明舌在不应违|怀王本是无心者|笼得苍蝇却放飞
+out_post: 一棘南来不北山|江明一本两曾知|不人不是无心物|不下梅头不肯归
+out_prior: 山中一片白云飞|山下溪流水溅衣|一片白云飞不去|白云深处有人归
+
+epoch: 11, 1401/3767 37.2%, 0.407 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.031, entropy loss: -0.529, cl loss w: 1.781, cl loss xw: 0.388
+  dis loss: 0.210, adv loss: 3.492, latent dist: 235.686, factors dist: 25.666
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 新
+trg: 平生未学卫夫人|此日题封一字新|想得双文初弄笔|似浓似淡不曾匀
+out_post: 一生不必李夫人|一事相诗一字新|莫得君王无不笔|一将如与世宜嗔
+out_prior: 一来不是不如人|一个如何说是真|若使此身无一物|何如一个是闲人
+
+epoch: 11, 1601/3767 42.5%, 0.407 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.031, entropy loss: -0.529, cl loss w: 1.781, cl loss xw: 0.387
+  dis loss: 0.210, adv loss: 3.492, latent dist: 235.413, factors dist: 25.684
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 清风
+trg: 东冶亭联白下门|问谁走马谢公墩|梅炎一样摇蒲扇|惟有清风后代存
+out_post: 一风亭亭紫玉堂|一人一马向东墩|不花风片清风扇|不有清风入代孙
+out_prior: 白云深处见青山|白日青山望远山|白鸟不知人已往|白云深处一登山
+
+epoch: 11, 1801/3767 47.8%, 0.414 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.032, entropy loss: -0.529, cl loss w: 1.781, cl loss xw: 0.387
+  dis loss: 0.209, adv loss: 3.490, latent dist: 235.190, factors dist: 25.693
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 桃叶
+trg: 双飞蛱蝶恋青莎|逐队流鱼泛碧波|共买杏花村里酒|来听桃叶渡头歌
+out_post: 山溪溪蝶绕花青|一片春莺出绿波|莫向春花三里过|醉来船李奈愁何
+out_prior: 一日风光不可人|一花香雪满纷纷|谁知此日无人会|只有桃花不见君
+
+epoch: 11, 2001/3767 53.1%, 0.411 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.032, entropy loss: -0.529, cl loss w: 1.781, cl loss xw: 0.386
+  dis loss: 0.209, adv loss: 3.488, latent dist: 234.705, factors dist: 25.703
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 碧天
+trg: 南山北山秋气高|碧天万里总纤毫|涌金门外看明月|风露凉生紫绮袍
+out_post: 天山北望山水清|南梧天里一无高|天金门外千云月|不露凄风玉翠裘
+out_prior: 山头一雨暗江干|一片春风落画阑|莫怪春来无处觅|青山无处不曾寒
+
+epoch: 11, 2201/3767 58.4%, 0.436 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.032, entropy loss: -0.530, cl loss w: 1.781, cl loss xw: 0.385
+  dis loss: 0.209, adv loss: 3.486, latent dist: 234.338, factors dist: 25.710
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 北斗
+trg: 仙掌岧峣北斗傍|遥从太华斗寒芒|九霄承露寻常事|万古天门捧日光
+out_post: 一人云峣俯斗开|仙知天乙驾崔来|不知何处仙常事|不用人台一玉光
+out_prior: 春风吹雨过江城|一片寒光照眼明|不是故人归未得|故乡风雨又相惊
+
+epoch: 11, 2401/3767 63.7%, 0.423 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.032, entropy loss: -0.530, cl loss w: 1.781, cl loss xw: 0.385
+  dis loss: 0.209, adv loss: 3.484, latent dist: 233.979, factors dist: 25.718
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 收拾
+trg: 一峰峭立俯群山|下有僧居一体闲|收拾春烟与秋雨|年年曾在碧苔间
+out_post: 一山高削耸清峰|云瞰云房一径间|若个玄风供云色|不来长此此云间
+out_prior: 一枝红艳照春红|一朵春花艳艳红|莫向春风吹不得|一枝浓艳斗春红
+
+epoch: 11, 2601/3767 69.0%, 0.423 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.032, entropy loss: -0.530, cl loss w: 1.781, cl loss xw: 0.384
+  dis loss: 0.209, adv loss: 3.482, latent dist: 233.603, factors dist: 25.741
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 0
+key: 功名
+trg: 天地尘昏九鼎危|大貂曾出武侯师|一心忠赤山河见|百战功名日月知
+out_post: 一地何埃不月馀|一江裘见有陵池|当年不义无前水|不战功名不月迟
+out_prior: 一年春事已无穷|一夜东风吹梦中|不是桃花无处觅|只将青蕊误春风
+
+epoch: 11, 2801/3767 74.4%, 0.412 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.032, entropy loss: -0.530, cl loss w: 1.781, cl loss xw: 0.383
+  dis loss: 0.209, adv loss: 3.481, latent dist: 233.335, factors dist: 25.746
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 蟠桃
+trg: 古今冠佩立朝人|多作北山松下尘|我爱蟠桃种来久|开花结子不由春
+out_post: 一来人盖已多时|不少长山号下人|我有此桃开桃否|不元不实已成身
+out_prior: 玉堂清梦绕廊台|万里风光次第开|不是东风吹客梦|一枝先送一枝来
+
+epoch: 11, 3001/3767 79.7%, 0.412 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.033, entropy loss: -0.530, cl loss w: 1.781, cl loss xw: 0.383
+  dis loss: 0.209, adv loss: 3.480, latent dist: 233.057, factors dist: 25.753
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 青山
+trg: 雨霁春湖阔|扁舟坐不还|放情亲白鸟|觅句赠青山
+out_post: 山色山风阔|山舟泛碧还|烟船人自发|飞句不孤山
+out_prior: 云山风雨夜|云气晓钟迟|莫作东风醉|西风吹落吹
+
+epoch: 11, 3201/3767 85.0%, 0.415 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.033, entropy loss: -0.531, cl loss w: 1.781, cl loss xw: 0.382
+  dis loss: 0.208, adv loss: 3.479, latent dist: 232.957, factors dist: 25.763
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 城南
+trg: 步出城南门|怅望江南路|前日风雨中|故人从此去
+out_post: 日暮东南路|云望千云远|不路不知来|回人在此去
+out_prior: 一月上花枝|花开花满枝|春风不相别|花落雨中丝
+
+epoch: 11, 3401/3767 90.3%, 0.408 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.033, entropy loss: -0.531, cl loss w: 1.781, cl loss xw: 0.381
+  dis loss: 0.208, adv loss: 3.477, latent dist: 232.564, factors dist: 25.770
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 乾坤
+trg: 道人写竹一尺强|远势矫矫凌风翔|乾坤一气自完足|底事寒梢万丈长
+out_post: 一人不得出山五|我山不云凌云霜|一坤一物凛不肝|不事无蛟变丈长
+out_prior: 一年春风一日晴|一花红紫竞春晴|不知此地无人到|只有梅花太瘦生
+
+epoch: 11, 3601/3767 95.6%, 0.390 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.033, entropy loss: -0.531, cl loss w: 1.781, cl loss xw: 0.381
+  dis loss: 0.208, adv loss: 3.476, latent dist: 232.121, factors dist: 25.781
+______________________
+run validation...
+in training mode: 0
+epoch: 11, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:76.5, rec loss: 4.338, entropy loss: -0.551, cl loss w: 1.793, cl loss xw: 2.681
+  dis loss: 0.071, adv loss: 3.316
+______________________
+validation Done: 1
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 醉中
+trg: 从他白发三千丈|莫管人生七十稀|满载月明歌一曲|到花亭里醉中归
+out_post: 一来不发不千岁|不把闲间一十馀|我地江明归舞曲|不家应是不淋归
+out_prior: 一年春风一笑开|玉堂曾赋凤凰台|君王不识春风面|犹有红妆待凤来
+
+epoch: 12, 1/3767 0.0%, 0.008 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.033, entropy loss: -0.531, cl loss w: 1.781, cl loss xw: 0.380
+  dis loss: 0.208, adv loss: 3.475, latent dist: 231.692, factors dist: 25.796
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 江淮
+trg: 江淮表里拱神州|底事干戈不肯休|试上凤凰台上望|定山尽处是瓜洲
+out_post: 天地风里江崇仙|万事从戈不可休|一问祥凰台上望|一应应是是通洲
+out_prior: 一年春风到海涯|一川风景属人家|遥知一夜孤舟月|照见青山照白沙
+
+epoch: 12, 201/3767 5.3%, 0.406 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.531, cl loss w: 1.781, cl loss xw: 0.379
+  dis loss: 0.208, adv loss: 3.472, latent dist: 231.553, factors dist: 25.804
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 踏青
+trg: 红粉青娥白苎衣|一鞭柳外踏青归|中裙妒杀桃花马|九陌香尘扑面飞
+out_post: 白叶墙青不玉衣|绿花斜色踏春苔|春流一杀双花渡|一曲人风污马飞
+out_prior: 白云山下水潺潺|万里江山一望间|何似江南旧时好|一声风雨落人间
+
+epoch: 12, 401/3767 10.6%, 0.406 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.532, cl loss w: 1.781, cl loss xw: 0.378
+  dis loss: 0.207, adv loss: 3.471, latent dist: 231.238, factors dist: 25.821
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 坚贞
+trg: 栋梁徒自保坚贞|毁穴难防雀鼠争|不是主人知诈伪|如何柱石免欹倾
+out_post: 一宇飞步保厘贞|万誉无为岂足诬|若是腐人能诈伪|不何犹下尚遭荆
+out_prior: 一水东流一样轻|水边亭上看潮生|扁舟载酒过湖去|何处扁舟趁晚晴
+
+epoch: 12, 601/3767 16.0%, 0.409 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.532, cl loss w: 1.781, cl loss xw: 0.378
+  dis loss: 0.207, adv loss: 3.469, latent dist: 230.883, factors dist: 25.828
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 泪
+trg: 存亡三十载|事过悉成空|不惜沾衣泪|并话一宵中
+out_post: 山亡不代年|不业百一劫|不见一尘尘|洒作一番风
+out_prior: 大地不可见|江山何处寻|江南一北望|谁是此中心
+
+epoch: 12, 801/3767 21.3%, 0.393 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.532, cl loss w: 1.782, cl loss xw: 0.377
+  dis loss: 0.207, adv loss: 3.467, latent dist: 230.536, factors dist: 25.833
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 论诗
+trg: 宴罢论诗久|亭高拜表频|岸香蕃舶月|洲色海烟春
+out_post: 白发黄文处|新亭送杜材|谁巾风舶曲|天渚满棠春
+out_prior: 高卧白云里|空山无限情|相逢有佳客|相对坐谈兵
+
+epoch: 12, 1001/3767 26.6%, 0.436 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.532, cl loss w: 1.782, cl loss xw: 0.376
+  dis loss: 0.207, adv loss: 3.465, latent dist: 230.065, factors dist: 25.836
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 0
+key: 青云
+trg: 莫说逃虚意未真|世情何处不风尘|十年亦有莲池在|谁解青云藉故人
+out_post: 一日春名不不能|不间无事不相亲|自年不有闲中客|不道无山不草人
+out_prior: 白云深处有人家|一日清风一径斜|莫道门前无俗客|春风吹落野桃花
+
+epoch: 12, 1201/3767 31.9%, 0.414 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.532, cl loss w: 1.782, cl loss xw: 0.375
+  dis loss: 0.207, adv loss: 3.462, latent dist: 229.830, factors dist: 25.842
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 未央
+trg: 钟鸣长乐馆|乐奏未央宫|寿域皇图迥|钩陈紫极通
+out_post: 君鸣山鸣钟|日事钧央宫|莫域宫恩画|旌笼紫翠重
+out_prior: 山中有佳人|不见一枝好|为问讯根株|春来不成雪
+
+epoch: 12, 1401/3767 37.2%, 0.414 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.533, cl loss w: 1.782, cl loss xw: 0.375
+  dis loss: 0.206, adv loss: 3.461, latent dist: 229.903, factors dist: 25.849
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 东君
+trg: 琼英与玉蕊|片片落前池|问著花来处|东君也不知
+out_post: 白树满绛树|一曲向花溪|不是花间处|谁风自不知
+out_prior: 风月不可见|江山今始知|天风吹不断|月色照人悲
+
+epoch: 12, 1601/3767 42.5%, 0.428 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.533, cl loss w: 1.782, cl loss xw: 0.374
+  dis loss: 0.206, adv loss: 3.460, latent dist: 229.510, factors dist: 25.864
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 新晴
+trg: 一枕鸟声残晓梦|半窗竹影弄新晴|屏深室暖秋垂老|粥美蔬香疾渐平
+out_post: 一年春迹春照雨|一空残影半窗晴|不风忽见风风老|一饭香香一一平
+out_prior: 一年一度一番新|不见梅花不见春|莫道江湖无此地|一枝先寄一枝春
+
+epoch: 12, 1801/3767 47.8%, 0.417 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.533, cl loss w: 1.782, cl loss xw: 0.373
+  dis loss: 0.206, adv loss: 3.457, latent dist: 229.231, factors dist: 25.880
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 1
+key: 人民
+trg: 烽火何曾不暂惊|人民安堵太无情|鸳鸯绣出全无样|要与他家帖画屏
+out_post: 一火无年不可停|一间心得亦平情|一时不佛咸无意|不作人年作子成
+out_prior: 平生一望白云乡|白首空悲白发长|一曲琵琶弹一曲|满天风雨夜凄凉
+
+epoch: 12, 2001/3767 53.1%, 0.410 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.533, cl loss w: 1.782, cl loss xw: 0.373
+  dis loss: 0.206, adv loss: 3.455, latent dist: 229.014, factors dist: 25.890
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 姑射
+trg: 梅花清似雪|缥缈白云间|不有神仙住|谁传姑射山
+out_post: 天花开且雪|梅缈玉梅寒|不有梅仙客|何知此射山
+out_prior: 一雨一滴滴|山中人不来|小窗风雨过|一夜满床开
+
+epoch: 12, 2201/3767 58.4%, 0.411 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.534, cl loss w: 1.782, cl loss xw: 0.372
+  dis loss: 0.206, adv loss: 3.453, latent dist: 228.901, factors dist: 25.899
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 清风
+trg: 仙侣登真几百年|清风遗影尚依然|琳琅翰墨精神在|我欲临文唤恕先
+out_post: 一子乘临兴未年|青山吹雨上依然|今朝寂墨风神处|不亦题流亦不先
+out_prior: 江上春风吹客舟|江山无处不胜愁|江南江北江南北|何处江南是故州
+
+epoch: 12, 2401/3767 63.7%, 0.416 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.534, cl loss w: 1.782, cl loss xw: 0.372
+  dis loss: 0.206, adv loss: 3.450, latent dist: 228.706, factors dist: 25.900
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: -1, inferred: 1
+key: 凌霄
+trg: 吟风百尺松|凌霄千岁石|一翁处其间|相对无愧色
+out_post: 高风吹馀声|挺挺一仞月|何有不有馀|不逢谈言乏
+out_prior: 风雨不可见|云山无处寻|幽人在深谷|时有一枝林
+
+epoch: 12, 2601/3767 69.0%, 0.407 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.534, cl loss w: 1.782, cl loss xw: 0.371
+  dis loss: 0.206, adv loss: 3.449, latent dist: 228.333, factors dist: 25.912
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 俗尘
+trg: 一到空山下|回看远俗尘|松枝堪作麈|无计赠情人
+out_post: 一夜山中中|山头一岫生|不风空折雪|何用碍精人
+out_prior: 一片开元气|冰姿莹玉姿|不如菡萏色|照见玉人肌
+
+epoch: 12, 2801/3767 74.4%, 0.418 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.534, cl loss w: 1.782, cl loss xw: 0.370
+  dis loss: 0.206, adv loss: 3.446, latent dist: 228.217, factors dist: 25.925
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 病多
+trg: 病多自愈惫|夙志竟成空|所属惟吾子|云何不着功
+out_post: 我起难不惫|况事竟何为|不以惟言语|谁山不不红
+out_prior: 山水不可见|江山如有情|不堪回首处|犹自有馀情
+
+epoch: 12, 3001/3767 79.7%, 0.392 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.534, cl loss w: 1.782, cl loss xw: 0.370
+  dis loss: 0.206, adv loss: 3.442, latent dist: 228.277, factors dist: 25.937
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 1
+key: 雨晴
+trg: 问舍求田计未成|一蓑锄月每含情|春山树暖莺相觅|晓陇雨晴人独耕
+out_post: 一年东官不已休|一家风草亦相情|不风不下无声唤|不日春声人不行
+out_prior: 一年春风一笑开|春风吹雨过江来|桃花不是桃花李|不见桃花是雪开
+
+epoch: 12, 3201/3767 85.0%, 0.464 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.534, cl loss w: 1.782, cl loss xw: 0.369
+  dis loss: 0.206, adv loss: 3.441, latent dist: 227.916, factors dist: 25.945
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: -1, inferred: 0
+key: 山河
+trg: 帐中对饮复高歌|饮罢歌残泪雨多|自是天将亡楚国|不因红粉失山河
+out_post: 一中歌酒一杯眠|万尽无喉奈满多|明是汉公心国国|不知羌泪为英河
+out_prior: 一年春色满江城|一夜东风不可行|不是故人多别恨|故人犹似旧时情
+
+epoch: 12, 3401/3767 90.3%, 0.406 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.6, rec loss: 4.035, entropy loss: -0.535, cl loss w: 1.782, cl loss xw: 0.368
+  dis loss: 0.206, adv loss: 3.438, latent dist: 227.599, factors dist: 25.963
+______________________
+factor1 label: -1, inferred: 1
+factor2 label: -1, inferred: 0
+key: 高僧
+trg: 惯穿苍翠属潺湲|来伴高僧半日闲|鹫岭谈经元未散|不应向此认灵山
+out_post: 云听松径出僧湲|更往松篁伴掩闲|不岭谁能谁不定|只疑山我作青山
+out_prior: 江上春风绿水寒|江南江北水如蓝|何人解缆溪边柳|不是春风到柳条
+
+epoch: 12, 3601/3767 95.6%, 0.412 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.6, rec loss: 4.035, entropy loss: -0.535, cl loss w: 1.782, cl loss xw: 0.368
+  dis loss: 0.206, adv loss: 3.436, latent dist: 227.303, factors dist: 25.970
+______________________
+run validation...
+in training mode: 0
+epoch: 12, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:77.2, rec loss: 4.347, entropy loss: -0.513, cl loss w: 1.787, cl loss xw: 3.104
+  dis loss: 0.203, adv loss: 2.174
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+building data for fine-tuning mixpoet...
+482081
+34210
+train batch num: 680
+valid batch num: 37
+factor1 label: -1, inferred: 1
+factor2 label: 1
+key: 倚云
+trg: 一夕绕山秋|香露溘蒙菉|新桥倚云阪|候虫嘶露朴
+out_post: 一日风山围|千风溘宫菉|不年有岸阪|不虫嘶不下
+out_prior: 山色青如染|溪深水自清|不来闲钓艇|不是濯缨盟
+
+epoch: 13, 1/680 0.1%, 0.008 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.6, rec loss: 4.035, entropy loss: -0.535, cl loss w: 1.782, cl loss xw: 0.368
+  dis loss: 0.206, adv loss: 3.435, latent dist: 227.040, factors dist: 25.976
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 0
+key: 萧森
+trg: 重寻古壁旧题诗|林竹萧森上翠微|但见晓猿惊蕙帐|应无山鸟怪儒衣
+out_post: 云阳幽寺隐题诗|一壑萧疏古客衣|云觉青来山鹤帐|不知尘鸟扣来衣
+out_prior: 古来多少不曾闻|一日相逢又几曛|欲向此山留旧住|暮云何处不胜君
+
+epoch: 13, 201/680 29.6%, 0.393 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.6, rec loss: 4.036, entropy loss: -0.535, cl loss w: 1.782, cl loss xw: 0.367
+  dis loss: 0.206, adv loss: 3.432, latent dist: 226.691, factors dist: 25.992
+______________________
+factor1 label: 2
+factor2 label: -1, inferred: 1
+key: 红玉
+trg: 懒将脂粉涴天姿|并倚薰风占碧漪|价抵黄金千未惬|秀钟红玉两争UNK
+out_post: 风将鸠粉涴红花|自蒂栏风透一枝|花抵轻金开万惬|牡香山日自相时
+out_prior: 一年不见一春回|万里江山眼界开|不是老人无限意|不知天上有人来
+
+epoch: 13, 401/680 59.0%, 0.384 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.6, rec loss: 4.035, entropy loss: -0.535, cl loss w: 1.782, cl loss xw: 0.366
+  dis loss: 0.206, adv loss: 3.430, latent dist: 226.713, factors dist: 26.007
+______________________
+factor1 label: -1, inferred: 2
+factor2 label: 1
+key: 清寒
+trg: 茅檐细雨湿炊烟|江路清寒欲雪天|不爱相公金络马|羡他亭长白篷船
+out_post: 曾闻瑞雨滴炊烟|独上春风苦暮天|莫是春逢能谷马|更他江子白云船
+out_prior: 一日无人不自由|一生不用更无忧|自从老去无筋力|不是今年不白头
+
+epoch: 13, 601/680 88.4%, 0.386 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.6, rec loss: 4.035, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.366
+  dis loss: 0.206, adv loss: 3.426, latent dist: 226.504, factors dist: 26.016
+______________________
+run validation...
+in training mode: 0
+epoch: 1, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:99.4, rec loss: 4.599, entropy loss: -0.534, cl loss w: 1.757, cl loss xw: 2.697
+  dis loss: 0.131, adv loss: 2.705
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 0
+factor2 label: 1
+key: 经纶
+trg: 社稷经纶地|风云际会期|血流纷在眼|涕洒乱交颐
+out_post: 我欲思君日|风流惨汉稽|平流来不手|不泪鳄沾颐
+out_prior: 大漠风云暗|孤云塞草寒|故人悲旧泪|蜀道哭哀弦
+
+epoch: 14, 1/680 0.1%, 0.008 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.035, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.365
+  dis loss: 0.206, adv loss: 3.425, latent dist: 226.355, factors dist: 26.021
+______________________
+factor1 label: 2
+factor2 label: -1, inferred: 0
+key: 瓣香
+trg: 五色祥云映碧空|瓣香谒帝一诚通|心期海晏河清日|典重春祈秋报中
+out_post: 春湖云中拥帝幢|一香谒帝谒承通|宸期自晏君东颂|不礼先光紫雨中
+out_prior: 新丰美酒UNK江楼|醉里欢欢醉梦游|醉后懵腾怜我拙|醉中犹有醉中楼
+
+epoch: 14, 201/680 29.6%, 0.380 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.5, rec loss: 4.034, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.365
+  dis loss: 0.206, adv loss: 3.423, latent dist: 226.259, factors dist: 26.030
+______________________
+factor1 label: 0
+factor2 label: 1
+key: 井邑
+trg: 山川殊壮丽|井邑亦繁雄|独有羊城庙|萧然瓦砾中
+out_post: 天中千未哉|山邑尚难雄|俯有桓昙志|千萧万砾空
+out_prior: 不见胡尘尽|空悲感慨多|无情伤旧泪|终日泪如罗
+
+epoch: 14, 401/680 59.0%, 0.389 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.4, rec loss: 4.033, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.364
+  dis loss: 0.206, adv loss: 3.420, latent dist: 226.005, factors dist: 26.036
+______________________
+factor1 label: -1, inferred: 0
+factor2 label: 0
+key: 旧游
+trg: 旧游还在眼|神理更忘言|唯见东山月|人亡不去门
+out_post: 我业何乡眼|今理久难言|唯有惟山月|相亡不不门
+out_prior: 野人多远游|白发今何如|唯有白头翁|眼中见目眩
+
+epoch: 14, 601/680 88.4%, 0.366 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.031, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.363
+  dis loss: 0.206, adv loss: 3.417, latent dist: 225.766, factors dist: 26.049
+______________________
+run validation...
+in training mode: 0
+epoch: 2, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:105.1, rec loss: 4.655, entropy loss: -0.517, cl loss w: 1.741, cl loss xw: 3.050
+  dis loss: 0.308, adv loss: 1.832
+______________________/home1/hqin1/anaconda3/envs/python371/lib/python3.7/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/home1/hqin1/mixpoet/codes/logger.py:422: MatplotlibDeprecationWarning: savefig() got unexpected keyword argument "quality" which is no longer supported as of 3.3 and will become an error two minor releases later
+  fig.savefig(self.fig_path+"/latent_distance.png", dpi=300, quality=100, bbox_inches="tight")
+
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...
+factor1 label: -1, inferred: 1
+factor2 label: 0
+key: 荆州
+trg: 新橘香官舍|征帆拂县楼|王城不敢住|岂是爱荆州
+out_post: 云月香先舍|黄人带曙楼|山孙南可望|谁是武君州
+out_prior: 玉UNK当年别|金门忝庆新|承恩养游子|庆国动天臣
+
+epoch: 15, 1/680 0.1%, 0.008 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.3, rec loss: 4.031, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.362
+  dis loss: 0.206, adv loss: 3.415, latent dist: 225.637, factors dist: 26.055
+______________________
+factor1 label: 1
+factor2 label: -1, inferred: 1
+key: 昔年
+trg: 浪说避秦自昔年|秦人踪迹却茫然|欲寻洞口栽花处|那得渔郎鼓棹前
+out_post: 古迹神人惊昔闻|不城不饮可茫然|东寻旧里寻桃处|却得闲蓑在钓船
+out_prior: 白云深处见仙家|一里青山映白霞|风景不知人意思|春风吹柳乱蝉嘶
+
+epoch: 15, 201/680 29.6%, 0.403 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.2, rec loss: 4.029, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.362
+  dis loss: 0.207, adv loss: 3.412, latent dist: 225.434, factors dist: 26.071
+______________________
+factor1 label: 0
+factor2 label: 1
+key: 清明
+trg: 苦海周遭断去帆|东风吹泪向天南|龙蛇泽里清明五|燕雀笼中寒食三
+out_post: 天唫无遭无客魂|秋风吹泪落乾坤|雨蛇已畔留风在|夜雀衔中亦食无
+out_prior: 天下江山万里来|山中一柱倚崔嵬|当时若为寻常事|何处何时不得来
+
+epoch: 15, 401/680 59.0%, 0.385 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.1, rec loss: 4.027, entropy loss: -0.535, cl loss w: 1.781, cl loss xw: 0.361
+  dis loss: 0.207, adv loss: 3.409, latent dist: 225.355, factors dist: 26.083
+______________________
+factor1 label: 0
+factor2 label: -1, inferred: 1
+key: 茫茫
+trg: 守墓邻翁姑与酒|传家后嗣孰能诗|献花馈笋争欢醉|风树茫茫意自悲
+out_post: 一墓无家馈有酒|今年米代孰为诗|如花欲酒同如笑|一雨模茫不自悲
+out_prior: 天上烽烟上戍楼|楼船飞浪出城头|千秋万里英雄泪|万里何人不白头
+
+epoch: 15, 601/680 88.4%, 0.472 s per iter, lr: 0.0003, tr: 0.85, tau: 0.010, noise: 0.000
+  ppl:56.0, rec loss: 4.025, entropy loss: -0.535, cl loss w: 1.780, cl loss xw: 0.360
+  dis loss: 0.207, adv loss: 3.405, latent dist: 225.045, factors dist: 26.100
+______________________
+run validation...
+in training mode: 0
+epoch: 3, lr: 0.000, tr: 0.85, tau: 1.000, noise: 0.000
+  ppl:112.5, rec loss: 4.723, entropy loss: -0.530, cl loss w: 1.745, cl loss xw: 2.959
+  dis loss: 0.253, adv loss: 1.897
+______________________
+validation Done: 1
+saving model...
+teach forcing ratio decay...
+shuffle data...

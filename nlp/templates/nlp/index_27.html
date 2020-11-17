@@ -1,0 +1,305 @@
+{%  load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>为你写诗</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'nlp/main.css' %}">
+    <style>
+    *{
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial;
+      padding: 0px;
+    }
+        /* 头部标题 */
+    .header {
+      padding: 30px;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 50px;
+    }
+
+    /* 创建三个不相等的列 */
+    .column {
+      float: left;
+      padding: 10px;
+    }
+    /* 左右两侧宽度 */
+    .column.side {
+      width: 25%;
+    }
+    /* 中间区域宽度 */
+    .column.middle {
+      width: 50%;
+    }
+    .column.mean {
+      width: 33%;
+    }
+
+
+    input[type=text]
+    {
+      {#position: relative;#}
+      {#left: 40%;#}
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .file
+    {
+        {#position: relative;#}
+        width: 20%;
+        {#background: #D0EEFF;#}
+        {#border: 1px solid #99D3F5;#}
+        {#border-radius: 4px;#}
+        {#padding: 4px 12px;#}
+        padding: 10px 20px;
+      margin: 6px 0;
+      display: inline-block;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+    }
+    .file input {
+        position: absolute;
+        font-size: 0.1px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+    .file label{
+        text-align: center;
+        font-size: 15px;
+    }
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+
+    select
+    {
+        position: relative;
+        left: 25%;
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 15px;
+        text-align: center;
+    }
+    .select_title{
+        position: relative;
+        left: 25%;
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 2px none #ccc;
+        border-radius: 4px;
+        font-size: 17px;
+        letter-spacing: 3px;
+        text-align: center;
+    }
+
+/* 诗词显示框 */
+.fakepoem {
+    position: relative;
+    left: 30%;
+  width: 40%;
+  padding: 20px;
+}
+
+/* 列后面清除浮动 */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+        padding: 15px;
+    }
+    </style>
+
+    <script type="text/javascript">
+        function ProcessFile(e) {
+            console.log('click file');
+            let file = document.getElementById('image_input').files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var txt = event.target.result;
+                    var input_img = document.getElementById('output_image');
+                    var text_input = document.getElementById('keyword_input');
+                    text_input.value = "";
+                    text_input.placeholder = "已选择一张图片";
+                    input_img.src = txt; //将图片base64字符串赋值给img的src
+                    input_img.height = 250;
+                    input_img.width = 250;
+                    {#document.getElementById("result").appendChild(img);#}
+                };
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function Processtext(e) {
+            console.log('click text');
+                    let input_img = document.getElementById('output_image');
+                    let text_input = document.getElementById('keyword_input');
+                    text_input.placeholder = "请输入一个关键词|或右侧选择一张图片";
+                    text_input.value = this.value;
+                    input_img.src = ""; //将图片base64字符串赋值给img的src
+                    let file = document.getElementById('image_input');
+                    file.value='';
+            }
+        function contentLoaded() {
+            document.getElementById('image_input').addEventListener('change', ProcessFile, false);
+        }
+
+        function textLoaded() {
+            document.getElementById('keyword_input').addEventListener('click', Processtext, false);
+            {#document.getElementById('keyword_input').addEventListener(type=)#}
+        }
+
+        window.addEventListener("DOMContentLoaded", contentLoaded, false);
+        window.addEventListener("DOMContentLoaded", textLoaded, false);
+    </script>
+</head>
+
+
+<body>
+<div class="header">
+    <h1>为你写诗</h1>
+    <p>天青色等烟雨 而我在等你</p>
+</div>
+
+{#输入框#}
+<div class="row">
+    <div class="column side">
+        <b></b>
+    </div>
+    <div class="column middle">
+        <input type="text" id="keyword_input" name="keyword_input" placeholder="请输入一个关键词|或右侧选择一张图片">
+    </div>
+    <div class="column side">
+        <div class="file">
+            <label for="image_input">选择图片</label>
+            <input type="file" id="image_input" name="image_input" accept="image/jpg, image/jpeg, image/png">
+        </div>
+    </div>
+</div>
+
+{#选择框#}
+<div class="row">
+  <div class="column side">
+    <p></p>
+  </div>
+
+  <div class="column middle">
+
+        <div class="column mean">
+            <b class="select_title">选择生活经历</b><br>
+            <select name="living_experience" id="living_experience">
+                <option value="0" selected>军旅生涯</option>
+                <option value="1">田园生活</option>
+                <option value="2">其他</option>
+                <option value="-1">不指定</option>
+            </select>
+        </div>
+
+        <div class="column mean">
+            <b class="select_title">选择诗体裁</b><br>
+            <select name="poem_length" id="poem_length">
+                <option value="5" selected>5言</option>
+                <option value="7">7言</option>
+            </select>
+        </div>
+
+        <div class="column mean">
+            <b class="select_title">选择历史背景</b><br>
+            <select name="historical_background" id="historical_background">
+                <option value="0" selected>盛世</option>
+                <option value="1">乱世</option>
+                <option value="1">不指定</option>
+            </select>
+        </div>
+
+  </div>
+
+  <div class="column side">
+{#      <img id="output_image" src="" alt="" height="250px" width="250px"/>#}
+  </div>
+</div>
+
+{#提交按钮#}
+<div>
+    <button id="lgbut_compute">作诗</button>
+</div>
+
+{#诗显示#}
+ <div class="row" style="padding: 50px">
+      <div class="column side">
+        <p></p>
+      </div>
+     <div class="column middle">
+         <p id="poem_produce" class="fakepoem" style="border-style: dashed;height: 300px; font-size: 30px; text-align: center">
+     </div>
+
+     <div class="column side">
+         <img id="output_image" src="" alt="" style=" position: relative;width: 100%;height: auto"/>
+     </div>
+
+ </div>
+
+
+    <script>
+        function ShowResult(data) {
+            let v = data['img64'];
+            {#var img = document.createElement("img_new");#}
+            {#let out_img = document.getElementById('output_image');#}
+            {#out_img.src = "data:image/jpeg;base64, " + v;#}
+            {#out_img.height = 250;#}
+            {#out_img.width = 250;#}
+            {#document.getElementById("result_new").appendChild(img);#}
+            {#ewmtp.src = "data:image/jpeg;base64, " + v;#}
+
+            let poem_produce = document.getElementById('poem_produce');
+            console.log(poem_produce.innerText);
+            poem_produce.innerText = data['poem'];
+
+        }
+    </script>
+    <script>
+        $('#lgbut_compute').click(function () {
+            formdata = new FormData();
+            console.log($("#keyword_input").val());
+            var file = $("#image_input")[0].files[0];
+            console.log(file);
+            formdata.append("image", file);
+            formdata.append("poem_length", $("#poem_length").val());
+            formdata.append("key_word", $("#keyword_input").val());
+            formdata.append("living_experience", $("#living_experience").val());
+            formdata.append("historical_background", $("#historical_background").val());
+            $.ajax({
+                url: "{% url 'nlp:image_poem' %}", //调用django服务器计算函数
+                type: 'POST', //请求类型
+                data: formdata,
+                dataType: 'json', //期望获得的响应类型为json
+                processData: false,
+                contentType: false,
+                success: ShowResult //在请求成功之后调用该回调函数输出结果
+            })
+        })
+    </script>
+</body>
+
+
+</html>
